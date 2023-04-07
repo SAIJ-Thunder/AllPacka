@@ -1,6 +1,5 @@
 
-const { User, Trip, Session } = require('./models.js.js.js');
-
+const { User, Trip, Session } = require('./models.js');
 
 const userController = {};
 
