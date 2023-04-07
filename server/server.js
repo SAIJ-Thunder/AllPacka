@@ -6,7 +6,7 @@ const userRouter = require('./routes/user.js');
 const tripRouter = require('./routes/trip.js');
 
 
-const PORT = 3000;
+const PORT = 1234;
 const app = express();
 
 
