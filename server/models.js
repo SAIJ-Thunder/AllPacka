@@ -5,9 +5,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const mongoose = require('mongoose');
-
-
 const userSchema = new Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
@@ -20,6 +17,8 @@ const userSchema = new Schema({
       }
     }]
 });
+
+/////////// Stretch Feature /////////////////
 
 // The pre() method should be called on the Mongoose schema 
 // before creating the model!!
@@ -42,7 +41,6 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
 
 const tripSchema = new Schema({
   location: String,
@@ -60,7 +58,7 @@ const tripSchema = new Schema({
   photos: Array, // urls of photos stretch feature
 });
 
-const Trip = mongoose.model('trip', userSchema);
+const Trip = mongoose.model('trip', tripSchema);
 
 const itemSchema = new Schema({
   name: String,
@@ -68,10 +66,19 @@ const itemSchema = new Schema({
   priority: Boolean, // stretch feature
 })
 
-const Item = mongoose.model('item', filmSchema);
+const Item = mongoose.model('item', itemSchema);
+
+///////////////// Stretch Features ///////////////////////
+const sessionSchema = new Schema({
+  cookieId: { type: String, required: true, unique: true },
+  createdAt: { type: Date, expires: 30, default: Date.now }
+});
+
+const Session = mongoose.model('Session', sessionSchema);
 
 module.exports = {
   Trip,
   Item,
   User,
+  Session
 }
