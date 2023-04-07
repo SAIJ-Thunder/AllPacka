@@ -1,7 +1,6 @@
 
 const { User, Trip, Session } = require('./models.js');
 
-
 const userController = {};
 
 // helper function to create fileController error objects
