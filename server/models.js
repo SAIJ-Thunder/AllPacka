@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-
 const userSchema = new Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
@@ -46,9 +45,9 @@ const tripSchema = new Schema({
   location: String,
   type: String, // ex car camping backpacking, etc These can later be refactored to their own schem but int he interest in time... -|_:)_/-
   date: String, // not sure if there is a date type, look into
+
   items: [{
-    name: String,
-    id: {
+    _id: {
       type: Schema.Types.ObjectId,
       ref: 'item'
     }
@@ -64,6 +63,13 @@ const itemSchema = new Schema({
   name: String,
   number: Number,
   priority: Boolean, // stretch feature
+  user: [{
+    name: String,
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'user', 
+    }
+  }]
 })
 
 const Item = mongoose.model('item', itemSchema);
