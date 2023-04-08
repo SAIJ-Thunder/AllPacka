@@ -26,13 +26,13 @@ tripController.getTrip = (req, res, next) => {
           location, type,
           date, items,
           users, catagories, review,
-          photos } = trip
+          photos, tripName } = trip
 
         res.locals.trip = { 
           location, type,
           date, items,
           users, catagories, review,
-          photos };
+          photos, tripName };
 
         return next();
       })
@@ -46,31 +46,35 @@ tripController.getTrip = (req, res, next) => {
 }
 
 tripController.createTrip = (req, res, next) => {
-    console.log('---We are in tripCharacter in characterController.js--');
+  console.log('---We are in tripCharacter in characterController.js--');
+  const { user_id } = req.params
 
-    const { 
-      location,
-      type,
-      date, 
-      users, 
-      } = req.body; 
+  const { 
+    location,
+    type,
+    date,
+    tripName,
+    } = req.body; 
+  
+    // to be used in next peice of middleware
+  res.locals.user_id = user_id
+      
+  const newTrip = new Trip({location, type, date, tripName, users: {id: user_id} });
 
-    const newTrip = new Trip({location, type, date, users});
-
-    newTrip.save()
-        .then(savedTrip => {
-          res.locals.trip_id = savedTrip._id // used for updating the user's trips array (next middleware)
-          res.locals.trip = savedTrip; // grabs the _id and send to new URL
-          return next();
-        })
-        .catch((err) => {
-            return next(createErr({
-            method: 'addTrip',
-            type: 'adding newTrip to mongoDB data',
-            err, 
-            }));
-        });
-    return next();
+  newTrip.save()
+      .then(savedTrip => {
+        res.locals.trip_id = savedTrip._id.toString(); // used for updating the user's trips array (next middleware)
+        res.locals.trip = savedTrip; // grabs the _id and send to new URL
+        return next();
+      })
+      .catch((err) => {
+          return next(createErr({
+          method: 'addTrip',
+          type: 'adding newTrip to mongoDB data',
+          err, 
+          }));
+      });
+  return next();
 };
 
 
