@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { redirect, Form } from "react-router-dom";
 
 //Will have access to userId
-const newTrip = () => {
+const newTrip = ({userId}) => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [tripType, setTripType] = useState('');
@@ -16,7 +16,7 @@ const newTrip = () => {
         // post request to server
         fetch(`/trips/:${userId}`, {
             method: "POST",
-            body: JSON.stringify({location: location, tripType: tripType, date: date, tripName: tripName})
+            body: JSON.stringify({location: location, tripType: tripType, date: date, tripName: tripName, user_id: userId})
         })
         .then(res => res.json())
         .then((res) => {
