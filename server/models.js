@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 // const bcrypt = require('bcryptjs');
 // const SALT_WORK_FACTOR = 12;
 
-
 const Schema = mongoose.Schema;
 
 // Each user has a user name, password, and an array of trips
@@ -19,12 +18,10 @@ const userSchema = new Schema({
 });
 
 /////////// Stretch Feature /////////////////
-
 // The pre() method should be called on the Mongoose schema 
 // before creating the model!!
 
 // userSchema.pre('save', async function (next) {
-  
 //   try {
 //     if (!this.isModified('password')) {
 //       return next();
@@ -42,6 +39,7 @@ const userSchema = new Schema({
 const User = mongoose.model('User', userSchema);
 
 const tripSchema = new Schema({
+  tripName: String,
   location: String,
   type: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
   date: String, // not sure if there is a date type, look into
