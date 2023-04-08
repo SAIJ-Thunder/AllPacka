@@ -73,21 +73,19 @@ const itemSchema = new Schema({
   user: { // which user is bringing the item default 'null' until claimed
     username: String,
     id: {
-          type: Schema.Types.ObjectId,
-          ref: 'user',
-        },
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   }
 })
 
 const Item = mongoose.model('item', itemSchema);
-
 
 ///////////////// Stretch Features ///////////////////////
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },
   createdAt: { type: Date, expires: 600, default: Date.now }
 });
-
 
 const Session = mongoose.model('Session', sessionSchema);
 
