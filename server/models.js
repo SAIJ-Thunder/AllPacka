@@ -9,11 +9,12 @@ const userSchema = new Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   trips: [{
-      name: String, // the is the name the user decides, not the name of the trip (default should is trip name)
-      id: {
-        type: Schema.Types.ObjectId,
-        ref: 'trip', 
-      }
+    date: Date,
+    name: String, // the is the name the user decides, not the name of the trip (default should is trip name)
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'trip', 
+    }
     }]
 });
 
@@ -42,7 +43,7 @@ const tripSchema = new Schema({
   tripName: String,
   location: String,
   type: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
-  date: String, // not sure if there is a date type, look into
+  date: Date, // not sure if there is a date type, look into
   items: [{
     id: {
       type: Schema.Types.ObjectId,

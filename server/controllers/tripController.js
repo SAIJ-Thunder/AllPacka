@@ -110,4 +110,3 @@ tripController.deleteTrip = (req, res, next) => {
       }));
     });
 };
-
