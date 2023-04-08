@@ -18,7 +18,6 @@ server folder and run
 
 You're now up and running! Happy Hackinig!!
 
-
 # Current File Structure
 
 ```
