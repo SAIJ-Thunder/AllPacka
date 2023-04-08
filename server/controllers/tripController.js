@@ -45,7 +45,7 @@ tripController.getTrip = (req, res, next) => {
       });
 }
 
-characterController.createTrip = (req, res, next) => {
+tripController.createTrip = (req, res, next) => {
     console.log('---We are in tripCharacter in characterController.js--');
 
     const { 
@@ -59,7 +59,7 @@ characterController.createTrip = (req, res, next) => {
 
     newTrip.save()
         .then(savedTrip => {
-          res.locals.trip_id = savedTrip.id // used for updating the user's trips array (next middleware)
+          res.locals.trip_id = savedTrip._id // used for updating the user's trips array (next middleware)
           res.locals.trip = savedTrip; // grabs the _id and send to new URL
           return next();
         })
@@ -76,14 +76,8 @@ characterController.createTrip = (req, res, next) => {
 
 
 
-
-
-
-
-
-
  // ADD MIDDLEWARE TO DELETE TRIP
-characterController.deleteTrip = (req, res, next) => {
+tripController.deleteTrip = (req, res, next) => {
     console.log('---We are in deleteTrip in tripController.js----');
 
     const { _id } = req.params;
