@@ -5,19 +5,8 @@ import { redirect, Form } from "react-router-dom";
 const newTrip = ({userId}) => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [type, setType] = useState('')
-
-    //add an id state
-
-    const locationChange = (e) => {
-        setLocation(e.target.value)
-    }
-    const dateChange = (e) => {
-        setDate(e.target.value)
-    }
-    const typeChange = (e) => {
-        setType(e.target.value)
-    }
+    const [tripType, setTripType] = useState('');
+    const [tripName, setTripName] = useStae('');
 
     // this functioin send a post request to the data base to grab the _id of
     // of the new trip that was created in the database and redirects the user
@@ -25,9 +14,9 @@ const newTrip = ({userId}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // post request to server
-        fetch('/trips', {
+        fetch(`/trips/:${userId}`, {
             method: "POST",
-            body: JSON.stringify({location: location, type: type, date: date, users:[userId]})
+            body: JSON.stringify({location: location, tripType: tripType, date: date, tripName: tripName})
         })
         .then(res => res.json())
         .then((res) => {
@@ -36,7 +25,7 @@ const newTrip = ({userId}) => {
             // reset the state of the page to force re-render
             setLocation('');
             setDate('');
-            setType('');
+            setTripType('');
             // grab the _id from the res
             const URL = '/trips/' + res.trip_id
             // redirect to the trips home page
@@ -51,18 +40,22 @@ const newTrip = ({userId}) => {
 // <Form method={} action={} onSubmit={handleSubmit}> 
     return (
         // *** QUESTION: is the action leading to the correct page?
-        <Form onSubmit={handleSubmit}> 
+        <Form onSubmit={handleSubmit}>
             <label>
                 <span>Where are you going?</span>
-                <input type="text" value={location} name="location" onChange={locationChange}/>
+                <input type="text" value={location} name="location" onChange={setLocation(e.target.value)}/>
             </label>
             <label>
                 <span>When are you going?</span>
-                <input type="text" value={date} name="date" onChange={dateChange}/>
+                <input type="text" value={date} name="date" onChange={setDate(e.target.value)}/>
             </label>
             <label>
                 <span>What are you planning for?</span>
-                <input type="text" value={type} name="location" onChange={typeChange}/>
+                <input type="text" value={tripType} name="tripType" onChange={setTripType(e.target.value)}/>
+            </label>
+            <label>
+                <span>What will you call this Epic Adventure?</span>
+                <input type="text" value={tripName} name="tripName" onChange={setName(e.target.value)}/>
             </label>
             <button type="submit">Create Trip!</button>
         </Form>
