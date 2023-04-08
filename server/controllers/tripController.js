@@ -49,22 +49,18 @@ characterController.createTrip = (req, res, next) => {
     console.log('---We are in tripCharacter in characterController.js--');
 
     const { 
-      location, type,
-      date, items,
-      users, catagories, review,
-      photos } = req.body; 
+      location,
+      type,
+      date, 
+      users, 
+      } = req.body; 
 
-    
-    const newTrip = new Trip({
-                      location, type,
-                      date, items,
-                      users, catagories, review,
-                      photos });
+    const newTrip = new Trip({location, type, date, users});
 
     newTrip.save()
-        .then(newTrip => {
-          res.locals.trips_id = newTrip._id // used for updating the user's trips array (next middleware)
-          res.locals.trip = newTrip; // grabs the _id and send to new URL
+        .then(savedTrip => {
+          res.locals.trip_id = savedTrip.id // used for updating the user's trips array (next middleware)
+          res.locals.trip = savedTrip; // grabs the _id and send to new URL
           return next();
         })
         .catch((err) => {

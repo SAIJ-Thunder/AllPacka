@@ -21,10 +21,10 @@ app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
 
 app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
 
-app.use('/user/:_id', userRouter) // Access to trips from here
+app.use('/users', userRouter) // Access to trips from here
 
 
-app.use('/trips/:_id', tripRouter); // The main infographic page
+app.use('/trips', tripRouter); // The main infographic page
 
 
 // catch-all route handler for any requests to an unknown route
