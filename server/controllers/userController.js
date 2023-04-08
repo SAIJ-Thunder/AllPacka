@@ -47,7 +47,7 @@ userController.createUser = (req, res, next) => {
   newUser.save()
     .then(user => {
         const { username, password } = user;
-        res.locals.user = { firstName, lastName, age };
+        res.locals.user = { username, password };
         return next();
     })
     .catch((err) => {
