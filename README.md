@@ -22,32 +22,32 @@ You're now up and running! Happy Hackinig!!
 
 ```
 .
-└── AllPacka
-    ├── README.md
-    ├── client
-    │   ├── App.jsx
-    │   ├── index.html
-    │   ├── index.js
-    │   ├── layouts
-    │   ├── pages
-    │   └── src
-    │       ├── App.css
-    │       ├── App.jsx
-    │       ├── index.css
-    │       └── main.jsx
-    ├── package-lock.json
-    ├── package.json
-    ├── server
-    │   ├── controllers
-    │   │   ├── cookieController.js
-    │   │   ├── sessionController.js
-    │   │   ├── tripController.js
-    │   │   └── userController.js
-    │   ├── models.js
-    │   ├── routes
-    │   │   ├── trip.js
-    │   │   └── user.js
-    │   └── server.js
-    └── webpack.config.js
+├── README.md
+├── client
+│   ├── App.jsx
+│   ├── index.html
+│   ├── index.js
+│   ├── pages
+│   │   └── UserHome
+│   │       └── UserHomeComponents
+│   └── src
+│       ├── App.css
+│       ├── App.jsx
+│       ├── index.css
+│       └── main.jsx
+├── package-lock.json
+├── package.json
+├── server
+│   ├── controllers
+│   │   ├── cookieController.js
+│   │   ├── sessionController.js
+│   │   ├── tripController.js
+│   │   └── userController.js
+│   ├── models.js
+│   ├── routes
+│   │   ├── trip.js
+│   │   └── user.js
+│   └── server.js
+└── webpack.config.js
 
 ```
