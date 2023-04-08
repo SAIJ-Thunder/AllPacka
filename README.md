@@ -51,3 +51,37 @@ You're now up and running! Happy Hackinig!!
       - /index.css
       - /main.jsx
       - /
+
+# Current File Structure
+
+```
+.
+└── AllPacka
+    ├── README.md
+    ├── client
+    │   ├── App.jsx
+    │   ├── index.html
+    │   ├── index.js
+    │   ├── layouts
+    │   ├── pages
+    │   └── src
+    │       ├── App.css
+    │       ├── App.jsx
+    │       ├── index.css
+    │       └── main.jsx
+    ├── package-lock.json
+    ├── package.json
+    ├── server
+    │   ├── controllers
+    │   │   ├── cookieController.js
+    │   │   ├── sessionController.js
+    │   │   ├── tripController.js
+    │   │   └── userController.js
+    │   ├── models.js
+    │   ├── routes
+    │   │   ├── trip.js
+    │   │   └── user.js
+    │   └── server.js
+    └── webpack.config.js
+
+```
