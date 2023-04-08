@@ -3,51 +3,52 @@
 This is an app that helps you and your friend prepare for any and every trip!
 
 Once you fork and clone this repo, you will need to install the
-depenedencies in BOTH the client folder AND the server folder
+depenedencies. Do this by running...
 
-    npm install --> !! In both '/server' and '/client'
+    npm install
 
-The server and the client is bundled with vite and the command to
-run a development make sure your in the client folder, then run...
+To develop the client, run...
 
-    npm run dev
+    npm start
 
 To test the server with postman, or another app, enter the
 server folder and run
 
-    npm start
+    npm run dev
 
 You're now up and running! Happy Hackinig!!
 
-## The file tree structure
 
-- /
+# Current File Structure
 
-  - /client
+```
+.
+└── AllPacka
+    ├── README.md
+    ├── client
+    │   ├── App.jsx
+    │   ├── index.html
+    │   ├── index.js
+    │   ├── layouts
+    │   ├── pages
+    │   └── src
+    │       ├── App.css
+    │       ├── App.jsx
+    │       ├── index.css
+    │       └── main.jsx
+    ├── package-lock.json
+    ├── package.json
+    ├── server
+    │   ├── controllers
+    │   │   ├── cookieController.js
+    │   │   ├── sessionController.js
+    │   │   ├── tripController.js
+    │   │   └── userController.js
+    │   ├── models.js
+    │   ├── routes
+    │   │   ├── trip.js
+    │   │   └── user.js
+    │   └── server.js
+    └── webpack.config.js
 
-    - /App.jsx
-    - /index.html
-    - /index.jsx
-
-    - /layout // -> Things that hangout on every page
-
-      - rootLayouy.jsx
-
-    - /pages
-
-      - /login
-        - login.jsx
-        - /loginComponents
-        - ...presentational components
-      - /signup
-        - signup.jsx
-        - /signupComponents
-          - ...presentational components
-
-    - /src
-      - /assets
-      - /App.css
-      - /App.jsx
-      - /index.css
-      - /main.jsx
-      - /
+```
