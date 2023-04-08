@@ -3,8 +3,9 @@
 const cookieController = {};
 
 /**
-* setSSIDCookie - store the user id in a cookie
+* setSSIDCookie - store the user's databasse _id in a cookie and seesion db
 */
+
 cookieController.setSSIDCookie = (req, res, next) => {
   // write code here
   // console.log(res.locals._id);
