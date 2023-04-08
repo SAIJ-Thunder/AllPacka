@@ -2,15 +2,12 @@
 
 This is an app that helps you and your friend prepare for any and every trip!
 
+Once you fork and clone this repo, you will need to install the
+depenedencies. Do this by running...
 
-Once you fork and clone this repo, you will need to install the 
-depenedencies by running...
+    npm install
 
-
-    npm install 
-
-
-For development of the server run...
+To develop the client, run...
 
     npm start
 
@@ -55,4 +52,3 @@ You're now up and running! Happy Hackinig!!
     └── webpack.config.js
 
 ```
-
