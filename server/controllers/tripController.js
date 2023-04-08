@@ -1,5 +1,5 @@
 
-const { Trips, Items, Users } = require('./model.js.js.js');
+const { Trip, Item, User } = require('../models.js');
 
 
 // helper function to create fileController error objects
@@ -20,19 +20,19 @@ tripController.getTrip = (req, res, next) => {
 
     const { _id } = req.params; // 
 
-    User.findOneById(_id)
+    Trip.findOneById(_id)
       .then(trip => {
         const { 
-            location, type,
-            date, items,
-            users, review,
-            photos } = trip
+          location, type,
+          date, items,
+          users, catagories, review,
+          photos } = trip
 
         res.locals.trip = { 
-            location, type,
-            date, items,
-            users, review,
-            photos };
+          location, type,
+          date, items,
+          users, catagories, review,
+          photos };
 
         return next();
       })
@@ -49,21 +49,23 @@ characterController.createTrip = (req, res, next) => {
     console.log('---We are in tripCharacter in characterController.js--');
 
     const { 
-        location, type,
-        date, items,
-        users, review,
-        photos } = req.body; 
+      location, type,
+      date, items,
+      users, catagories, review,
+      photos } = req.body; 
 
     
-    const newTrip = new User({location, type,
-                            date, items,
-                            users, review,
-                            photos});
+    const newTrip = new Trip({
+                      location, type,
+                      date, items,
+                      users, catagories, review,
+                      photos });
 
     newTrip.save()
         .then(newTrip => {
-            res.locals.trip = newTrip; // grabs the _id and send to new URL
-            return next();
+          res.locals.trips_id = newTrip._id // used for updating the user's trips array (next middleware)
+          res.locals.trip = newTrip; // grabs the _id and send to new URL
+          return next();
         })
         .catch((err) => {
             return next(createErr({
@@ -72,90 +74,46 @@ characterController.createTrip = (req, res, next) => {
             err, 
             }));
         });
-
-
     return next();
 };
+
+
+
+
+
+
+
 
 
 
  // ADD MIDDLEWARE TO DELETE TRIP
 characterController.deleteTrip = (req, res, next) => {
     console.log('---We are in deleteTrip in tripController.js----');
-    const { _id } = req.params; // always, always, always destructure for security reasons!!!
-    console.log(_id);
-    res.locals.deleteId = _id;
-    return next();
+
+    const { _id } = req.params;
+
+    Trip.findByIdAndDelete(_id)
+    .then(trip => {
+      const { 
+          location, type,
+          date, items,
+          users, catagories, review,
+          photos } = trip
+
+      res.locals.trip = { 
+          location, type,
+          date, items,
+          users, catagories, review,
+          photos };
+
+      return next();
+    })
+    .catch((err) => {
+      return next(createErr({
+        method: 'getTrip',
+        type: 'retrieving Trip mongoDB data',
+        err, 
+      }));
+    });
 };
 
-
-
-
-
-
-userController.getUser = (req, res, next) => {
-    console.log('---We are in getUser in userController.js--');
-
-    // const { _id } = req.params; // 
-
-    User.findOne({/** parames here */})
-      .then(student => {
-        const { firstName, lastName, age } = student;
-        res.locals.student = { firstName, lastName, age };
-        return next();
-      })
-      .catch((err) => {
-        return next(createErr({
-          method: 'getCharacters',
-          type: 'retrieving mongoDB data',
-          err, 
-        }));
-      });
-}
-
-
-// ADD MIDDLEWARE TO CREATE USER
-userController.createUser = (req, res, next) => {
-    console.log('---We are in createUser in userController.js--');
-
-    const { username, password, trips } = req.body; 
-    const newUser = new User({ username, password, trips });
-
-    newStudent.save()
-        .then(newUser => {
-            const { username, password, trips } = newUser;
-            res.locals.user = { firstName, lastName, age };
-            return next();
-        })
-        .catch((err) => {
-            return next(createErr({
-            method: 'addUser',
-            type: 'adding newUser to mongoDB data',
-            err, 
-            }));
-        });
-};
-
-
-// ADD MIDDLEWARE TO DELETE USER
-userController.deleteUser = (req, res, next) => {
-    console.log('---We are in deleteUser in userController.js----');
-
-    const { _id } = req.params; 
-    console.log(_id);
-
-    User.findOneAndDelete({_id: _id})
-      .then(student => {
-        console.log(student);
-        const { firstName, lastName, age } = student;
-        res.locals.student = { firstName, lastName, age };
-        return next();
-      })
-      .catch((err) => {
-        return next(createErr({
-          method: 'deleteStudent',
-          type: 'retrieving mongoDB data',
-          err, 
-        }));
-      });
-};

@@ -17,17 +17,17 @@ const createErr = (errInfo) => {
 userController.getUser = (req, res, next) => {
     console.log('---We are in getUser in userController.js--');
 
-    // const { _id } = req.params; // 
+    const { _id } = req.params; // 
 
-    User.findOne({/** parames here */})
-      .then(student => {
-        const { firstName, lastName, age } = student;
-        res.locals.student = { firstName, lastName, age };
+    User.findOneById(_id)
+      .then(user => {
+        const { username, trips } = user;
+        res.locals.user = { username, trips };
         return next();
       })
       .catch((err) => {
         return next(createErr({
-          method: 'getCharacters',
+          method: 'getUser',
           type: 'retrieving mongoDB data',
           err, 
         }));
@@ -37,14 +37,15 @@ userController.getUser = (req, res, next) => {
 
 // ADD MIDDLEWARE TO CREATE USER
 userController.createUser = (req, res, next) => {
-    console.log('---We are in createUser in userController.js--');
+  console.log('---We are in createUser in userController.js--');
 
-    const { username, password, trips } = req.body; 
-    const newUser = new User({ username, password, trips });
+  const { username, password } = req.body; 
+  
+  const newUser = new User({ username, password });
 
-    newStudent.save()
-        .then(newUser => {
-            const { username, password, trips } = newUser;
+    newUser.save()
+        .then(user => {
+            const { username, password } = user;
             res.locals.user = { firstName, lastName, age };
             return next();
         })
@@ -58,6 +59,35 @@ userController.createUser = (req, res, next) => {
 };
 
 
+userController.addTrip = (req, res, next) => {
+
+  console.log('---We are in createUser in userController.js--');
+
+  const { _id } = req.params; // User's Id
+  const { trips_id } = res.locals;  // grab the trip
+  
+  const filter = { _id: _id};
+  const update = {trips: trips}
+
+  User.findOneAndUpdate(filter, update, {
+    new: true
+  })
+    .then(user => {
+        const { trips } = user; // This will have the trip schema's _id
+        res.locals.user = { trips };
+        return next();
+    })
+    .catch((err) => {
+        return next(createErr({
+        method: 'addTrip',
+        type: 'adding newTrip to mongoDB data',
+        err, 
+        }));
+    });
+
+}
+
+
 // ADD MIDDLEWARE TO DELETE USER
 userController.deleteUser = (req, res, next) => {
     console.log('---We are in deleteUser in userController.js----');
@@ -65,7 +95,7 @@ userController.deleteUser = (req, res, next) => {
     const { _id } = req.params; 
     console.log(_id);
 
-    User.findOneAndDelete({_id: _id})
+    User.findByIdAndDelete(_id)
       .then(student => {
         console.log(student);
         const { firstName, lastName, age } = student;
@@ -74,7 +104,7 @@ userController.deleteUser = (req, res, next) => {
       })
       .catch((err) => {
         return next(createErr({
-          method: 'deleteStudent',
+          method: 'deleteUser',
           type: 'retrieving mongoDB data',
           err, 
         }));

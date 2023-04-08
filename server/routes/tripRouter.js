@@ -3,7 +3,8 @@ const express = require('express');
 
 const userController = require('../controllers/userController');
 const tripController = require('../controllers/tripController');
-
+const sessionController = require('../controllers/sessionController');
+const cookieController = require('../controllers/cookieController')
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/:_id',
     // middleware,
     (req, res) => {
     console.log('--Sending data from tripRouter.GET\'s aynonmouns func--');
-    return res.status(200).json(); //res.locals.userData
+    return res.status(200).json(); //
     }
 );
 
@@ -21,7 +22,7 @@ router.post('/',
   // middleware,
   (req, res) => {
     console.log('--Sending data from tripRouter.POST\'s aynonmouns func--');
-    return res.status(200).json(); // Send newCharacter Data
+    return res.status(200).json(); // 
   }
 );
 
@@ -30,7 +31,7 @@ router.patch('/:_id',
   // middleware
   (req, res) => {
     console.log('--Sending data from tripRouter.PATCH\'s aynonmouns func--');
-    return res.status(200).json(); // We need to send back the updated character's updated object (not just to updates ;)
+    return res.status(200).json(); //
   }
 );
 
@@ -39,7 +40,7 @@ router.delete('/:_id',
   // middleware,
   (req, res) => {
     console.log('--Sending data from tripRouter.DELETE\'s aynonmouns func--');
-    return res.status(200).json(); // We need to send back the updated character's object (so the client can re-render)
+    return res.status(200).json(); // 
   }
 );
 

@@ -2,8 +2,8 @@ const path = require('path');
 const express = require('express');
 
 // Routers
-const userRouter = require('./routes/user.js');
-const tripRouter = require('./routes/trip.js');
+const userRouter = require('./routes/userRouter.js');
+const tripRouter = require('./routes/tripRouter.js');
 
 
 const PORT = 1234;
