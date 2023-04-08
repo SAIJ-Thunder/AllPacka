@@ -3,14 +3,16 @@ import { redirect, Form } from 'react-router-dom'; // --> redirect
 
 export const LoginPage = () => {
 
-	const navigate = useNavigate(); // --> redirect 
+	// DONE : const navigate = useNavigate(); // --> redirect 
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
 	////////////////////////////////////////////
-	async function handleSubmit() {
+	async function handleSubmit(e) {
 	
 	// make the fetch to the backend to authenticate the credentials
 	try {
+        e.preventDefault();
+        // what are we fetching on line 16? Are we grabbing information from the database
 		const res = await fetch('/users', {
 			method: 'POST',
 			headers: {
@@ -20,13 +22,16 @@ export const LoginPage = () => {
 		});
 	
 		if (res.status === 200) {
-			// console.log('Authentication successful!');
+			console.log('Authentication successful!');
+            res.json();
 			// Send the username and password to the server for authentication
-			navigate(`/users/${res.user_id}`); // TODO grab _id for URL
+            setName = (''); // does this  match with the userSchema (the word User)
+            setPassword = ('');
+			return redirect(`/UserHome/UserHomePage/${res.user_id}`); // TODO grab _id for URL
 		  	
 		} else {
 			alert('Invalid username or password');
-			navigate(`/signup`); // TOD redirect
+			return redirect(`/signup`); // TOD redirect
 		}
 		} catch (error) {
 		console.error(error);
@@ -34,18 +39,20 @@ export const LoginPage = () => {
 	}
 	/////////////////////////////////////////////////
 
+    //do we need fetch for this as well?
     const redirectToSignupPage = () => {
-	    navigate(`/signup`);
+	    redirect(`/signup`);
 	}
 
 
 	return (
 		<main className='simple-wrapper'>
-			<p className='simple-header'>Welcome to Our Chat room</p>
+			<p className='simple-header'>Welcome to AllPacka!</p>
+			{/* IMAGE OF AN ALPACA */}
 			<p id='name-label' className='simple-subhead'>
 				What's your username?
 			</p>
-			<form onSumbit ={handleSubmit}>
+			<Form onSumbit ={handleSubmit}>
                 <div className='simple-section'>
                     <input 
                         type='text'
@@ -68,14 +75,16 @@ export const LoginPage = () => {
                         }}
                     />
                 </div>
-                <div id='logiin-btn' className='simple-section'>
+                <div id='login-btn' className='simple-section'>
                     <button type='submit'>Login!</button>
                 </div>
-			</form>
+			</Form>
+
             {/* redirect to sign up page with the this button */}
             <div id='sign-up-btn' className='simple-section'>
-                <button onClick={redirectToSignupPage}>Sign-up!</button>
+                <button onClick={redirectToSignupPage}>Sign-Up!</button>
             </div>
 		</main>
 	);
 };
+

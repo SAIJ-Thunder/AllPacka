@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import { redirect, Form } from "react-router-dom";
 
-
-const newTrip = ({userId}) => {
+//Will have access to userId
+const newTrip = () => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [tripType, setTripType] = useState('');
-    const [tripName, setTripName] = useStae('');
+    const [tripName, setTripName] = useState('');
 
     // this functioin send a post request to the data base to grab the _id of
     // of the new trip that was created in the database and redirects the user
@@ -26,8 +26,11 @@ const newTrip = ({userId}) => {
             setLocation('');
             setDate('');
             setTripType('');
-            // grab the _id from the res
+            // grab the _id from the res -> also has
             const URL = '/trips/' + res.trip_id
+            
+        //invoke prop drilled setCurrentTrip, pass in trip object
+
             // redirect to the trips home page
             return redirect(URL);
         })
