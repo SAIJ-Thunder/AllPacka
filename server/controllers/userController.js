@@ -45,13 +45,15 @@ userController.createUser = (req, res, next) => {
 };
 
 // Thinking of switching to findOne using username for security purposes. They're unique anyways
+// Sounds reasonable to me!
 // GET USER
 userController.getUser = (req, res, next) => {
   console.log('---We are in getUser in userController.js--');
 
-  const { _id } = req.params; // 
-
-  User.findOneById(_id)
+  const { username } = req.body;
+  // const { _id } = req.params; // 
+  User.findOne({username: username})
+  // User.findOneById(_id)
     .then(foundUser => {
 
       if (foundUser === null) {
@@ -113,12 +115,18 @@ userController.verifyUser = async (req, res, next) => {
 
 // UPDATE USER TRIPS
 //Accounts for cases:
-  //1. 
+  //1. The user is updated their trip list with a trip that is already created.
+  // That trip has a unique indetification (can be Id, token generated for URL link, etc)
+  // They then send that unidentification to this middleware, the trip is found by either
+  // cross refrencing the token (that is sent with in the req.body) or looking up the trip_id, the trip is
+  // then added to the user's trip array.
 
   //2. The user has just made a trip using createTrip and we'd like to add that trip to the user's trip list.
   //  user_id and trip_id are stored on res.locals 
-  //   
 
+// For simplicity sake, the trip is easieer to implement, for security's sake, a unique token is MUCH better
+// I don't know how much more work it would take to implementthis or how hard it would be to implement a toke later
+// if we go with trip_id now... 
 userController.updateUserTrips = async (req, res, next) => {
   console.log('---We are in updateUserTrips in userController.js--');
 
@@ -145,8 +153,8 @@ userController.updateUserTrips = async (req, res, next) => {
     const { trips } = foundUser;
     // update user trips with the newly created trip (last middleware)
     trips = [...trips, { tripName: tripName, date: date, id: trip_id}];
-    // update the databasse witht the new trips array
-    // update the databasse witht the new trips array
+    // update the databasse with the new trips array
+    // update the databasse with the new trips array
     const update = { trips: trips }
 
     const updatedUser = await User.findByIdAndUpdate( filter, update, {new:true})
