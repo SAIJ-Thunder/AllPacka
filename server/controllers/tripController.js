@@ -117,7 +117,9 @@ tripController.updateTripUsers = async (req, res, next) => {
   } else return next();
 }
 
-//TODO
+//TODO Do we even need an items schema? Why not just save the items "schema" to the trips. It's not
+// nested beyond that one array and reduces the need for updating a database. It's not like we are 
+// reusing the items in any other trip!
 tripController.updateTripItems = async (req, res, next) => {
   console.log('---We are in updateTripUsers in tripController.js--');
   // updatedItems will be a boolean
@@ -134,23 +136,27 @@ tripController.updateTripItems = async (req, res, next) => {
       // grab trip's items array
       const { items } = trip;
 
-      const updatedItems = [];
+      const updatedItems = [...items];
 
       for (let items of tripItems) {
 
         if (!(item in items)){
+          // save item to item schema
           const savedItem = await items.updateOne(
                                     { name: item.name }, 
                                     { number: item.number, 
                                       catagory: item.catagory, 
                                       priority: item.priority }, 
                                       { upsert: true });
-          
-
+        
+        // once it's saved, push it to the trip's item array
+        updatedItem.push(savedItem) // NOTE - makes me wonder if we even need an item schema??? Should we just save this within the trips?
         }
 
       }
-
+      filter = {tripName: tripName};
+      const update = {items : updatedItems }
+   
       const updatedTripItems = await Trip.findByIdAndUpdate(filter, update, { new: true })
 
       // update trip with the newly created trip (last middleware)
@@ -163,7 +169,7 @@ tripController.updateTripItems = async (req, res, next) => {
     } catch (err) {
       return next(createErr({
         method: 'updateTripUsers',
-        type: 'adding newUser to mongoDB data',
+        type: 'adding newItems to mongoDB data',
         err,
       }));
     }
