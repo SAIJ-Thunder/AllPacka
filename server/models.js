@@ -42,7 +42,7 @@ const User = mongoose.model('User', userSchema);
 const tripSchema = new Schema({
   tripName: String,
   location: String,
-  type: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
+  tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
   date: Date, // not sure if there is a date type, look into
   items: [{
     id: {

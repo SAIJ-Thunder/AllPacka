@@ -7,31 +7,40 @@ const { Trip, Item, User } = require('../models.js');
 const createErr = (errInfo) => {
     const { method, type, err } = errInfo;
     return { 
-      log: `userController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
-      message: { err: `Error occurred in userController.${method}. Check server logs for more details.` }
+      log: `tripController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
+      message: { err: `Error occurred in tripController.${method}. Check server logs for more details.` }
     };
 };
 
 const tripController = {};
 
 tripController.getTrip = (req, res, next) => {
-    console.log('---We are in getTrip in userController.js--');
+    console.log('---We are in getTrip in tripController.js--');
 
     const { _id } = req.params; // 
 
     Trip.findOneById(_id)
-      .then(trip => {
+      .then(foundTrip => {
+
+        if (foundTrip === null) {
+          return next(createErr({
+              method: 'getTrip',
+              type: 'retrieving Trip mongoDB data',
+              err: `findOneById(${_id}) returned null`
+          }));
+        }
+
         const { 
-          location, type,
-          date, items,
+          tripName, location,
+          tripType, date, items,
           users, catagories, review,
-          photos, tripName } = trip
+          photos } = foundTrip
 
         res.locals.trip = { 
-          location, type,
-          date, items,
+          tripName, location,
+          tripType, date, items,
           users, catagories, review,
-          photos, tripName };
+          photos };
 
         return next();
       })
@@ -48,14 +57,14 @@ tripController.createTrip = (req, res, next) => {
   console.log('---We are in tripCharacter in characterController.js--');
   const { user_id } = req.params
 
-  const { 
+  const {
     location,
     type,
     date,
     tripName,
     } = req.body; 
   
-    // to be used in next peice of middleware
+  // to be used in next peice of middleware
   res.locals.user_id = user_id
       
   const newTrip = new Trip({location, type, date, tripName, users: {id: user_id} });
@@ -81,7 +90,7 @@ tripController.createTrip = (req, res, next) => {
 // They join a trip by adding a trip to there trip array
 userController.updateTripUsers = async (req, res, next) => {
   console.log('---We are in updateTripUsers in tripController.js--');
-  if (res.body.updateUser){
+  if (res.body.updateUser) {
     const { trip_id } = res.params;  // grab the trip
     const filter = trip_id;
 
@@ -91,28 +100,32 @@ userController.updateTripUsers = async (req, res, next) => {
       // grab user's trips array
       const { users } = trip;
       // update trip with the newly created trip (last middleware)
-      users = [...users, { id: user_id}];
+      users = [...users, { id: user_id }];
       // update the databasse witht the new trips array
       const update = { users: users }
 
-      const updatedTrip = Trip.findOneAndUpdate( {_id: filter}, update, {new:true})
+      const updatedTrip = Trip.findOneAndUpdate({ _id: filter }, update, { new: true })
       res.locals.updatedTrip = updatedTrip;
       return next();
     } catch (err) {
       return next(createErr({
         method: 'updateTripUsers',
         type: 'adding newUser to mongoDB data',
-        err, 
-        }));
+        err,
+      }));
     }
-  } else next()
+  } else return next();
 }
 
-
+//TODO
 userController.updateTripItems = async (req, res, next) => {
   console.log('---We are in updateTripUsers in tripController.js--');
-  if (res.body.updateItems){
-    const { tripItems } = res.body;  // tripItems is an array
+  // updatedItems will be a boolean
+  if (res.body.updateItems) {
+    // grab new items from body -> tripItems is an array
+    const { tripItems } = res.body; 
+    const { trip_id } = req.body;
+
     const filter = trip_id;
 
     try {
@@ -121,27 +134,40 @@ userController.updateTripItems = async (req, res, next) => {
       // grab trip's items array
       const { items } = trip;
 
-      for (let items of items) {
-        
-        items.updateOne({name: item.name}, {number: item.number, catagory: item.catagory, priority: item.priority})
+      const updatedItems = [];
+
+      for (let items of tripItems) {
+
+        if (!(item in items)){
+          const savedItem = await items.updateOne(
+                                    { name: item.name }, 
+                                    { number: item.number, 
+                                      catagory: item.catagory, 
+                                      priority: item.priority }, 
+                                      { upsert: true });
+          
+
+        }
+
       }
 
+      const updatedTripItems = await Trip.fiindByIdAndUpdate(filter, update, { new: true })
 
       // update trip with the newly created trip (last middleware)
       // update the databasse witht the new trips array
-      const update = { users: users }
+      const updates = { users: users }
 
-      const updatedTrip = Trip.findOneAndUpdate( {_id: filter}, update, {new:true})
+      const updatedTrip = Trip.findOneAndUpdate({ _id: filter }, updates, { new: true })
       res.locals.updatedTrip = updatedTrip;
       return next();
     } catch (err) {
       return next(createErr({
         method: 'updateTripUsers',
         type: 'adding newUser to mongoDB data',
-        err, 
-        }));
+        err,
+      }));
     }
-  } else next()
+  } else return next();
 }
 
 

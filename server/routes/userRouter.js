@@ -7,6 +7,24 @@ const cookieController = require('../controllers/cookieController')
 
 const router = express.Router();
 
+// save a new user
+router.post('/signup',
+  userController.createUser,
+  (req, res) => {
+    console.log('--Sending data from userRouter.POST\'s aynonmouns func--');
+    return res.status(200).json(res.locals.user); // Send newCharacter Data
+  }
+);
+
+//verify login info
+router.post('/login',
+    userController.verifyUser,
+    (req, res) => {
+    console.log('--Sending data from userRouter.GET\'s aynonmouns func--');
+    return res.status(200).json(res.locals); //res.locals.userData
+    }
+);
+
 // get a user's info
 router.get('/:_id',
     userController.getUser,
@@ -16,14 +34,7 @@ router.get('/:_id',
     }
 );
 
-// save a new user
-router.post('/',
-  userController.createUser,
-  (req, res) => {
-    console.log('--Sending data from userRouter.POST\'s aynonmouns func--');
-    return res.status(200).json(res.locals.newCharacter); // Send newCharacter Data
-  }
-);
+
 
 // // update the trip's information
 // router.patch('/:_id',

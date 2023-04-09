@@ -36,7 +36,8 @@ router.post('/:user_id',
 // update the trip's information
 // this :_id is the trip's _id
 router.patch('/:trip_id',
-  // middleware
+  userController.updateTripUsers,
+  userController.updateTripItems,
   (req, res) => {
     console.log('--Sending data from tripRouter.PATCH\'s aynonmouns func--');
     return res.status(200).json(); //
