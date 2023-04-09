@@ -1,9 +1,10 @@
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
 
 // Routers
-const userRouter = require('./routes/userRouter.js');
 const tripRouter = require('./routes/tripRouter.js');
+const userRouter = require('./routes/userRouter.js');
 
 
 const PORT = 1234;
@@ -13,6 +14,21 @@ const app = express();
 // Parse all requests
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true})); // important for forms!!
+
+
+const MONGO_URI = 'mongodb+srv://olsoninoslo:Iamnedtito@cluster0.bslfwul.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose.connect(MONGO_URI, {
+  // options for the connect method to parse the URI
+  useNewUrlParser: true, // useful boiler plate
+  useUnifiedTopology: true, // more useful boiler plate
+  // sets the name of the DB that our collections are part of
+  dbName: 'AllPAcka'
+})
+  .then(() => console.log('Connected to Mongo DB.'))
+  .catch(err => console.log(err)); // super nice for de-bugging
+
+
 
 
 // define route handlers 

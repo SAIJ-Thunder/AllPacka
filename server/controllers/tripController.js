@@ -88,7 +88,7 @@ tripController.createTrip = (req, res, next) => {
 // Stretch Feature
 // Only the current user that is logged in can join a trip.
 // They join a trip by adding a trip to there trip array
-userController.updateTripUsers = async (req, res, next) => {
+tripController.updateTripUsers = async (req, res, next) => {
   console.log('---We are in updateTripUsers in tripController.js--');
   if (res.body.updateUser) {
     const { trip_id } = res.params;  // grab the trip
@@ -118,7 +118,7 @@ userController.updateTripUsers = async (req, res, next) => {
 }
 
 //TODO
-userController.updateTripItems = async (req, res, next) => {
+tripController.updateTripItems = async (req, res, next) => {
   console.log('---We are in updateTripUsers in tripController.js--');
   // updatedItems will be a boolean
   if (res.body.updateItems) {
@@ -151,7 +151,7 @@ userController.updateTripItems = async (req, res, next) => {
 
       }
 
-      const updatedTripItems = await Trip.fiindByIdAndUpdate(filter, update, { new: true })
+      const updatedTripItems = await Trip.findByIdAndUpdate(filter, update, { new: true })
 
       // update trip with the newly created trip (last middleware)
       // update the databasse witht the new trips array
@@ -204,3 +204,6 @@ tripController.deleteTrip = (req, res, next) => {
       }));
     });
 };
+
+// EXPORT THE Controllers!!!
+module.exprorts = tripController;

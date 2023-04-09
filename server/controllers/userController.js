@@ -1,5 +1,5 @@
 
-const { User, Trip, Session } = require('./models.js');
+const { User, Trip, Session } = require('../models.js');
 
 const userController = {};
 
@@ -206,3 +206,6 @@ userController.deleteUser = (req, res, next) => {
     });
 };
 */
+
+// EXPORT THE Controllers!!!
+module.exprorts = userController;
