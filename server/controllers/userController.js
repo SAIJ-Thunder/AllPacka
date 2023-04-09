@@ -146,6 +146,7 @@ userController.updateUserTrips = async (req, res, next) => {
     // update user trips with the newly created trip (last middleware)
     trips = [...trips, { tripName: tripName, date: date, id: trip_id}];
     // update the databasse witht the new trips array
+    // update the databasse witht the new trips array
     const update = { trips: trips }
 
     const updatedUser = await User.findByIdAndUpdate( filter, update, {new:true})
@@ -191,6 +192,7 @@ userController.deleteUser = (req, res, next) => {
       return next(createErr({
         method: 'deleteUser',
         type: 'retrieving mongoDB data',
+        err,
         err,
       }));
     });
