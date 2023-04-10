@@ -37,7 +37,7 @@ const newTrip = () => {
         })
         .catch((err) => {
             console.log(err);
-            alert('Failed To Submit')
+            alert('Failed To Create Trip')
         }); 
     }
 

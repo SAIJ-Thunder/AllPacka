@@ -49,6 +49,23 @@ export const LoginPage = () => {
 		<main className='simple-wrapper'>
 			<p className='simple-header'>Welcome to AllPacka!</p>
 			{/* IMAGE OF AN ALPACA */}
+			<img
+				src='.../assets/alpaca_cool.jpg'
+				alt={'alpaca'}
+				className="alpaca-imae"
+				style={{
+					height: '10%'
+				}}
+			/>
+			{/* IMAGE OF YOSEMITE */}
+			<img
+				src='.../assets/yosemite.jpg'
+				alt={'Yosemite'}
+				className="yosemite-image"
+				style={{
+					width: '25%',
+				}}
+			/>
 			<p id='name-label' className='simple-subhead'>
 				What's your username?
 			</p>
@@ -69,17 +86,17 @@ export const LoginPage = () => {
                         value = {password}     
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSumbit();
+                            if (e.key === 'Enter') handleSubmit();
                         }}
                     />
                 </div>
-                <div id='login-btn' className='simple-section'>
+                <div id='login-btn' className='login-button'>
                     <button type='submit'>Login!</button>
                 </div>
 			</Form>
 
             {/* redirect to sign up page with the this button */}
-            <div id='sign-up-btn' className='simple-section'>
+            <div id='sign-up-btn' className='signup-button'>
                 <button onClick={redirectToSignupPage}>Sign-Up!</button>
             </div>
 		</main>

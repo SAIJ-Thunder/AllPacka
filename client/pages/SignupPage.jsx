@@ -3,7 +3,7 @@ import { redirect, Form } from 'react-router-dom';
 
 export const SignUpPage = () => {
 
-	const [username, setUsrname] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
 	////////////////////////////////////////////
@@ -35,22 +35,22 @@ export const SignUpPage = () => {
 
 
 	return (
-		<main className='simple-wrapper'>
-			<p className='simple-header'>All Aboard the AllPacka!</p>
+		<main className='signup-page'>
+			<p className='signup-page-header'>All Aboard the AllPacka!</p>
 			{/* <p id='name-label' className='simple-subhead'>
 				What's your username?
 			</p> */}
-			<Form onSumbit ={handleSubmit}>
-                <div className='simple-section'>
+			<Form onSubmit ={handleSubmit}>
+                <div className='username-box'>
                     <span>What will your username be?</span>
                     <input 
                         type='text'
                         placeholder='username'
                         value = {username}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className='simple-section'>
+                <div className='password-box'>
                     <span>What will your password be?</span>
                     <input 
                         type='text'
@@ -58,11 +58,11 @@ export const SignUpPage = () => {
                         value = {password}     
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSumbit();
+                            if (e.key === 'Enter') handleSubmit();
                         }}
                     />
                 </div>
-                <div id='sign-up-btn' className='simple-section'>
+                <div id='sign-up-btn' className='signup-button'>
                     <button type='submit'>Create Your AllPacka Account!</button>
                 </div>
 			</Form>
