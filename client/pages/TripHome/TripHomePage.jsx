@@ -28,17 +28,17 @@ export const TripHomePage = () => {
     e.preventDefault();
     // add item schema
     return newIteamSchema //component
-  },
+  }
 
   const handleShowUserCards = (e) => {
     e.preventDefault();
     // return users and what they are bringing
         return redirect(URL);
-  },
+  }
   const handleAllItemsChecked = (e) => {
     e.preventDefault();
     // list of checked items
-  },
+  }
   const handleEditTrip = (e) => {
     e.preventDefault();
     // post request to server
@@ -66,7 +66,7 @@ export const TripHomePage = () => {
         console.log(err);
         alert('Failed to edit trip')
     }); 
-  },
+  }
 
   // COMPONENT FUNCTION FOR INDIVIDUAL Categories, allowing to add smaller item display component
   const createItemCategoryContainer = () => {
