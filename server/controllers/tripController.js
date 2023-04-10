@@ -12,8 +12,11 @@ const createErr = (errInfo) => {
     };
 };
 
+
+
 const tripController = {};
 
+// Get a trip's data
 tripController.getTrip = (req, res, next) => {
     console.log('---We are in getTrip in tripController.js--');
 
@@ -53,6 +56,7 @@ tripController.getTrip = (req, res, next) => {
       });
 }
 
+// create a new trip
 tripController.createTrip = (req, res, next) => {
   console.log('---We are in tripCharacter in characterController.js--');
   const { user_id } = req.params

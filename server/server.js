@@ -2,9 +2,10 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 
-// Routers
-const tripRouter = require('./routes/tripRouter.js');
-const userRouter = require('./routes/userRouter.js');
+// // Routers
+const tripRouter = require('./routes/tripRouter');
+// const userRouter = require('./routes/userRouter');
+
 
 
 const PORT = 1234;
@@ -31,32 +32,31 @@ mongoose.connect(MONGO_URI, {
 
 
 
-// define route handlers 
-// from Signup component -> auth routes to '/user/_id'
-app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
+// // define route handlers 
+// // from Signup component -> auth routes to '/user/_id'
+// app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
 
-app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
+// app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
 
-app.use('/users', userRouter) // Access to trips from here
-
-
-app.use('/trips', tripRouter); // The main infographic page
+// app.use('/users', userRouter) // Access to trips from here
 
 
-// catch-all route handler for any requests to an unknown route
-app.use((req,res) => res.sendStatus(404));
+// app.use('/trips', tripRouter); // The main infographic page
 
 
-app.use((err, req, res, next) => {
-    // this is the default error obj
-    console.log('We have entered the twightlight Zone!');
-    res.locals.message = err.message;
-    console.log('Our error log is: ', err.log)
-    // console.log('Our error message is: ', err.message);
-    const errorStatus = err.status || 500;
-    return res.status(errorStatus).send(res.locals.message);
-  });
+// // catch-all route handler for any requests to an unknown route
+// app.use((req,res) => res.sendStatus(404));
 
+
+// app.use((err, req, res, next) => {
+//     // this is the default error obj
+//     console.log('We have entered the twightlight Zone!');
+//     res.locals.message = err.message;
+//     console.log('Our error log is: ', err.log)
+//     // console.log('Our error message is: ', err.message);
+//     const errorStatus = err.status || 500;
+//     return res.status(errorStatus).send(res.locals.message);
+//   });
 
 
   //  start server
