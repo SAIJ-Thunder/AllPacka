@@ -158,7 +158,6 @@ userController.updateUserTrips = async (req, res, next) => {
 
   const filter = user_id;
 
-
   try {
     // find the user based on the Id
     const foundUser = await User.findById(filter).exec()

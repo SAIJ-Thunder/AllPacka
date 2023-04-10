@@ -9,11 +9,11 @@ const cookieController = require('../controllers/cookieController')
 const tripRouter = express.Router();
 
 // get a trip's info
-tripRouter.get('/:_id',
+tripRouter.get('/:trip_id',
     tripController.getTrip,
     (req, res) => {
     console.log('--Sending data from tripRouter.GET\'s aynonmouns func--');
-    return res.status(200).json(); //
+    return res.status(200).json(res.locals); //
     }
 );
 
@@ -33,6 +33,17 @@ tripRouter.post('/create-trip/:user_id',
   }
 );
 
+//Takes a trip_id and a trip in body params. This trip is the current state of the trip from the frontend
+// This route will replace the trip in the database with the trip provided in the params
+tripRouter.patch('/update',
+  tripController.updateTripDetails,
+  (req, res) => {
+    console.log('--Sending data from tripRouter.PATCH\'s aynonmouns func--');
+    return res.status(200).json(res.locals.replacedTrip);
+  }
+);
+
+/* Commented out functions in controller, so this one will throw an error if left uncommented
 // update the trip's information
 // this :_id is the trip's _id
 tripRouter.patch('/:trip_id',
@@ -43,6 +54,7 @@ tripRouter.patch('/:trip_id',
     return res.status(200).json(); //
   }
 );
+*/
 
 // delete a trip : (
 tripRouter.delete('/:trip_id',
