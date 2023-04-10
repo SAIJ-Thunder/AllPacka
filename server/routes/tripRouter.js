@@ -3,43 +3,52 @@ const express = require('express');
 
 const userController = require('../controllers/userController');
 const tripController = require('../controllers/tripController');
-
+const sessionController = require('../controllers/sessionController');
+const cookieController = require('../controllers/cookieController')
 
 const router = express.Router();
 
 // get a trip's info
 router.get('/:_id',
-    // middleware,
+    tripController.getTrip,
     (req, res) => {
     console.log('--Sending data from tripRouter.GET\'s aynonmouns func--');
-    return res.status(200).json(); //res.locals.userData
+    return res.status(200).json(); //
     }
 );
 
 // save a new trip
-router.post('/',
-  // middleware,
+// this :_id is the user's _id
+router.post('/:user_id',
+  controllerTrip.createTrip,
+  userController.updateUserTrips,
   (req, res) => {
     console.log('--Sending data from tripRouter.POST\'s aynonmouns func--');
-    return res.status(200).json(); // Send newCharacter Data
+    //res.locals keys
+    //  -trip -> trip data from createTripPage (for loading on tripHomePage details)
+    //  -updatedUser -> with updated user trips array
+    //  -user_id -> user who created trip
+    //  -trip_id -> the current trip_id (for redirect)
+    return res.status(200).json(res.locals); // 
   }
 );
 
 // update the trip's information
-router.patch('/:_id',
+// this :_id is the trip's _id
+router.patch('/:trip_id',
   // middleware
   (req, res) => {
     console.log('--Sending data from tripRouter.PATCH\'s aynonmouns func--');
-    return res.status(200).json(); // We need to send back the updated character's updated object (not just to updates ;)
+    return res.status(200).json(); //
   }
 );
 
 // delete a trip : (
-router.delete('/:_id',
-  // middleware,
+router.delete('/:trip_id',
+tripController.deleteTrip,
   (req, res) => {
     console.log('--Sending data from tripRouter.DELETE\'s aynonmouns func--');
-    return res.status(200).json(); // We need to send back the updated character's object (so the client can re-render)
+    return res.status(200).json(); // 
   }
 );
 
