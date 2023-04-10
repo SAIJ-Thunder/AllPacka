@@ -6,7 +6,7 @@ export default function RootLayout() //nav bar,
   // after login, username state "setUserId" will be initialized 
   // and prop drilled down throughtout the pages
   // this is the _id of User document in User collection of the Mongo database
-  const [userId, setUserId] = useState('');
+  const [username, setUsername] = useState(null);
 
   // pass in trip obj
   const [currentTrip, setCurrentTrip] = useState(null);

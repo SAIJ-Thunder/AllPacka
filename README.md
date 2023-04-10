@@ -27,14 +27,18 @@ You're now up and running! Happy Hackinig!!
 │   ├── App.jsx
 │   ├── index.html
 │   ├── index.js
-│   ├── pages
-│   │   └── UserHome
-│   │       └── UserHomeComponents
-│   └── src
-│       ├── App.css
-│       ├── App.jsx
-│       ├── index.css
-│       └── main.jsx
+│   ├── layouts
+│   │   └── rootLayout.jsx
+│   └── pages
+│       ├── LoginPage.jsx
+│       ├── SignupPage.jsx
+│       ├── TripHome
+│       │   ├── NewTripPage.jsx
+│       │   ├── TripHomeComponents
+│       │   └── TripHomePage.jsx
+│       └── UserHome
+│           ├── UserHomeComponents
+│           └── UserHomePage.jsx
 ├── package-lock.json
 ├── package.json
 ├── server
@@ -45,8 +49,8 @@ You're now up and running! Happy Hackinig!!
 │   │   └── userController.js
 │   ├── models.js
 │   ├── routes
-│   │   ├── trip.js
-│   │   └── user.js
+│   │   ├── tripRouter.js
+│   │   └── userRouter.js
 │   └── server.js
 └── webpack.config.js
 
