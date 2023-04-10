@@ -69,9 +69,4 @@ const newTrip = () => {
     )
 };
 
-
-
-
-
-
-export default newTrip;
+export default newTripPage;

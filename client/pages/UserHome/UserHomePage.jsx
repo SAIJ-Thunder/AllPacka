@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { redirect, Form } from 'react-router-dom';
 
+// Child Components
+import userTripsDisplay from './userTripsDisplay';
+
 const UserHomePage = () => {
     const [joinTripCode, setJoinTripCode] = useState('');
+    const [tripsArray, setTripsArray] = userState(null)
      
 
     // where do I input the userId from rootLayout and update the setCurrentTrips
@@ -34,7 +38,7 @@ const UserHomePage = () => {
             </div>
             <div className='past-trips'>
                 <h2>Past Trips</h2>
-                {/* TODO: Render list of past trips */}
+                    <userTripsDisplay/>
             </div>
         </div>
     )
