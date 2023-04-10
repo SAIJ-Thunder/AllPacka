@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import { redirect, BrowserRouter, Router, Link, Route } from "react-router-dom";
 import MainItemsComponent from "./MainItemsComponent";
 import CategoryComponent from "./CategoryComponent";
+// import 
 //QUESTIONS: are className "simpe-sections" labeled that way on purpose? I edited some
 
 const TripHomePage = ({ currentTrips }) => {

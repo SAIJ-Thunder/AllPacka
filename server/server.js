@@ -41,13 +41,10 @@ mongoose.connect(MONGO_URI, {
 
 app.use('/user', userRouter) // Access to trips from here
 
-
 app.use('/trip', tripRouter); // The main infographic page
-
 
 // catch-all route handler for any requests to an unknown route
 app.use((req,res) => res.status(404).send("Big ol' fail"));
-
 
 app.use((err, req, res, next) => {
     // this is the default error obj
@@ -58,7 +55,6 @@ app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
     return res.status(errorStatus).send(res.locals.message);
   });
-
 
   //  start server
 app.listen(PORT, () => {
