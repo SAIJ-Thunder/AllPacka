@@ -185,12 +185,12 @@ tripController.updateTripDetails = async (req, res, next) => {
   }
 }
 
-/*I started looking at this and there's actually some complicated syntax needed to achieve this
-  functionality including update operators. As we're essentially replacing any item that has different
-  information, I wrote a function above called updateTripDetails that replaces the entire trip document.
-  Much faster for engineers on a time crunch, and we'll be manipulating a copy of the trip document in the 
-  frontend anyway. Might as well just send the altered version back and save ourselves some time until
-  we get everything else working.
+  // I started looking at this and there's actually some complicated syntax needed to achieve this
+  // functionality including update operators. As we're essentially replacing any item that has different
+  // information, I wrote a function above called updateTripDetails that replaces the entire trip document.
+  // Much faster for engineers on a time crunch, and we'll be manipulating a copy of the trip document in the 
+  // frontend anyway. Might as well just send the altered version back and save ourselves some time until
+  // we get everything else working.
 
 //TODO Do we even need an items schema? Why not just save the items "schema" to the trips. It's not
 // nested beyond that one array and reduces the need for updating a database. It's not like we are 
@@ -199,6 +199,8 @@ tripController.updateTripDetails = async (req, res, next) => {
 //I'm in! We don't really need to save an items array on users either. If all of the items sit on trip
 // then those items get provided a username when a user clicks on it, we could just iterate over the 
 // item array on trip to make user cards
+
+// We still need to update the trip's items. Which would necessitate the patch, but no outside db updates
 
 tripController.updateTripItems = async (req, res, next) => {
   console.log('---We are in updateTripItems in tripController.js--');
@@ -220,6 +222,12 @@ tripController.updateTripItems = async (req, res, next) => {
     // 4. Person B makes changes and saves.
     //None of Person A's changes will be shown  because the database will be updated to 
     // the state of Person B's list because they saved second.
+    
+    // This isn't a problem for our simple site though. The problem won't come about, but the functionality of updating trip items is
+    // pretty fundemental for a trip planner. If you want to make editting the trip page to be a websocket, it would be really easy to 
+    // do. We just use a websocket in the /trip/edit/:trip_id page, any updates that any person makes on this page is sent out to db. 
+    
+    // Note you don't want to to be updating the trip db from a websocket though. There is still a need to have a submit button. 
 
     const filter = trip_id;
   
@@ -292,7 +300,7 @@ tripController.updateTripItems = async (req, res, next) => {
     }
   } else return next();
 }
-*/
+
 
 
 
