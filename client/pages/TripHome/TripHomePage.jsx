@@ -82,7 +82,7 @@ const TripHomePage = ({ currentTrips }) => {
       </div>
       {/* div branch 2 - ALL ITEMS CONTAINER component of components -------------------------------------------------*/}
       <div>
-        <category
+        <categoryComponent/>
 
       </div>
 

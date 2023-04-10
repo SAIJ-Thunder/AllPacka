@@ -26,6 +26,14 @@ const categoryComponent = () => {
         <itemsDisplayComponent/>
       </div>
     </div>
+   )
+}
+
+
+export default categoryComponent
+
+
+
 
     //   {/* FOR REFERENCE - TO MOVE EACH CATEGORY COMPONENT*/
     //     /* <div
@@ -44,8 +52,3 @@ const categoryComponent = () => {
     //   >
     //   Drop target
     //   </div> */}
-   )
-}
-
-
-export default categoryComponent
