@@ -1,36 +1,38 @@
 import React, {useState} from "react";
-import itemsDisplayComponent from "./itemsDisplayComponent";
+import addItemsComponent from "./addItemsComponent";
 // import './categoryComponent.scss'
 
 // items display is the child Component
 // should display each category and its items component inside
 // we need to get catagory state in here, cATAGORY
 
-const categoryComponent = () => {
-
-  const [item, setItem] = useState('')
+const CategoryComponent = ({ items, category }) => {
 
   const handleAddItem = () => {
     // possibly adding some inputfield comp
     // rendering jsx 
   }
+  // each catagory will render it's associated items will be rendered 
+  const itemsArray = items.map((item) => {
+    <itemDisplayComponent item={item} />
+  })
 
    return (
     <div className='category'>
+      <span className='categoryLabel'> {category} </span>
       <div>
         {/* add items to category by pressing " + " button */}
         <button onClick={handleAddItem}>+</button>
     </div>
       <div>
-        
-        <itemsDisplayComponent/>
+        {itemsArray}
       </div>
     </div>
    )
 }
 
 
-export default categoryComponent
+export default CategoryComponent
 
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { redirect, Form } from 'react-router-dom';
+// import './scss/LoginPage.scss';
 
 const LoginPage = () => {
 
@@ -45,8 +46,8 @@ const LoginPage = () => {
 
 
 	return (
-		<main className='simple-wrapper'>
-			<p className='simple-header'>Welcome to AllPacka!</p>
+		<main className='login-page'>
+			<p className='login-header'>Welcome to AllPacka!</p>
 			{/* IMAGE OF AN ALPACA */}
 			<img
 				src='.../assets/alpaca_cool.jpg'
@@ -65,11 +66,11 @@ const LoginPage = () => {
 					width: '25%',
 				}}
 			/>
-			<p id='name-label' className='simple-subhead'>
+			<p id='name-label' className='username-subhead'>
 				What's your username?
 			</p>
 			<Form onSumbit ={handleSubmit}>
-                <div className='simple-section'>
+                <div className='username-section'>
                     <input 
                         type='text'
                         placeholder='username'
@@ -78,7 +79,7 @@ const LoginPage = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className='simple-section'>
+                <div className='password-section'>
                     <input 
                         type='text'
                         placeholder="password" 

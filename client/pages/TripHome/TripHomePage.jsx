@@ -1,8 +1,8 @@
 // *****************************    SB edits   *****************************
 import React, {useState} from "react";
 import { redirect, BrowserRouter, Router, Link, Route } from "react-router-dom";
-import mainItemsComponent from "./mainItemsComponent";
-import categoryComponent from "./categoryComponent";
+import MainItemsComponent from "./MainItemsComponent";
+import CategoryComponent from "./CategoryComponent";
 //QUESTIONS: are className "simpe-sections" labeled that way on purpose? I edited some
 
 const TripHomePage = ({ currentTrips }) => {
@@ -10,10 +10,10 @@ const TripHomePage = ({ currentTrips }) => {
   // const tripData = useBroswerLoader();
 
 
-  const tripLoader = () => {
-    //fetch trip data from trip collection
-    //retrun data.json
-  }
+  // const tripLoader = () => {
+  //   //fetch trip data from trip collection
+  //   //retrun data.json
+  // }
 
 
   // copy to clipboard
@@ -41,8 +41,6 @@ const TripHomePage = ({ currentTrips }) => {
   }
   const handleEditTrip = (e) => {
     e.preventDefault();
-
-
   }
 
   // return function-------------------------------------------------------------------------------------------
@@ -81,9 +79,8 @@ const TripHomePage = ({ currentTrips }) => {
         </div>
       </div>
       {/* div branch 2 - ALL ITEMS CONTAINER component of components -------------------------------------------------*/}
-      <div>
-        <categoryComponent/>
-
+      <div className='mainItemsDisplay'>
+        <MainItemsComponent/>
       </div>
 
 
