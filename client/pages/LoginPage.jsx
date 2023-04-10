@@ -4,7 +4,7 @@ import { redirect, Form } from 'react-router-dom'; // --> redirect
 export const LoginPage = () => {
 
 	// DONE : const navigate = useNavigate(); // --> redirect 
-	const [name, setName] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
@@ -12,22 +12,22 @@ export const LoginPage = () => {
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
-        // what are we fetching on line 16? Are we grabbing information from the database
-		const res = await fetch('/users', {
+        // will this be a post request?
+		const res = await fetch('/users/login', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ name, password })
+			body: JSON.stringify({ username, password })
 		});
 	
-		if (res.status === 200) {
+		if (res.status === 200 && res.verified) {
 			console.log('Authentication successful!');
             res.json();
-			// Send the username and password to the server for authentication
-            setName = (''); // does this  match with the userSchema (the word User)
+			// Send the username and password to the server for authentication 
+            setUsername = (''); // does this  match with the userSchema (the word User)
             setPassword = ('');
-			return redirect(`/UserHome/UserHomePage/${res.user_id}`); // TODO grab _id for URL
+			return redirect(`/UserHome/UserHomePage/${res.user_id}`); //!!! either user_id or username
 		  	
 		} else {
 			alert('Invalid username or password');
@@ -41,7 +41,7 @@ export const LoginPage = () => {
 
     //do we need fetch for this as well?
     const redirectToSignupPage = () => {
-	    redirect(`/signup`);
+	    return redirect(`/signup`);
 	}
 
 
@@ -58,15 +58,13 @@ export const LoginPage = () => {
                         type='text'
                         placeholder='username'
                         // placeholder="What's a good nickname?..." 
-
-                        value = {name}
-                        onChange={(e) => setName(e.target.value)}
+                        value = {username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
                 <div className='simple-section'>
                     <input 
                         type='text'
-                        autoComplete='name'
                         placeholder="password" 
                         value = {password}     
                         onChange={(e) => setPassword(e.target.value)}

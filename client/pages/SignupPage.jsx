@@ -3,8 +3,7 @@ import { redirect, Form } from 'react-router-dom';
 
 export const SignUpPage = () => {
 
-	const navigate = useNavigate(); // --> redirect 
-	const [name, setName] = useState('');
+	const [username, setUsrname] = useState('');
 	const [password, setPassword] = useState('');
 
 	////////////////////////////////////////////
@@ -13,22 +12,20 @@ export const SignUpPage = () => {
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
-		const response = await fetch('/users', {
+		const res = await fetch('/users', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ name, password })
+			body: JSON.stringify({ username, password })
 		});
         // **checking to see if user is already in database
-		if (res.status === 200 && name !== res.body) { 
+		if (res.status === 200) { 
 			console.log('Signup successful!');
-			// Send the username and password to the server for authentication
-			return redirect(`/LoginPage`);
+			return redirect(`/LoginPage`);  //where do you guys want to redirect this to
 		  	
 		} else {
-			alert('Username already taken');
-			return redirect(`/LoginPage`);
+			alert('Username already taken or server error');
 		}
 		} catch (error) {
 		console.error(error);
@@ -49,7 +46,7 @@ export const SignUpPage = () => {
                     <input 
                         type='text'
                         placeholder='username'
-                        value = {name}
+                        value = {username}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
