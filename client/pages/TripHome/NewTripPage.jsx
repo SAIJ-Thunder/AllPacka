@@ -32,48 +32,40 @@ const newTrip = () => {
 //             //FixURL
 //             const URL = '/TripHomePage' + res.trip_id
             
-//         //invoke prop drilled setCurrentTrip, pass in trip object
+        //invoke prop drilled setCurrentTrip, pass in trip object
 
-//             // redirect to the trips home page
-//             return redirect(URL);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             alert('Failed To Create Trip')
-//         }); 
-//     }
+            // redirect to the trips home page
+            return redirect(URL);
+        })
+        .catch((err) => {
+            console.log(err);
+            alert('Failed To Create Trip');
+        }); 
+    };
 
-// // <Form method={} action={} onSubmit={handleSubmit}> 
-//     return (
-//         // *** QUESTION: is the action leading to the correct page?
-//         <Form onSubmit={handleSubmit}>
-//             <label>
-//                 <span>Where are you going?</span>
-//                 <input type="text" value={location} name="location" onChange={setLocation(e.target.value)}/>
-//             </label>
-//             <label>
-//                 <span>When are you going?</span>
-//                 <input type="text" value={date} name="date" onChange={setDate(e.target.value)}/>
-//             </label>
-//             <label>
-//                 <span>What are you planning for?</span>
-//                 <input type="text" value={tripType} name="tripType" onChange={setTripType(e.target.value)}/>
-//             </label>
-//             <label>
-//                 <span>What will you call this Epic Adventure?</span>
-//                 <input type="text" value={tripName} name="tripName" onChange={setName(e.target.value)}/>
-//             </label>
-//             <button type="submit">Create Trip!</button>
-//         </Form>
-
-//     )
-  
-
-  return (
-    <h1>New Trip Page</h1>
-  )
-  
-  
+// <Form method={} action={} onSubmit={handleSubmit}> 
+    return (
+        // *** QUESTION: is the action leading to the correct page?
+        <Form onSubmit={handleSubmit}>
+            <label>
+                <span>Where are you going?</span>
+                <input type="text" value={location} name="location" onChange={setLocation(e.target.value)}/>
+            </label>
+            <label>
+                <span>When are you going?</span>
+                <input type="text" value={date} name="date" onChange={setDate(e.target.value)}/>
+            </label>
+            <label>
+                <span>What are you planning for?</span>
+                <input type="text" value={tripType} name="tripType" onChange={setTripType(e.target.value)}/>
+            </label>
+            <label>
+                <span>What will you call this Epic Adventure?</span>
+                <input type="text" value={tripName} name="tripName" onChange={setName(e.target.value)}/>
+            </label>
+            <button type="submit">Create Trip!</button>
+        </Form>
+    );
 };
 
 export default newTripPage;

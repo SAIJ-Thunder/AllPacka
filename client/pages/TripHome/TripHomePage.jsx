@@ -16,12 +16,11 @@ const TripHomePage = () => {
 //   }
 
 
-
-//   // copy to clipboard
-//   const copyTrip = async () => {
-//     await navigator.clipboard(URL);
-//     alert('Trip URL copied!');
-//   }
+  // copy to clipboard
+  const copyTrip = async () => {
+    await navigator.clipboard(URL);
+    alert('Trip URL copied!');
+  }
 
 
 // // buttons--------------------------------------------------------------------------------------------
