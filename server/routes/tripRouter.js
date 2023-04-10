@@ -16,7 +16,7 @@ tripRouter.get('/:trip_id',
     return res.status(200).json(res.locals); //
     }
 );
-
+ 
 // save a new trip
 // this :_id is the user's _id
 tripRouter.post('/create-trip/:user_id',
