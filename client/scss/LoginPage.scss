@@ -6,6 +6,9 @@
     justify-content: center;
     height: 100vh;
     background-color: lightblue;
+    background-image: url('../assets/yosemite.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-header {
@@ -25,8 +28,8 @@
 }
 
 .yosemite-image {
-    width: 30%;
-    height: 30%
+    width: 25rem;
+    // height: auto
 }
 
 .username-subhead{

@@ -1,15 +1,13 @@
-title {
+.title {
     display: flex;
     align-items: center;
 }
 
 .new-trip-page{
     display: flex;
-    background-color: white;
-    align-items:center;
-    justify-content: center;
+    background-color: rgb(184, 238, 207)
+    // justify-content: center;
 }
-
 
 .container {
     display: flex;

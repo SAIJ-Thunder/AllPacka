@@ -1,25 +1,12 @@
 import React, {useState} from "react";
 import { redirect, Form } from "react-router-dom";
-import "../../scss/NewTripPage.scss";
 
 //Will have access to userId
-const newTripPage = () => {
+const newTrip = () => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [tripType, setTripType] = useState('');
     const [tripName, setTripName] = useState('');
-    const handleLocation = (e) => {
-        setLocation(e.target.value);
-    }
-    const handleTripType = (e) => {
-        setTripType(e.target.value);
-    }
-    const handleDate = (e) => {
-        setDate(e.target.value);
-    }
-    const handleTripName = (e) => {
-        setTripName(e.target.value);
-    }
 
     // this functioin send a post request to the data base to grab the _id of
     // of the new trip that was created in the database and redirects the user
@@ -41,56 +28,57 @@ const newTripPage = () => {
             setTripType('');
             setTripName('');
             // grab the _id from the res -> also has
+            const URL = '/trips/' + res.trip_id
             
-            //FixURL
-            const URL = '/TripHomePage' + res.trip_id
-            
-        // invoke prop drilled setCurrentTrip, pass in trip object
+        //invoke prop drilled setCurrentTrip, pass in trip object
 
-        //     redirect to the trips home page
+            // redirect to the trips home page
             return redirect(URL);
         })
         .catch((err) => {
             console.log(err);
-            alert('Failed To Create Trip');
+            alert('Failed To Submit')
         }); 
-    };
+    }
 
 // <Form method={} action={} onSubmit={handleSubmit}> 
     return (
         // *** QUESTION: is the action leading to the correct page?
         <main className='new-trip-page'>
-            <p className='title'>
-                    Create your next trip!
-            </p>
+            <h1 className='title'>
+                Start planning your trip!
+            </h1>
             <Form onSubmit={handleSubmit}>
-                <div className='container'>
-                    <label className='new-trip-text'>
+                <label>
+                    
                     <span>Where are you going?</span>
-                    <input type="text" value={location} name="location" onChange={handleLocation}/>
-                    </label>
-                    <label className='new-trip-text'>
-                        <span>When?</span>
-                        <input type="text" value={date} name="date" onChange={handleDate}/>
-                    </label>
-                    <label className='new-trip-text'>
-                        <span>What are you planning for?</span>
-                        <input type="text" value={tripType} name="tripType" onChange={handleTripType}/>
-                    </label>
-                    <label className='new-trip-text'>
-                        <span>What will you call this Epic Adventure?</span>
-                        <input type="text" value={tripName} name="tripName" onChange={handleTripName}/>
+                    <input type="text" value={location} name="location" onChange={setLocation(e.target.value)}/>
+                </label>
+                <label>
+                    <span>When are you going?</span>
+                    <input type="text" value={date} name="date" onChange={setDate(e.target.value)}/>
+                </label>
+                <label>
+                    <span>What are you planning for?</span>
+                    <input type="text" value={tripType} name="tripType" onChange={setTripType(e.target.value)}/>
+                </label>
+                <label>
+                    <span>What will you call this Epic Adventure?</span>
+                    <input type="text" value={tripName} name="tripName" onChange={setName(e.target.value)}/>
                     </label>
 
                 <div className='create-trip-button'>
                     <button type="submit">Create Trip!</button>
                 </div>
-
-                </div>
-
             </Form>
         </main>
-    );
+
+    )
 };
 
-export default newTripPage;
+
+
+
+
+
+export default newTrip;
