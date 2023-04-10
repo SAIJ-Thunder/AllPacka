@@ -16,7 +16,7 @@ router.get('/:_id', tripController.getTrip,
   return res.status(200).json('test');
   }
 );
-
+ 
 // save a new trip
 // this :_id is the user's _id
 router.post('/:user_id',
