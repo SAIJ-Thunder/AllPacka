@@ -34,10 +34,6 @@ mongoose.connect(MONGO_URI, {
 
   
 // define route handlers 
-// from Signup component -> auth routes to '/user/_id'
-// app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
-
-// app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
 
 app.use('/user', userRouter) // Access to trips from here
 

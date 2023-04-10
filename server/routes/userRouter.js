@@ -9,13 +9,13 @@ const cookieController = require('../controllers/cookieController')
 const userRouter = express.Router();
 
 // save a new user
-// userRouter.post('/signup',
-//   userController.createUser,
-//   (req, res) => {
-//     console.log('--Sending data from userRouter.POST\'s aynonmouns func--');
-//     return res.status(200).json(res.locals);
-//   }
-// );
+userRouter.post('/signup',
+  userController.createUser,
+  (req, res) => {
+    console.log('--Sending data from userRouter.POST\'s aynonmouns func--');
+    return res.status(200).json(res.locals);
+  }
+);
 
 //verify login info
 userRouter.post('/login',

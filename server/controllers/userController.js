@@ -109,7 +109,7 @@ userController.verifyUser = async (req, res, next) => {
 
   try {
     const foundUser = await User.findOne({ username, password }).exec();
-  
+
     if (foundUser === null) {
       res.locals.verified = false;
     } else {
@@ -117,36 +117,22 @@ userController.verifyUser = async (req, res, next) => {
       const { username, trips } = foundUser;
       res.locals.user = { username, trips };
     }
-
-        return next();
+      
+    return next();
     
   } catch (err) {
-        return next(createErr({
+    return next(createErr({
       method: 'getUser',
       type: 'retrieving mongoDB user data',
-        err, 
-        }));
+      err,
+    }));
   }
 }
 
-// UPDATE USER TRIPS
-//Accounts for cases:
-  //1. The user is updated their trip list with a trip that is already created.
-  // That trip has a unique indetification (can be Id, token generated for URL link, etc)
-  // They then send that unidentification to this middleware, the trip is found by either
-  // cross refrencing the token (that is sent with in the req.body) or looking up the trip_id, the trip is
-  // then added to the user's trip array.
 
-  //2. The user has just made a trip using createTrip and we'd like to add that trip to the user's trip list.
-  //  user_id and trip_id are stored on res.locals 
-
-// For simplicity sake, the trip is easieer to implement, for security's sake, a unique token is MUCH better
-// I don't know how much more work it would take to implementthis or how hard it would be to implement a toke later
-// if we go with trip_id now... 
 userController.updateUserTrips = async (req, res, next) => {
   console.log('---We are in updateUserTrips in userController.js--');
 
-  // destructing ended up not working. Had something to do with destructing from nested objects.
   const user_id = req.body.user_id || res.locals.user_id;
   const trip_id = req.body.trip_id || res.locals.trip_id; // grab the trip
   const date = req.body.date || res.locals.trip.date  // grabs date of trip
@@ -157,7 +143,7 @@ userController.updateUserTrips = async (req, res, next) => {
   // required in the schema. We should at least check for trip_id, maybe the others are ok being null
 
   const filter = user_id;
-  
+
   try {
     // find the user based on the Id
     const foundUser = await User.findById(filter).exec()
@@ -173,17 +159,6 @@ userController.updateUserTrips = async (req, res, next) => {
     foundUser.trips.push({ tripName: tripName, date: date, trip_id: trip_id})
     const updatedUser = await foundUser.save();
 
-/* Turns out you can use vanilla JS notation! We don't need this code
-    // grab user's trips array
-    const { trips } = foundUser;
-    // update user trips with the newly created trip (last middleware)
-    trips = [...trips, { tripName: tripName, date: date, id: trip_id}];
-    // update the databasse with the new trips array
-    
-    const update = { trips: trips }
-
-    const updatedUser = await User.findByIdAndUpdate(filter, update, { new: true }).exec();
-*/
     if (updatedUser === null) {
       return next(createErr({
           method: 'updateUserTrips',
@@ -204,8 +179,8 @@ userController.updateUserTrips = async (req, res, next) => {
   }
 }
 
-
 // DELETE USER
+
 userController.deleteUser = (req, res, next) => {
   console.log('---We are in deleteUser in userController.js----');
 
@@ -223,9 +198,12 @@ userController.deleteUser = (req, res, next) => {
       return next(createErr({
         method: 'deleteUser',
         type: 'retrieving mongoDB data',
-        err, 
+        err,
+        err,
       }));
     });
 };
 
+
+// EXPORT THE Controllers!!!
 module.exports = userController;

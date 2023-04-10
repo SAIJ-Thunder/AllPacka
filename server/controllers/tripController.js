@@ -15,7 +15,6 @@ const createErr = (errInfo) => {
 
 const tripController = {};
 
-
 // Get a trip's data
 tripController.getTrip = (req, res, next) => {
     console.log('---We are in getTrip in tripController.js--');
@@ -133,7 +132,6 @@ tripController.updateTripUsers = async (req, res, next) => {
       users = [...users, { id: user_id }];
       // update the databasse witht the new trips array
       const update = { users: users }
-
       const updatedTrip = Trip.findOneAndUpdate({ _id: filter }, update, { new: true })
 */
 
@@ -157,10 +155,10 @@ tripController.updateTripUsers = async (req, res, next) => {
 //Tested and it works!
 tripController.updateTripDetails = async (req, res, next) => {
 
-  const { trip_id, updateTrip } = req.body
+  const { trip_id, trip } = req.body
 
   const filter = { _id: trip_id };
-  const update = updateTrip;
+  const update = trip;
 
   try {
     const replacedTrip = await Trip.findOneAndReplace(filter, update, { upsert: true, new: true })
