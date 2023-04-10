@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { redirect, Form } from 'react-router-dom'; // --> redirect 
 
-export const LoginPage = () => {
+const LoginPage = () => {
 
 	// DONE : const navigate = useNavigate(); // --> redirect 
 	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
 	
@@ -101,5 +102,12 @@ export const LoginPage = () => {
             </div>
 		</main>
 	);
+  
+  
+  // return (
+  //   <h1>Login Page</h1>
+  // )
+
 };
 
+export default LoginPage;

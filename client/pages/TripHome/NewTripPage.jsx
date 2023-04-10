@@ -67,6 +67,13 @@ const newTrip = () => {
         </Form>
 
     )
+  
+
+  // return (
+  //   <h1>New Trip Page</h1>
+  // )
+  
+  
 };
 
 

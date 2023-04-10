@@ -1,24 +1,34 @@
-export default function RootLayout() //nav bar, 
-  
-  //have stuff that sticks around forever
+import React from "react";
+import { NavLink, Outlet } from "react-router-dom";
 
-
-  // after login, username state "setUserId" will be initialized 
-  // and prop drilled down throughtout the pages
-  // this is the _id of User document in User collection of the Mongo database
-  const [username, setUsername] = useState(null);
+const RootLayout = () => {
+  // const [username, setUsername] = useState(null);
 
   // pass in trip obj
-  const [currentTrip, setCurrentTrip] = useState(null);
+  // const [currentTrip, setCurrentTrip] = useState(null);
 
-return (
-    <div> 
+  return (
+    <div className="root-layout">
       <header>
-        <nav></nav>
         <h1>Root Layout</h1>
+        <nav id='main-nav'>
+          <h1>I'm for testing page navigation</h1>
+          <NavLink to='/' className='nav-link'>Login Page</NavLink>
+          <NavLink to='/SignUpPage'className='nav-link'>Sign-up Page</NavLink>
+          <NavLink to='/UserHomePage'className='nav-link'>User Home Page</NavLink>
+          <NavLink to='/NewTripPage'className='nav-link'>New TripPage</NavLink>
+          <NavLink to='/TripHomePage'className='nav-link'>Trip Home Page</NavLink>
+        </nav>
       </header>
       <main>
-        <Outlet/>
+        <Outlet />
       </main>
     </div>
   )
+
+  // return (
+  //   <div> root</div>
+  // )
+};
+
+export default RootLayout;
