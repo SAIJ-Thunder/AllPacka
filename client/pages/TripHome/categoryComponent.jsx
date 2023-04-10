@@ -6,7 +6,7 @@ import itemsDisplayComponent from "./itemsDisplayComponent";
 // should display each category and its items component inside
 // we need to get catagory state in here, cATAGORY
 
-const categoryComp = () => {
+const categoryComponent = () => {
 
   const [item, setItem] = useState('')
 
@@ -48,4 +48,4 @@ const categoryComp = () => {
 }
 
 
-export default catagoryComponet
+export default categoryComponent
