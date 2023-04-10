@@ -7,6 +7,18 @@ const newTripPage = () => {
     const [location, setLocation] = useState('');
     const [tripType, setTripType] = useState('');
     const [tripName, setTripName] = useState('');
+    const handleLocation = (e) => {
+        setLocation(e.target.value);
+    }
+    const handleTripType = (e) => {
+        setTripType(e.target.value);
+    }
+    const handleDate = (e) => {
+        setDate(e.target.value);
+    }
+    const handleTripName = (e) => {
+        setTripName(e.target.value);
+    }
 
     // this functioin send a post request to the data base to grab the _id of
     // of the new trip that was created in the database and redirects the user
@@ -47,21 +59,21 @@ const newTripPage = () => {
     return (
         // *** QUESTION: is the action leading to the correct page?
         <Form onSubmit={handleSubmit}>
-            <label>
+             <label>
                 <span>Where are you going?</span>
-                <input type="text" value={location} name="location" onChange={setLocation(e.target.value)}/>
+                <input type="text" value={location} name="location" onChange={handleLocation}/>
             </label>
             <label>
                 <span>When are you going?</span>
-                <input type="text" value={date} name="date" onChange={setDate(e.target.value)}/>
+                <input type="text" value={date} name="date" onChange={handleDate}/>
             </label>
             <label>
                 <span>What are you planning for?</span>
-                <input type="text" value={tripType} name="tripType" onChange={setTripType(e.target.value)}/>
+                <input type="text" value={tripType} name="tripType" onChange={handleTripType}/>
             </label>
             <label>
                 <span>What will you call this Epic Adventure?</span>
-                <input type="text" value={tripName} name="tripName" onChange={setName(e.target.value)}/>
+                <input type="text" value={tripName} name="tripName" onChange={handleTripName}/>
             </label>
             <button type="submit">Create Trip!</button>
         </Form>
