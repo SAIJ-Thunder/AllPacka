@@ -26,6 +26,7 @@ const newTrip = () => {
             setLocation('');
             setDate('');
             setTripType('');
+            setTripName('');
             // grab the _id from the res -> also has
             const URL = '/trips/' + res.trip_id
             
