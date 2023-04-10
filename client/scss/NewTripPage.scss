@@ -13,9 +13,10 @@
 
 
 .title {
+    color: white;
     font-family: "Monaco", monospace;
     font-size: 2rem;
-    font-weight: bold
+    font-weight: bold;
     display: flex;
     align-items: center;
 }
@@ -26,10 +27,15 @@
     flex-direction: column;
     border-radius: 8px;
     border-color: lightgray;
-    background-color: white;
+    // background-color: white;
     align-items:center;
-    
     justify-content: center;
+}
+
+.question {
+    font-family: "Monaco", monospace;
+    color: white;
+    flex-direction: column;
 }
 
 //multiple text boxes
@@ -37,6 +43,7 @@
     font-family: "Monaco", monospace;
     border-color: black;
     border-radius: 8px;
+    flex-direction: column;
 }
 
 .create-trip-button{
