@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom';
+import { useNavigate, Form } from 'react-router-dom';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
 
-	const [username, setUsrname] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate()
 
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
@@ -12,17 +13,20 @@ export const SignUpPage = () => {
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
+
 		const res = await fetch('/users', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ username, password })
+			body: JSON.stringify({ username: username, password: password })
 		});
         // **checking to see if user is already in database
-		if (res.status === 200) { 
+		console.log(res)
+		if (res.status) { 
 			console.log('Signup successful!');
-			return redirect(`/LoginPage`);  //where do you guys want to redirect this to
+			// return navigate(`/LoginPage`);  //where do you guys want to redirect this to
+			return navigate('/UserHomePage');
 		  	
 		} else {
 			alert('Username already taken or server error');
@@ -35,22 +39,22 @@ export const SignUpPage = () => {
 
 
 	return (
-		<main className='simple-wrapper'>
-			<p className='simple-header'>All Aboard the AllPacka!</p>
+		<main className='signup-page'>
+			<p className='signup-page-header'>All Aboard the AllPacka!</p>
 			{/* <p id='name-label' className='simple-subhead'>
 				What's your username?
-			</p> */}
-			<Form onSumbit ={handleSubmit}>
-                <div className='simple-section'>
+  </p> */}
+			<Form onSubmit ={handleSubmit}>
+                <div className='username-box'>
                     <span>What will your username be?</span>
                     <input 
                         type='text'
                         placeholder='username'
                         value = {username}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className='simple-section'>
+                <div className='password-box'>
                     <span>What will your password be?</span>
                     <input 
                         type='text'
@@ -58,14 +62,21 @@ export const SignUpPage = () => {
                         value = {password}     
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSumbit();
+                            if (e.key === 'Enter') handleSubmit();
                         }}
                     />
                 </div>
-                <div id='sign-up-btn' className='simple-section'>
+                <div id='sign-up-btn' className='signup-button'>
                     <button type='submit'>Create Your AllPacka Account!</button>
                 </div>
 			</Form>
 		</main>
 	);
+  
+  
+  // return (
+  //   <h1>Signup Page</h1>
+  // )
 };
+
+export default SignUpPage;

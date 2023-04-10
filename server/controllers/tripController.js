@@ -15,6 +15,7 @@ const createErr = (errInfo) => {
 
 const tripController = {};
 
+
 // Get a trip's data
 tripController.getTrip = (req, res, next) => {
     console.log('---We are in getTrip in tripController.js--');
@@ -156,10 +157,10 @@ tripController.updateTripUsers = async (req, res, next) => {
 //Tested and it works!
 tripController.updateTripDetails = async (req, res, next) => {
 
-  const { trip_id, trip } = req.body
+  const { trip_id, updateTrip } = req.body
 
   const filter = { _id: trip_id };
-  const update = trip;
+  const update = updateTrip;
 
   try {
     const replacedTrip = await Trip.findOneAndReplace(filter, update, { upsert: true, new: true })
@@ -183,117 +184,6 @@ tripController.updateTripDetails = async (req, res, next) => {
       }));
   }
 }
-
-/*I started looking at this and there's actually some complicated syntax needed to achieve this
-  functionality including update operators. As we're essentially replacing any item that has different
-  information, I wrote a function above called updateTripDetails that replaces the entire trip document.
-  Much faster for engineers on a time crunch, and we'll be manipulating a copy of the trip document in the 
-  frontend anyway. Might as well just send the altered version back and save ourselves some time until
-  we get everything else working.
-
-//TODO Do we even need an items schema? Why not just save the items "schema" to the trips. It's not
-// nested beyond that one array and reduces the need for updating a database. It's not like we are 
-// reusing the items in any other trip!
-
-//I'm in! We don't really need to save an items array on users either. If all of the items sit on trip
-// then those items get provided a username when a user clicks on it, we could just iterate over the 
-// item array on trip to make user cards
-
-tripController.updateTripItems = async (req, res, next) => {
-  console.log('---We are in updateTripItems in tripController.js--');
-  // updatedItems will be a boolean
-  if (res.body.updateItems) {
-    // grab new items from body -> tripItems is an array
-    const { tripItems } = res.body; 
-    const { trip_id } = req.body;
-
-    // Next on my fix list, my uncommented code below won't work with what I figured out. 
-    // db arrays can't be replaced without replacing whole document.
-
-    //So here's a problem: with delayed saves and no websocket, our site really only supports
-    // one person editing the list at a time.
-    //Scenario of events occuring in chronological order: 
-    // 1. Person A opens site, site serves them the current state of the trip from the database.
-    // 2. Person B opens the site and gets the current state of the database.
-    // 3. Person A makes changes and saves. 
-    // 4. Person B makes changes and saves.
-    //None of Person A's changes will be shown  because the database will be updated to 
-    // the state of Person B's list because they saved second.
-
-    const filter = trip_id;
-  
-    try {
-      // find the user based on the Id
-      const foundTrip = await Trip.findById(filter)
-      // // grab trip's items array
-      const { items } = foundTrip;
-
-      // const updatedItems = [...items];
-
-      // for (let items of tripItems) {
-
-      //   if (!(item in items)){
-      //     // save item to item schema
-      //     const savedItem = await items.updateOne(
-      //                                 { name: item.name ,
-      //                                   number: item.number,
-      //                                   priority: item.priority,
-      //                                   catagory: item.catagory,
-      //                                   user: { // which user is bringing the item default 'null' until claimed
-      //                                     username: String,
-      //                                     id: {
-      //                                       type: Schema.Types.ObjectId,
-      //                                       ref: 'user',
-      //                                     }
-      //                                   }
-      //                                 },
-      //                                 { upsert: true });
-        
-      //   // once it's saved, push it to the trip's item array
-      //   updatedItem.push(savedItem) // NOTE - makes me wonder if we even need an item schema??? Should we just save this within the trips?
-      //   }
-
-      // }
-      // filter = {tripName: tripName};
-      // const update = {items : updatedItems }
-   
-      // const updatedTripItems = await Trip.findByIdAndUpdate(filter, update, { new: true })
-
-      // // update trip with the newly created trip (last middleware)
-      // // update the databasse witht the new trips array
-      // const updates = { users: users }
-
-      // const updatedTrip = Trip.findOneAndUpdate({ _id: filter }, updates, { new: true })
-      
-      const filter = trip_id;
-      const update = { items: tripItems };
-      //finds trip by Id and replaces items array with array sent from 
-      const updatedTrip = await Trip.findByIdAndUpdate(filter, update, { new: true })
-
-      //checks to see that trip was successfully found. If trip_id didn't match a trip in the database
-      //it'll return null but it won't throw an error, the promise status will be fulfilled, not rejected
-      if (updatedTrip === null) {
-        return next(createErr({
-            method: 'getTrip',
-            type: 'retrieving Trip mongoDB data',
-            err: `findOneById(${trip_id}) returned null`
-        }));
-      }
-
-      res.locals.updatedTrip = updatedTrip;
-      return next();
-    } catch (err) {
-      return next(createErr({
-        method: 'updateTripUsers',
-        type: 'adding newItems to mongoDB data',
-        err,
-      }));
-    }
-  } else return next();
-}
-*/
-
-
 
 // TODO
  // ADD MIDDLEWARE TO DELETE TRIP

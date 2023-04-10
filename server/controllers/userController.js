@@ -109,7 +109,7 @@ userController.verifyUser = async (req, res, next) => {
 
   try {
     const foundUser = await User.findOne({ username, password }).exec();
-
+  
     if (foundUser === null) {
       res.locals.verified = false;
     } else {
@@ -117,15 +117,15 @@ userController.verifyUser = async (req, res, next) => {
       const { username, trips } = foundUser;
       res.locals.user = { username, trips };
     }
-      
-    return next();
+
+        return next();
     
   } catch (err) {
-    return next(createErr({
+        return next(createErr({
       method: 'getUser',
       type: 'retrieving mongoDB user data',
-      err,
-    }));
+        err, 
+        }));
   }
 }
 
@@ -157,7 +157,7 @@ userController.updateUserTrips = async (req, res, next) => {
   // required in the schema. We should at least check for trip_id, maybe the others are ok being null
 
   const filter = user_id;
-
+  
   try {
     // find the user based on the Id
     const foundUser = await User.findById(filter).exec()
@@ -179,7 +179,7 @@ userController.updateUserTrips = async (req, res, next) => {
     // update user trips with the newly created trip (last middleware)
     trips = [...trips, { tripName: tripName, date: date, id: trip_id}];
     // update the databasse with the new trips array
-    // update the databasse with the new trips array
+    
     const update = { trips: trips }
 
     const updatedUser = await User.findByIdAndUpdate(filter, update, { new: true }).exec();
@@ -204,8 +204,8 @@ userController.updateUserTrips = async (req, res, next) => {
   }
 }
 
-// DELETE USER
 
+// DELETE USER
 userController.deleteUser = (req, res, next) => {
   console.log('---We are in deleteUser in userController.js----');
 
@@ -223,12 +223,9 @@ userController.deleteUser = (req, res, next) => {
       return next(createErr({
         method: 'deleteUser',
         type: 'retrieving mongoDB data',
-        err,
-        err,
+        err, 
       }));
     });
 };
 
-
-// EXPORT THE Controllers!!!
 module.exports = userController;
