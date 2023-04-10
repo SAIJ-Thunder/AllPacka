@@ -32,7 +32,7 @@ mongoose.connect(MONGO_URI, {
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err)); // super nice for de-bugging
 
-
+  
 // define route handlers 
 // from Signup component -> auth routes to '/user/_id'
 // app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
