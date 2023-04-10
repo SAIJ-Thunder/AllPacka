@@ -5,14 +5,17 @@
     justify-content: center;
     height: 100vh;
     background-color: rgb(184, 238, 207);
-    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fcinque-terre&psig=AOvVaw1ZMBtHCTBZFygADU1m1DhD&ust=1681248997108000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCbo9yioP4CFQAAAAAdAAAAABAk');
-    background-size: cover;
+    background-image: url('https://images.unsplash.com/photo-1551801319-ca06060f3fcc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2lucXVlJTIwdGVycmV8ZW58MHx8MHx8&w=1000&q=80');
     background-repeat: no-repeat;
+    background-size: cover;
 
 }
 
 
 .title {
+    font-family: "Monaco", monospace;
+    font-size: 2rem;
+    font-weight: bold
     display: flex;
     align-items: center;
 }

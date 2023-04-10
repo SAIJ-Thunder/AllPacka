@@ -227,3 +227,5 @@ userController.deleteUser = (req, res, next) => {
       }));
     });
 };
+
+module.exports = userController;

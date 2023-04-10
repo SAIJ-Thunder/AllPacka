@@ -61,25 +61,29 @@ const newTripPage = () => {
     return (
         // *** QUESTION: is the action leading to the correct page?
         <main className='new-trip-page'>
-            <Form onSubmit={handleSubmit}>
-                <label>
-                    <span>Where are you going?</span>
-                    <input type="text" value={location} name="location" onChange={handleLocation}/>
-                </label>
-                <label>
-                    <span>When are you going?</span>
-                    <input type="text" value={date} name="date" onChange={handleDate}/>
-                </label>
-                <label>
-                    <span>What are you planning for?</span>
-                    <input type="text" value={tripType} name="tripType" onChange={handleTripType}/>
-                </label>
-                <label>
-                    <span>What will you call this Epic Adventure?</span>
-                    <input type="text" value={tripName} name="tripName" onChange={handleTripName}/>
-                </label>
-                <button type="submit">Create Trip!</button>
-            </Form>
+            <p className='title'>
+            <div className='container'>
+                <Form onSubmit={handleSubmit}>
+                    <label>
+                        <span className='question'>Where are you going?</span>
+                        <input type="text" value={location} name="location" onChange={handleLocation}/>
+                    </label>
+                    <label>
+                        <span>When are you going?</span>
+                        <input type="text" value={date} name="date" onChange={handleDate}/>
+                    </label>
+                    <label>
+                        <span>What are you planning for?</span>
+                        <input type="text" value={tripType} name="tripType" onChange={handleTripType}/>
+                    </label>
+                    <label>
+                        <span>What will you call this Epic Adventure?</span>
+                        <input type="text" value={tripName} name="tripName" onChange={handleTripName}/>
+                    </label>
+                    <button type="submit">Create Trip!</button>
+                </Form>
+            </div>
+            </p>
         </main>
     );
 };
