@@ -19,9 +19,10 @@ const SignUpPage = () => {
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ username:username, password: password })
+			body: JSON.stringify({ username: username, password: password })
 		});
         // **checking to see if user is already in database
+		console.log(res)
 		if (res.status === 200) { 
 			console.log('Signup successful!');
 			// return navigate(`/LoginPage`);  //where do you guys want to redirect this to

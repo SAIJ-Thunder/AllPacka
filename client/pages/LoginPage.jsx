@@ -52,25 +52,25 @@ const LoginPage = () => {
 	return (
 		<main className='login-page'>
 			<p className='login-header'>
-			<img
-				src={alpaca}
-				alt={'alpaca'}
-				className="alpaca-image"
-			/>
-				Welcome to AllPacka!
-			</p>
-			{/* IMAGE OF AN ALPACA */}
 			{/* <img
 				src={alpaca}
 				alt={'alpaca'}
 				className="alpaca-image"
 			/> */}
-			{/* IMAGE OF YOSEMITE */}
+				Welcome to AllPacka!
+			</p>
+			{/* IMAGE OF AN ALPACA */}
 			<img
+				src={alpaca}
+				alt={'alpaca'}
+				className="alpaca-image"
+			/>
+			{/* IMAGE OF YOSEMITE */}
+			{/* <img
 				src={yosemite}
 				alt={'yosemite'}
 				className="yosemite-image"
-			/>
+			/> */}
 			<p id='name-label' className='username-subhead'>
 				What's your username?
 			</p>
