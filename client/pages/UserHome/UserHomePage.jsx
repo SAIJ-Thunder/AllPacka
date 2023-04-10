@@ -6,7 +6,7 @@ import userTripsDisplay from './userTripsDisplay';
 
 const UserHomePage = () => {
     const [joinTripCode, setJoinTripCode] = useState('');
-    const [tripsArray, setTripsArray] = userState(null)
+    const [tripsArray, setTripsArray] = useState(null)
      
 
     // where do I input the userId from rootLayout and update the setCurrentTrips

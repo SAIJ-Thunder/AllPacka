@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import itemsDisplayComponent from "./itemsDisplayComponent";
-
+import './categoryComponent.scss'
 
 // items display is the child Component
 // should display each category and its items component inside
