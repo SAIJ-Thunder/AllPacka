@@ -6,6 +6,7 @@ const RootLayout = () => {
 
   // pass in trip obj
   // const [currentTrip, setCurrentTrip] = useState(null);
+  // const [currentTrip, setCurrentTrip] = useState(null);
 
   return (
     <div className="root-layout">

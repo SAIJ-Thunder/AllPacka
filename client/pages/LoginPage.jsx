@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom'; // --> redirect 
+import { redirect, Form } from 'react-router-dom';
 
 const LoginPage = () => {
 
-	// DONE : const navigate = useNavigate(); // --> redirect 
 	const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
-	
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
