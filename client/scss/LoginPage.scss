@@ -36,10 +36,26 @@
 }
 
 .username-section {
-    
+    margin-bottom: 1rem;
+    input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        font-size: 1.2rem;
+        font-family: Arial, sans-serif;
+      }
 }
 .password-section {
-
+    margin-bottom: 1rem;
+    input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        font-size: 1.2rem;
+        font-family: Arial, sans-serif;
+      }
 }
 
 .login-button {

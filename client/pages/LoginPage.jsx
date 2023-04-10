@@ -72,7 +72,7 @@ const LoginPage = () => {
 				className="yosemite-image"
 			/> */}
 			<p id='name-label' className='username-subhead'>
-				What's your username?
+				Log into Alpacka!
 			</p>
 			<Form onSumbit ={handleSubmit}>
                 <div className='username-section'>

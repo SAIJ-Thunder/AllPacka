@@ -1,6 +1,12 @@
 .new-trip-page{
-
-    background-color: rgb(184, 238, 207)
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    background-color: rgb(184, 238, 207);
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fcinque-terre&psig=AOvVaw1ZMBtHCTBZFygADU1m1DhD&ust=1681248997108000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCbo9yioP4CFQAAAAAdAAAAABAk');
+    background-size: cover;
+    background-repeat: no-repeat;
     // justify-content: center;
 }
 
