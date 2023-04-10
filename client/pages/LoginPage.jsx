@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom'; // --> redirect 
+import { redirect, Form } from 'react-router-dom';
 
-export const LoginPage = () => {
+const LoginPage = () => {
 
-	// DONE : const navigate = useNavigate(); // --> redirect 
 	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
-	
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
         // will this be a post request?
-		const res = await fetch('/users/login', {
+		const res = await fetch('/LoginPage', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
@@ -27,11 +26,11 @@ export const LoginPage = () => {
 			// Send the username and password to the server for authentication 
             setUsername = (''); // does this  match with the userSchema (the word User)
             setPassword = ('');
-			return redirect(`/UserHome/UserHomePage/${res.user_id}`); //!!! either user_id or username
-		  	
+			// return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
+		  return redirect(`/UserHomePage`);
 		} else {
 			alert('Invalid username or password');
-			return redirect(`/signup`); // TOD redirect
+			return redirect(`/SignupPage`); // TOD redirect
 		}
 		} catch (error) {
 		console.error(error);
@@ -41,7 +40,7 @@ export const LoginPage = () => {
 
     //do we need fetch for this as well?
     const redirectToSignupPage = () => {
-	    return redirect(`/signup`);
+	    return redirect(`/SignupPage`);
 	}
 
 
@@ -49,6 +48,23 @@ export const LoginPage = () => {
 		<main className='simple-wrapper'>
 			<p className='simple-header'>Welcome to AllPacka!</p>
 			{/* IMAGE OF AN ALPACA */}
+			<img
+				src='.../assets/alpaca_cool.jpg'
+				alt={'alpaca'}
+				className="alpaca-imae"
+				style={{
+					height: '10%'
+				}}
+			/>
+			{/* IMAGE OF YOSEMITE */}
+			<img
+				src='.../assets/yosemite.jpg'
+				alt={'Yosemite'}
+				className="yosemite-image"
+				style={{
+					width: '25%',
+				}}
+			/>
 			<p id='name-label' className='simple-subhead'>
 				What's your username?
 			</p>
@@ -69,20 +85,27 @@ export const LoginPage = () => {
                         value = {password}     
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSumbit();
+                            if (e.key === 'Enter') handleSubmit();
                         }}
                     />
                 </div>
-                <div id='login-btn' className='simple-section'>
+                <div id='login-btn' className='login-button'>
                     <button type='submit'>Login!</button>
                 </div>
 			</Form>
 
             {/* redirect to sign up page with the this button */}
-            <div id='sign-up-btn' className='simple-section'>
+            <div id='sign-up-btn' className='signup-button'>
                 <button onClick={redirectToSignupPage}>Sign-Up!</button>
             </div>
 		</main>
 	);
+  
+  
+  // return (
+  //   <h1>Login Page</h1>
+  // )
+
 };
 
+export default LoginPage;
