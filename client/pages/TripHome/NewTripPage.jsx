@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { redirect, Form } from "react-router-dom";
+import "../../scss/NewTripPage.scss";
 
 //Will have access to userId
 const newTripPage = () => {
@@ -66,7 +67,7 @@ const newTripPage = () => {
                     <input type="text" value={location} name="location" onChange={handleLocation}/>
                     </label>
                     <label className='new-trip-text'>
-                        <span>When are you going?</span>
+                        <span>When?</span>
                         <input type="text" value={date} name="date" onChange={handleDate}/>
                     </label>
                     <label className='new-trip-text'>
@@ -81,7 +82,7 @@ const newTripPage = () => {
                 <div className='create-trip-button'>
                     <button type="submit">Create Trip!</button>
                 </div>
-                
+
                 </div>
 
             </Form>

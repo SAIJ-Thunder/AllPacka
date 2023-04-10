@@ -1,11 +1,3 @@
-import React, {useState} from "react";
-
-// child component of mainItemsComponent && parent componet of itemsDisplayComponet
-import CategoryComponent from "./CategoryComponent";
-
-
-
-const MainItemsComponent = () => {
 
     const currentTrip = {
         categories: [
@@ -54,23 +46,7 @@ const MainItemsComponent = () => {
 
 
     const categories = currentTrip.categories.map(category => {
-        return <CategoryComponent items={category.items} category={category.name} key={category.name}/>
+        return <CategoryComponent items={category.items} category={category.name}/>
     })
     console.log(categories)
 
-    return (
-        <div className='mainItemDisplay'>
-            <div className='item legend'>
-                <span>Item Number</span>
-                <span>Item Name</span>
-                <span>Assigned To...</span>
-            </div>
-            <div className='displayedItems'>
-               {categories}
-            </div>
-        </div>
-    )
-}
-
-
-export default MainItemsComponent;

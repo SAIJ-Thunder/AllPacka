@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { redirect, Form } from 'react-router-dom';
-// import './scss/LoginPage.scss';
+import '../scss/LoginPage.scss';
+import alpaca from '../assets/alpaca_cool.jpg';
+import yosemite from '../assets/yosemite.jpg';
 
 const LoginPage = () => {
 
 	const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
@@ -50,21 +53,15 @@ const LoginPage = () => {
 			<p className='login-header'>Welcome to AllPacka!</p>
 			{/* IMAGE OF AN ALPACA */}
 			<img
-				src='.../assets/alpaca_cool.jpg'
+				src={alpaca}
 				alt={'alpaca'}
-				className="alpaca-imae"
-				style={{
-					height: '10%'
-				}}
+				className="alpaca-image"
 			/>
 			{/* IMAGE OF YOSEMITE */}
 			<img
-				src='.../assets/yosemite.jpg'
-				alt={'Yosemite'}
+				src={yosemite}
+				alt={'yosemite'}
 				className="yosemite-image"
-				style={{
-					width: '25%',
-				}}
 			/>
 			<p id='name-label' className='username-subhead'>
 				What's your username?
