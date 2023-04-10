@@ -14,7 +14,7 @@ const createErr = (errInfo) => {
 
 
 
-const tripController = {};
+const tripController = {1:1};
 
 // Get a trip's data
 tripController.getTrip = (req, res, next) => {
@@ -216,4 +216,4 @@ tripController.deleteTrip = (req, res, next) => {
 };
 
 // EXPORT THE Controllers!!!
-module.exprorts = tripController;
+module.exports = tripController;

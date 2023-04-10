@@ -208,4 +208,4 @@ userController.deleteUser = (req, res, next) => {
 */
 
 // EXPORT THE Controllers!!!
-module.exprorts = userController;
+module.exports = userController;
