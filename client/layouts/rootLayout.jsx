@@ -11,13 +11,14 @@ export default function RootLayout() //nav bar,
   // pass in trip obj
   const [currentTrip, setCurrentTrip] = useState(null);
 
-  return (
-    <header>
-      <nav></nav>
-        Component2 //different pages
-        
-      
-      Component3
-        Component4
-    </header>
+return (
+    <div> 
+      <header>
+        <nav></nav>
+        <h1>Root Layout</h1>
+      </header>
+      <main>
+        <Outlet/>
+      </main>
+    </div>
   )

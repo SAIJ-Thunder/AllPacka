@@ -6,27 +6,42 @@ import TripHomePage from './pages/TripHome/TripHomePage.jsx';
 import UserHomePage from './pages/UserHome/UserHomePage.jsx';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
 
-// import RootLayout from './layouts/RootLayout';
-/*
-ROUTE PROVIDER Component to 
+import RootLayout from './layouts/rootLayout';
+
+// ROUTE PROVIDER Component to 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
-      <Route index element={<Home/>} />
+      <Route index element={<LoginPage key='LoginPage'/>} />
       <Route
-        path='playTest'
-        element={<PuzzlePageContainer key='PuzzlePageContainer' />}
-        loader={puzzleTestLoader}
+        path='/LoginPage'
+        element={<LoginPage key='LoginPage' />}
+        // loader={puzzleTestLoader}
       />
       <Route
-        path='play/:puzzleNumber'
-        element={<PuzzlePageContainer key='PuzzlePageContainer' />}
-        loader={puzzleLoader}
+        path='/SignupPage'
+        element={<SignupPage key='SignupPage' />}
+        // loader={puzzleTestLoader}
+      />
+      <Route
+        path='/UserHomePage'
+        element={<UserHomePage key='UserHomePage' />}
+        // loader={puzzleLoader}
+      />
+      <Route
+        path='/NewTripPage'
+        element={<NewTripPage key='NewTripPage' />}
+        // loader={puzzleLoader}
+      />
+      <Route
+        path='/TripHomePage'
+        element={<TripHomePage key='TripHomePage' />}
+        // loader={puzzleLoader}
       />
     </Route>
   )
 )
-*/
+
   //have stuff that sticks around forever
 
 
@@ -41,8 +56,9 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
-    <h1>I'm here</h1>
-    // ROUTE PROVIDER then create routes
+    // <h1>I'm here</h1>
+    // // ROUTE PROVIDER then create routes
+    <RouterProvider router={router}/>
 
   )
 }

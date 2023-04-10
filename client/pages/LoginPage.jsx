@@ -13,7 +13,7 @@ export const LoginPage = () => {
 	try {
         e.preventDefault();
         // will this be a post request?
-		const res = await fetch('/users/login', {
+		const res = await fetch('/LoginPage', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
@@ -27,11 +27,11 @@ export const LoginPage = () => {
 			// Send the username and password to the server for authentication 
             setUsername = (''); // does this  match with the userSchema (the word User)
             setPassword = ('');
-			return redirect(`/UserHome/UserHomePage/${res.user_id}`); //!!! either user_id or username
-		  	
+			// return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
+		  return redirect(`/UserHomePage`);
 		} else {
 			alert('Invalid username or password');
-			return redirect(`/signup`); // TOD redirect
+			return redirect(`/SignupPage`); // TOD redirect
 		}
 		} catch (error) {
 		console.error(error);
@@ -41,7 +41,7 @@ export const LoginPage = () => {
 
     //do we need fetch for this as well?
     const redirectToSignupPage = () => {
-	    return redirect(`/signup`);
+	    return redirect(`/SignupPage`);
 	}
 
 

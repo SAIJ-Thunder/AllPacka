@@ -32,8 +32,8 @@ export const TripHomePage = () => {
 
   const handleShowUserCards = (e) => {
     e.preventDefault();
-    // return users and what they are bringing
-        return redirect(URL);
+    // return users and what they are bringing // unmounting 
+        return 
   }
   const handleAllItemsChecked = (e) => {
     e.preventDefault();
@@ -44,7 +44,8 @@ export const TripHomePage = () => {
     // post request to server
     fetch(`/trips/:${userId}`, {
         method: "POST",
-        body: JSON.stringify({location: location, tripType: tripType, date: date, tripName: tripName})
+        // TO DO BILLY
+        body: JSON.stringify(/**{location: location, tripType: tripType, date: date, tripName: tripName} */) 
     })
     .then(res => res.json())
     .then((res) => {
@@ -55,69 +56,16 @@ export const TripHomePage = () => {
         setTripType(date);
         setTripName(tripName);
         // grab the _id from the res -> also has
-        const URL = './TripHome/NewTripPage' + res.trip_id
+        const editTripURL = '/trip/create-trip/user_id'
         
-    //invoke prop drilled setCurrentTrip, pass in trip object
-
         // redirect to the trips home page
-        return redirect(URL);
+        return redirect(editTripURL);
     })
     .catch((err) => {
         console.log(err);
         alert('Failed to edit trip')
     }); 
   }
-
-  // COMPONENT FUNCTION FOR INDIVIDUAL Categories, allowing to add smaller item display component
-  const createItemCategoryContainer = () => {
-    //might need to make new files for components? idk how to add them to each other
-
-    //outer category div
-    <div>
-
-      {/* the only static thing is the category name/add item box */}
-      <div className='category'>
-
-        <button onClick={handleAddItem}>+</button>
-      </div>
-
-      <div
-          draggable={true}
-          onDragStart={e => console.log('onDragStart')}
-          onDragEnd={e => console.log('onDragEnd')}
-        >
-          Drag source
-        </div>
-
-        <div
-          onDragEnter={e => console.log('onDragEnter')}
-          onDragLeave={e => console.log('onDragLeave')}
-          onDragOver={e => { e.preventDefault(); console.log('onDragOver'); }}
-          onDrop={e => console.log('onDrop')}
-        >
-          Drop target
-        </div>
-
-      {/* check box if item is claimed */}
-      <label>
-      <input type="checkbox" name="myCheckbox" />
-      </label>
-      {/* item count box  */}
-      <label>
-        <input type="text" value={numOfItems} name="numOfItems" onChange={setNumOfItems(e.target.value)}/>
-      </label>
-      <label>
-        <input type="text" value={itemName} name="itemName" onChange={setItemName(e.target.value)}/>
-      </label>
-      <label>
-        <input type="text" value={itemClaimedByName} name="itemClaimedByName" onChange={setItemClaimedByName(e.target.value)}/>
-      </label>
-
-    </div>
-
-
-  }
-
 
   // return function-------------------------------------------------------------------------------------------
   // drag and drop info: https://react.dev/reference/react-dom/components/common#dragevent-handler
@@ -133,92 +81,44 @@ export const TripHomePage = () => {
 
 
     // main div
-    <BrowserRouter>
-      <div className= 'trip-home-page'> 
-        <header>
-          <h1>Trip Home Page</h1>
-          <h3>{'EDIT ME: trip name and date'}</h3> 
-        </header>
-        {/* div branch 1 ------------------------------------------------------------------------------*/}
-        <div className='trip-page-info-options'>
-          {/* buttons within div branch 1 (separated so we can implement different positions on the page) */}
-          <div className='add-item-category'>
-              <button onClick={handleAddItemCategory}>Add Item Category</button>
-          </div>
-          <div className='show-user-cards'>
-              <button onClick={handleShowUserCards}>Show User Cards</button>
-          </div>
-          <div className='all-items-checked'>
-              <button onClick={handleAllItemsChecked}>All Items Checked</button>
-          </div>
-          <div className='edit-trip'>
-              <button onClick={handleEditTrip}>Create New Trip</button>
-          </div>
+    <div className= 'trip-home-page'> 
+      <header>
+        <h1>Trip Home Page</h1>
+        <h3>{'EDIT ME: trip name and date GO OVER WITH MARK & BILLY. THIS IS STATIC'}</h3> 
+      </header>
+      {/* div branch 1 ------------------------------------------------------------------------------*/}
+      <div className='trip-page-info-options'>
+        {/* buttons within div branch 1 (separated so we can implement different positions on the page) */}
+        <div className='add-item-category'>
+            <button onClick={handleAddItemCategory}>Add Item Category</button>
         </div>
-
-
-
-        {/* div branch 2 - component of components -------------------------------------------------*/}
-        <div>
-        {/* //outer category div REPEATED FROM FUNCTION ABOVE -- USE DRY?????? */}
-          <div>
-
-            {/* the only static thing is the category name/add item box and what is the defaulted category? */}
-            <div className='category'>
-
-              <button onClick={handleAddItem}>+</button>
-            </div>
-
-            <div
-                draggable={true}
-                onDragStart={e => console.log('onDragStart')}
-                onDragEnd={e => console.log('onDragEnd')}
-              >
-                Drag source
-              </div>
-
-              <div
-                onDragEnter={e => console.log('onDragEnter')}
-                onDragLeave={e => console.log('onDragLeave')}
-                onDragOver={e => { e.preventDefault(); console.log('onDragOver'); }}
-                onDrop={e => console.log('onDrop')}
-              >
-                Drop target
-              </div>
-
-            {/* check box if item is claimed */}
-            <label>
-            <input type="checkbox" name="myCheckbox" />
-            </label>
-            {/* item count box  */}
-            <label>
-              <input type="text" value={numOfItems} name="numOfItems" onChange={setNumOfItems(e.target.value)}/>
-            </label>
-            <label>
-              <input type="text" value={itemName} name="itemName" onChange={setItemName(e.target.value)}/>
-            </label>
-            <label>
-              <input type="text" value={itemClaimedByName} name="itemClaimedByName" onChange={setItemClaimedByName(e.target.value)}/>
-            </label>
-
-          </div>
-
-
-
-
+        <div className='show-user-cards'>
+            <button onClick={handleShowUserCards}>Show User Cards</button>
         </div>
-
-
-
-
-      {/* div branch 3 -  share button copy link in clipboard -------------------------------------------------*/}
-        <div>
-          <div className='share-trip-link'>
-              <button onClick={copyTrip}>Share trip with this link</button>
-          </div>
-        </div> 
+        <div className='all-items-checked'>
+            <button onClick={handleAllItemsChecked}>All Items Checked</button>
+        </div>
+        <div className='edit-trip'>
+            <button onClick={handleEditTrip}>Edit Trip</button>
+        </div>
       </div>
-    </BrowserRouter>
+      {/* div branch 2 - ALL ITEMS CONTAINER component of components -------------------------------------------------*/}
+      <div>
+
+
+      </div>
+
+
+
+
+    {/* div branch 3 -  share button copy link in clipboard -------------------------------------------------*/}
+      <div>
+        <div className='share-trip-link'>
+            <button onClick={copyTrip}>Share trip with this link</button>
+        </div>
+      </div> 
+    </div>
+  
   )
 }
 

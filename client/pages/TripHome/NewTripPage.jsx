@@ -28,7 +28,9 @@ const newTrip = () => {
             setTripType('');
             setTripName('');
             // grab the _id from the res -> also has
-            const URL = '/trips/' + res.trip_id
+            
+            //FixURL
+            const URL = '/TripHomePage' + res.trip_id
             
         //invoke prop drilled setCurrentTrip, pass in trip object
 
