@@ -1,10 +1,12 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Routers
-const tripRouter = require('./routes/tripRouter.js');
-const userRouter = require('./routes/userRouter.js');
+const tripRouter = require('./routes/tripRouter');
+const userRouter = require('./routes/userRouter');
 
 
 const PORT = 1234;
@@ -15,8 +17,9 @@ const app = express();
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true})); // important for forms!!
 
-
-const MONGO_URI = 'mongodb+srv://olsoninoslo:Iamnedtito@cluster0.bslfwul.mongodb.net/?retryWrites=true&w=majority';
+const MONGO_URI = process.env.MARK_ALLPACKADB_MONGO_URL;
+// const MONGO_URI = 'error maker'
+// const MONGO_URI = 'mongodb+srv://olsoninoslo:Iamnedtito@cluster0.bslfwul.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
@@ -33,18 +36,18 @@ mongoose.connect(MONGO_URI, {
 
 // define route handlers 
 // from Signup component -> auth routes to '/user/_id'
-app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
+// app.use('/', userRouter); // from Signup component -> auth routes to '/user/_id'
 
-app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
+// app.use('/signup', userRouter); // from Signup component -> auth routes to '/user/_id'
 
-app.use('/users', userRouter) // Access to trips from here
+app.use('/user', userRouter) // Access to trips from here
 
 
-app.use('/trips', tripRouter); // The main infographic page
+app.use('/trip', tripRouter); // The main infographic page
 
 
 // catch-all route handler for any requests to an unknown route
-app.use((req,res) => res.sendStatus(404));
+app.use((req,res) => res.status(404).send("Big ol' fail"));
 
 
 app.use((err, req, res, next) => {

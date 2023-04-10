@@ -6,10 +6,10 @@ const tripController = require('../controllers/tripController');
 const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController')
 
-const router = express.Router();
+const tripRouter = express.Router();
 
 // get a trip's info
-router.get('/:_id',
+tripRouter.get('/:_id',
     tripController.getTrip,
     (req, res) => {
     console.log('--Sending data from tripRouter.GET\'s aynonmouns func--');
@@ -19,8 +19,8 @@ router.get('/:_id',
 
 // save a new trip
 // this :_id is the user's _id
-router.post('/:user_id',
-  controllerTrip.createTrip,
+tripRouter.post('/create-trip/:user_id',
+  tripController.createTrip,
   userController.updateUserTrips,
   (req, res) => {
     console.log('--Sending data from tripRouter.POST\'s aynonmouns func--');
@@ -35,9 +35,9 @@ router.post('/:user_id',
 
 // update the trip's information
 // this :_id is the trip's _id
-router.patch('/:trip_id',
-  userController.updateTripUsers,
-  userController.updateTripItems,
+tripRouter.patch('/:trip_id',
+  tripController.updateTripUsers,
+  tripController.updateTripItems,
   (req, res) => {
     console.log('--Sending data from tripRouter.PATCH\'s aynonmouns func--');
     return res.status(200).json(); //
@@ -45,7 +45,7 @@ router.patch('/:trip_id',
 );
 
 // delete a trip : (
-router.delete('/:trip_id',
+tripRouter.delete('/:trip_id',
 tripController.deleteTrip,
   (req, res) => {
     console.log('--Sending data from tripRouter.DELETE\'s aynonmouns func--');
@@ -54,4 +54,4 @@ tripController.deleteTrip,
 );
 
 // EXPORT THE ROUTER!!!
-module.exports = router;
+module.exports = tripRouter;

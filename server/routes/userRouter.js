@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const userController = require('../controllers/userController');
@@ -5,28 +6,28 @@ const tripController = require('../controllers/tripController');
 const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController')
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // save a new user
-router.post('/signup',
+userRouter.post('/signup',
   userController.createUser,
   (req, res) => {
     console.log('--Sending data from userRouter.POST\'s aynonmouns func--');
-    return res.status(200).json(res.locals.user); // Send newCharacter Data
+    return res.status(200).json(res.locals);
   }
 );
 
 //verify login info
-router.post('/login',
+userRouter.post('/login',
     userController.verifyUser,
     (req, res) => {
     console.log('--Sending data from userRouter.GET\'s aynonmouns func--');
-    return res.status(200).json(res.locals); //res.locals.userData
+    return res.status(200).json(res.locals); 
     }
 );
 
 // get a user's info
-router.get('/:_id',
+userRouter.get('/:_id',
     userController.getUser,
     (req, res) => {
     console.log('--Sending data from userRouter.GET\'s aynonmouns func--');
@@ -46,7 +47,7 @@ router.get('/:_id',
 // );
 
 // delete user
-router.delete('/:_id',
+userRouter.delete('/:_id',
   userController.deleteUser,
   (req, res) => {
     console.log('--Sending data from charaRouter.DELETE\'s aynonmouns func--');
@@ -55,4 +56,4 @@ router.delete('/:_id',
 );
 
 // EXPORT THE ROUTER!!!
-module.exports = router;
+module.exports = userRouter;
