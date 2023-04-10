@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom';
+import { useNavigate, Form } from 'react-router-dom';
 import '../scss/LoginPage.scss';
 import alpaca from '../assets/alpaca_cool.jpg';
 import yosemite from '../assets/yosemite.jpg';
@@ -7,7 +7,8 @@ import yosemite from '../assets/yosemite.jpg';
 const LoginPage = () => {
 
 	const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  	const [password, setPassword] = useState('');
+ 	const navigate = useNavigate();
 
   
 	////////////////////////////////////////////
@@ -34,7 +35,7 @@ const LoginPage = () => {
 		  return redirect(`/UserHomePage`);
 		} else {
 			alert('Invalid username or password');
-			return redirect(`/SignupPage`); // TOD redirect
+			return redirect(`/SignUpPage`); // TOD redirect
 		}
 		} catch (error) {
 		console.error(error);
@@ -44,19 +45,26 @@ const LoginPage = () => {
 
     //do we need fetch for this as well?
     const redirectToSignupPage = () => {
-	    return redirect(`/SignupPage`);
+	    return navigate(`/SignUpPage`);
 	}
 
 
 	return (
 		<main className='login-page'>
-			<p className='login-header'>Welcome to AllPacka!</p>
-			{/* IMAGE OF AN ALPACA */}
+			<p className='login-header'>
 			<img
 				src={alpaca}
 				alt={'alpaca'}
 				className="alpaca-image"
 			/>
+				Welcome to AllPacka!
+			</p>
+			{/* IMAGE OF AN ALPACA */}
+			{/* <img
+				src={alpaca}
+				alt={'alpaca'}
+				className="alpaca-image"
+			/> */}
 			{/* IMAGE OF YOSEMITE */}
 			<img
 				src={yosemite}

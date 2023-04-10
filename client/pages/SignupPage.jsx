@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom';
+import { useNavigate, Form } from 'react-router-dom';
 
 const SignUpPage = () => {
 
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate()
 
 	////////////////////////////////////////////
 	async function handleSubmit(e) {
@@ -12,17 +13,19 @@ const SignUpPage = () => {
 	// make the fetch to the backend to authenticate the credentials
 	try {
         e.preventDefault();
+
 		const res = await fetch('/users', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ username, password })
+			body: JSON.stringify({ username:username, password: password })
 		});
         // **checking to see if user is already in database
 		if (res.status === 200) { 
 			console.log('Signup successful!');
-			return redirect(`/LoginPage`);  //where do you guys want to redirect this to
+			// return navigate(`/LoginPage`);  //where do you guys want to redirect this to
+			return navigate('/UserHomePage');
 		  	
 		} else {
 			alert('Username already taken or server error');

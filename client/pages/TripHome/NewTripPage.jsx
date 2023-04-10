@@ -60,6 +60,9 @@ const newTripPage = () => {
     return (
         // *** QUESTION: is the action leading to the correct page?
         <main className='new-trip-page'>
+            <p className='title'>
+                    Create your next trip!
+            </p>
             <Form onSubmit={handleSubmit}>
                 <div className='container'>
                     <label className='new-trip-text'>
