@@ -1,3 +1,10 @@
+/*
+This page is fully functional! Logging in will authenticate a user's existance in the database,
+that database fetch will return a user document without the password and store that in global context
+so the user can be accessed from other pages. If authentication is successful, you'll be redirected
+to UserHomePage and that globally stored context user data will be used to render info on that page.
+*/
+
 import React, { useState, useContext } from 'react';
 import { useNavigate, Form, redirect } from 'react-router-dom';
 import { userContext } from '../context';

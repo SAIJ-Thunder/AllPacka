@@ -1,3 +1,29 @@
+/*
+I didn't have time to look at the code below, but at this point UserTripDisplay is the only 
+component that sets a trip into the global context 'currentTrip'. NewTripPage should 
+setCurrentTrip too. What displays on the page atm is actually hard coded. This page
+should use the globally stored current trip to generate information on this page.
+
+It might be prudent to store a copy of the global context to local state and edit
+that when adding and deleting catgories/items on a trip. When the user is ready to 
+save it should send the local state trip object off to the database to replace the 
+old trip object (backend has code written to do this in tripController.updateTripDetails)
+and then replace global context state with the returned doc from database. Or just replace
+global context with local state, but the first way can give feedback that you successfully 
+updated database.
+
+Eventually this page should be able to grab categories from a trip's category array that only holds 
+strings of the categories, make arrays (sortable based on specific criteria in the future) for each category, 
+and then go through the trip's item array and add items that have a matching category to their 
+respective category arrays. 
+
+Each category array should prop drilled to a respective category component which will display
+the information. This approach allows for the inclusion of category components that don't have 
+items in them, which is important for when you add a new category. The category component 
+should show up with no items, but will have the name of the category and an 'add item to
+category' button.
+*/
+
 // *****************************    SB edits   *****************************
 import React, {useState, useContext} from "react";
 import MainItemsComponent from "./MainItemsComponent";
@@ -10,10 +36,7 @@ const TripHomePage = () => {
   const { currentTrip, setCurrentTrip } = useContext(tripContext);
 
 
-//I didn't have time to look at the code below, but at this point 
-// UserTripDisplay is the only component that sets a trip into currentTrip.
-// NewTripPage should setCurrentTrip too. What displays on the page atm
-// is actually hard coded.
+
 
 
 

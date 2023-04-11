@@ -1,3 +1,12 @@
+/*
+This page is has some functionality! If a user logs in on the login page and already has trips in their trips array, 
+they will successfully populate those trips in tripsArray in the functional components return statement. So far the 
+only way to create trips on a user is postman though. The backend does actually work to do this.
+Clicking the "Let's Go" button should save that trip to the global context "currentTrip" at this point, but
+I didn't have time to test. 
+*/
+
+
 import React, { useState, useContext, useEffect } from 'react';
 import { userContext } from '../../context';
 import { useNavigate } from 'react-router-dom';

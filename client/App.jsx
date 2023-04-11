@@ -8,6 +8,11 @@ import RootLayout from './layouts/rootLayout';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
 import { tripContext, userContext } from './context.js';
 
+// This is react 6.4 notation which allows for some extra tools like loaders to be used.
+// So far it's made more sense to do fetch requests in the functional components. So
+// loaders haven't been needed. This is because sign-up and login have unique fetch requests
+// to grab user objects. Trips also have unique fetch paths. Loaders only make sense when a 
+// single page needs to perform the same async functionality before loading a page.
 
 const router = createBrowserRouter(
   createRoutesFromElements(

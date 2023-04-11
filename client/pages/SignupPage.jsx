@@ -1,3 +1,10 @@
+/*
+This page is fully functional! Signing up will try to add a user to the database, if it's a unique username it 
+should work. That database call returns the user document without a password, stores it in global context 
+'user', and redirect to the user home page. Information from the now populated 'user' context will be used to render
+trip info on the user home page if they have trips.
+*/
+
 import React, { useState, useContext } from 'react';
 import { useNavigate, Form } from 'react-router-dom';
 import { userContext } from '../context';

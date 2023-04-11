@@ -1,4 +1,9 @@
-import React, {useState} from "react";
+/*
+This page hasn't been tested by me personally, but the backend functionality is there to 
+support the creation of a new trip given the correct information.
+*/
+
+import React, { useState } from "react";
 import { redirect, Form } from "react-router-dom";
 import '../../scss/NewTripPage.scss';
 //Will have access to userId
