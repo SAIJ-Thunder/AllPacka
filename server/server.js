@@ -18,8 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true})); // important for forms!!
 
 
-const MONGO_URI ="mongodb+srv://markteets:YpbIlMkXeLofYQrV@allpackadb.79xwnq2.mongodb.net/?retryWrites=true&w=majority"
-// const MONGO_URI = process.env.MARK_ALLPACKADB_MONGO_URL;
+const MONGO_URI = process.env.MARK_ALLPACKADB_MONGO_URL;
 // const MONGO_URI = 'error maker'
 
 mongoose.connect(MONGO_URI, {

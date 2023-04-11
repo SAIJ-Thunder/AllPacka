@@ -9,16 +9,18 @@ const LoginPage = () => {
 
 	const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { user, setUser } = useContext(userContext)
+  const { user, setUser } = useContext(userContext);
  	const navigate = useNavigate();
 
   
 	////////////////////////////////////////////
+	// makes a fetch to the backend to authenticate the credentials on submit
 	async function handleSubmit(e) {
-	// make the fetch to the backend to authenticate the credentials
 	try {
-        e.preventDefault();
-        // will this be a post request?
+    
+    e.preventDefault();
+    
+    // Send the username and password to the server for authentication 
 		const response = await fetch('/api/user/login', {
 			method: 'POST',
 			headers: {
@@ -36,12 +38,9 @@ const LoginPage = () => {
       if (res.verified) {
         console.log('Authentication successful!');
             
-        // Send the username and password to the server for authentication 
-        setUsername(''); // does this  match with the userSchema (the word User)
+        setUsername(''); 
         setPassword('');
         setUser(res.user);
-        console.log(res.user.trips)
-        // return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
         return navigate(`/UserHomePage`);
       } else {
         console.log(res.verified)
@@ -58,9 +57,8 @@ const LoginPage = () => {
 	}
 	/////////////////////////////////////////////////
 
-    //do we need fetch for this as well?
-    const redirectToSignupPage = () => {
-	    return navigate(`/SignUpPage`);
+  const redirectToSignupPage = () => {
+	  return navigate(`/SignUpPage`);
 	}
 
 
@@ -121,11 +119,6 @@ const LoginPage = () => {
             </div>
 		</main>
 	);
-  
-  
-  // return (
-  //   <h1>Login Page</h1>
-  // )
 
 };
 

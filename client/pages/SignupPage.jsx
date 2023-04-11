@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Form } from 'react-router-dom';
+import { userContext } from '../context';
+
 
 const SignUpPage = () => {
 
 	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(userContext);
 	const navigate = useNavigate()
 
 	////////////////////////////////////////////
@@ -12,29 +15,42 @@ const SignUpPage = () => {
 	
 	// make the fetch to the backend to authenticate the credentials
 	try {
-        e.preventDefault();
+    e.preventDefault();
 
-		const res = await fetch('/users/signup', {
+		const response = await fetch('/api/user/signup', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ username: username, password: password })
 		});
-        // **checking to see if user is already in database
-		console.log(res)
-		if (res.status) { 
-			console.log('Signup successful!');
-			// return navigate(`/LoginPage`);  //where do you guys want to redirect this to
-			return navigate('/UserHomePage');
-		  	
-		} else {
-			alert('Username already taken or server error');
-		}
+     
+    if(response.status === 200){
+
+      const res = await response.json();
+      console.log(res.verified)
+      // **checking to see if user is already in database
+      if (res.verified) {
+        console.log('Signup successful!');
+            
+        setUsername('');
+        setPassword('');
+
+        setUser(res.user);
+        
+        return navigate(`/UserHomePage`);
+      } else {
+        console.log(res.verified)
+        alert('Username already taken, or the username or password is invalid');
+      }
+    } else {
+      alert('Server fail')
+    }
 		} catch (error) {
 		console.error(error);
 		}
-	}
+  }
+  
 	/////////////////////////////////////////////////
 
 
@@ -73,10 +89,6 @@ const SignUpPage = () => {
 		</main>
 	);
   
-  
-  // return (
-  //   <h1>Signup Page</h1>
-  // )
 };
 
 export default SignUpPage;

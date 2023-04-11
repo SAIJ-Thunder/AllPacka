@@ -1,20 +1,21 @@
 // *****************************    SB edits   *****************************
-import React, {useState} from "react";
-import { redirect, BrowserRouter, Router, Link, Route } from "react-router-dom";
+import React, {useState, useContext} from "react";
 import MainItemsComponent from "./MainItemsComponent";
 import CategoryComponent from "./CategoryComponent";
+import { tripContext, userContext } from '../../context';
 // import 
 //QUESTIONS: are className "simpe-sections" labeled that way on purpose? I edited some
 
-const TripHomePage = ({ currentTrips }) => {
+const TripHomePage = () => {
+  const { currentTrip, setCurrentTrip } = useContext(tripContext);
 
-  // const tripData = useBroswerLoader();
+
+//I didn't have time to look at the code below, but at this point 
+// UserTripDisplay is the only component that sets a trip into currentTrip.
+// NewTripPage should setCurrentTrip too. What displays on the page atm
+// is actually hard coded.
 
 
-  // const tripLoader = () => {
-  //   //fetch trip data from trip collection
-  //   //retrun data.json
-  // }
 
 
   // copy to clipboard

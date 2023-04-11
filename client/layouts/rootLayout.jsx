@@ -2,18 +2,13 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const RootLayout = () => {
-  // const [username, setUsername] = useState(null);
-
-  // pass in trip obj
-  // const [currentTrip, setCurrentTrip] = useState(null);
-  // const [currentTrip, setCurrentTrip] = useState(null);
 
   return (
     <div className="root-layout">
       <header>
         {/* <h1>Root Layout</h1> */}
         <nav id='main-nav'>
-          {/* <h1>I'm for testing page navigation</h1> */}
+          {/* <h1>I'm for testing page navigation, the links aren't actually meant for user navigation</h1> */}
           <NavLink to='/' className='nav-link'> Login Page </NavLink>
           <NavLink to='/SignUpPage'className='nav-link'> Sign-up Page </NavLink>
           <NavLink to='/UserHomePage'className='nav-link'> User Home Page </NavLink>
@@ -27,9 +22,6 @@ const RootLayout = () => {
     </div>
   )
 
-  // return (
-  //   <div> root</div>
-  // )
 };
 
 export default RootLayout;

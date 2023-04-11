@@ -20,18 +20,15 @@ userController.createUser = (req, res, next) => {
   const { username, password } = req.body; // verification will hash the password in DB
   // leaving it as user object in hopes that we add a nickname, and then put that in the object too
   // otherwise we could just send back res.locals.username = username
-  res.locals.user = { username };
 
   const newUser = new User({ username, password });
 
   newUser.save()
     .then(savedUser => {
       res.locals.verified = true;
-        // I'm guessing this was here as a redundancy check, but I also wanted to send the username in 
-        // res.locals if verified = false in the error catch below, so I moved res.locals.user = username higher.
-        // const { username } = savedUser;
-        // res.locals.user = { username }; // removed sending password back, wouldn't want that unless you've got another thought in mind
-        return next();
+      const { username, trips , id } = savedUser
+      res.locals.user = { username, trips, user_id: id };
+      return next();
     })
     .catch((err) => {
       // Non-unique usernames will return promise status rejected and the error.name will match this string. 
@@ -39,6 +36,7 @@ userController.createUser = (req, res, next) => {
       // check verfied boolean in every /user/signup fetch respsonse and proceed accordingly
       if (err.name === "MongoServerError") {
         //Just in case this error was thrown for another reason, we want to be able to read it.
+        res.locals.user = { username };
         console.log(JSON.stringify(err));
         res.locals.verified = false;
         return next();
@@ -115,8 +113,8 @@ userController.verifyUser = async (req, res, next) => {
       console.log('nomatch')
     } else {
       res.locals.verified = true;
-      const { username, trips } = foundUser;
-      res.locals.user = { username, trips };
+      const { username, trips, id } = foundUser;
+      res.locals.user = { username, trips, user_id: id };
     }
       
     return next();

@@ -20,7 +20,7 @@ tripController.getTrip = (req, res, next) => {
     console.log('---We are in getTrip in tripController.js--');
 
     const { trip_id } = req.params; // 
-
+  console.log(trip_id)
     Trip.findById(trip_id)
       .then(foundTrip => {
         //checks to see that trip was successfully found. If trip_id didn't match a trip in the database
