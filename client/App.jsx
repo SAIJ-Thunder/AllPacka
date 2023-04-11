@@ -41,8 +41,8 @@ const router = createBrowserRouter(
 
 const App = () => {
 
-  const [ user, setUser ] = useState(null);
-  const [ currentTrip, setCurrentTrip ] = useState(null);
+  const [ user, setUser ] = useState('null');
+  const [ currentTrip, setCurrentTrip ] = useState('null');
   const userValue = { user, setUser };
   const currentTripValue = { currentTrip, setCurrentTrip };
   
