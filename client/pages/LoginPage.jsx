@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate, Form } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate, Form, redirect } from 'react-router-dom';
+import { userContext } from '../context';
 import '../scss/LoginPage.scss';
 import alpaca from '../assets/alpaca_cool.jpg';
 import yosemite from '../assets/yosemite.jpg';
@@ -7,7 +8,8 @@ import yosemite from '../assets/yosemite.jpg';
 const LoginPage = () => {
 
 	const [username, setUsername] = useState('');
-  	const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(userContext)
  	const navigate = useNavigate();
 
   
@@ -17,26 +19,39 @@ const LoginPage = () => {
 	try {
         e.preventDefault();
         // will this be a post request?
-		const res = await fetch('/LoginPage', {
+		const response = await fetch('/api/user/login', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ username, password })
-		});
-	
-		if (res.status === 200 && res.verified) {
-			console.log('Authentication successful!');
-            res.json();
-			// Send the username and password to the server for authentication 
-            setUsername = (''); // does this  match with the userSchema (the word User)
-            setPassword = ('');
-			// return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
-		  return redirect(`/UserHomePage`);
-		} else {
-			alert('Invalid username or password');
-			return redirect(`/SignUpPage`); // TOD redirect
-		}
+    });
+
+    console.log(response.status)
+    if(response.status === 200){
+
+    const res = await response.json();
+    console.log(res.verified)
+    
+      if (res.verified) {
+        console.log('Authentication successful!');
+            
+        // Send the username and password to the server for authentication 
+        setUsername(''); // does this  match with the userSchema (the word User)
+        setPassword('');
+        setUser(res.user);
+        console.log(res.user.trips)
+        // return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
+        return navigate(`/UserHomePage`);
+      } else {
+        console.log(res.verified)
+        alert('Invalid username or password');
+      }
+			// return redirect(`/SignUpPage`); // TOD redirect
+    } else {
+      alert('Server fail')
+    }
+    
 		} catch (error) {
 		console.error(error);
 		}
@@ -72,9 +87,9 @@ const LoginPage = () => {
 				className="yosemite-image"
 			/> */}
 			<p id='name-label' className='username-subhead'>
-				Log into AlPacka!
+				Log into AllPacka!
 			</p>
-			<Form onSumbit ={handleSubmit}>
+			<Form onSubmit ={handleSubmit}>
                 <div className='username-section'>
                     <input 
                         type='text'

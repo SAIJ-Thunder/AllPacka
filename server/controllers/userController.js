@@ -95,7 +95,7 @@ userController.verifyUser = async (req, res, next) => {
   console.log('---We are in getUser in userController.js--');
 
   const { username, password } = req.body;
-
+  console.log(username, password);
   // Frontend POST body information inclusion error check. Passing undefined into either field will 
   // result the findOne method returning null, resulting in returning verified = false but this
   // check provides info to us that we messed up the POST body
@@ -112,6 +112,7 @@ userController.verifyUser = async (req, res, next) => {
 
     if (foundUser === null) {
       res.locals.verified = false;
+      console.log('nomatch')
     } else {
       res.locals.verified = true;
       const { username, trips } = foundUser;

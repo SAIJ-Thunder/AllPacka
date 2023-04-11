@@ -35,9 +35,9 @@ mongoose.connect(MONGO_URI, {
   
 // define route handlers 
 
-app.use('/user', userRouter) // Access to trips from here
+app.use('/api/user', userRouter) // Access to trips from here
 
-app.use('/trip', tripRouter); // The main infographic page
+app.use('/api/trip', tripRouter); // The main infographic page
 
 // catch-all route handler for any requests to an unknown route
 app.use((req,res) => res.status(404).send("Big ol' fail"));

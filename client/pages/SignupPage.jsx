@@ -14,7 +14,7 @@ const SignUpPage = () => {
 	try {
         e.preventDefault();
 
-		const res = await fetch('/users', {
+		const res = await fetch('/users/signup', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'

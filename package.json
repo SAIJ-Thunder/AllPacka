@@ -6,6 +6,7 @@
   "scripts": {
     "oldStart": "webpack-dev-server --mode development --open --hot",
     "build": "NODE_ENV=production webpack",
+    "front": "NODE_ENV=development webpack serve --open --hot --progress --color",
     "start": "concurrently \"cross-env NODE_ENV=development webpack serve --open --hot --progress --color \" \" nodemon ./server/server.js\"",
     "dev": "nodemon server/server.js"
   },

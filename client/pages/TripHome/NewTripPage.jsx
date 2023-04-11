@@ -70,15 +70,15 @@ const newTripPage = () => {
                     </label>
                     <label>
                         <span className='question'>When are you going?</span>
-                        <input type="text" value={date} name="date" onChange={handleDate}/>
+                        <input className='new-trip-text' type="text" value={date} name="date" onChange={handleDate}/>
                     </label>
                     <label>
                         <span className='question'>What are you planning for?</span>
-                        <input type="text" value={tripType} name="tripType" onChange={handleTripType}/>
+                        <input className='new-trip-text' type="text" value={tripType} name="tripType" onChange={handleTripType}/>
                     </label>
                     <label>
                         <span className='question'>What will you call this Epic Adventure?</span>
-                        <input type="text" value={tripName} name="tripName" onChange={handleTripName}/>
+                        <input className='new-trip-text' type="text" value={tripName} name="tripName" onChange={handleTripName}/>
                     </label>
                     <button type="submit">Create Trip!</button>
                 </Form>
