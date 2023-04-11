@@ -1,31 +1,44 @@
 import React, {useState} from "react";
-import itemsDisplayComponent from "./itemsDisplayComponent";
-
+import addItemsComponent from "./addItemsComponent";
+import ItemsDisplayComponent from "./ItemsDisplayComponent.jsx";
+// import './categoryComponent.scss'
 
 // items display is the child Component
 // should display each category and its items component inside
 // we need to get catagory state in here, cATAGORY
 
-const categoryComp = () => {
+const CategoryComponent = ({ items, category }) => {
 
-  const [item, setItem] = useState('')
-
+  let i = 1;
   const handleAddItem = () => {
     // possibly adding some inputfield comp
     // rendering jsx 
   }
+  // let item = items[0]   
+  // each catagory will render ismt's associated items will be rendered 
+  const itemsArray = items.map((it) => {
+   return <ItemsDisplayComponent item={it} key={i++}/>
+  })
 
    return (
     <div className='category'>
+      <span className='categoryLabel'> {category} </span>
       <div>
         {/* add items to category by pressing " + " button */}
         <button onClick={handleAddItem}>+</button>
     </div>
       <div>
-        
-        <itemsDisplayComponent/>
+        {itemsArray}
       </div>
     </div>
+   )
+}
+
+
+export default CategoryComponent
+
+
+
 
     //   {/* FOR REFERENCE - TO MOVE EACH CATEGORY COMPONENT*/
     //     /* <div
@@ -44,8 +57,3 @@ const categoryComp = () => {
     //   >
     //   Drop target
     //   </div> */}
-   )
-}
-
-
-export default catagoryComponet

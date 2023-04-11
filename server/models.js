@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 // const bcrypt = require('bcryptjs');
+
+
 // const SALT_WORK_FACTOR = 12;
 
 const Schema = mongoose.Schema;
 
 // Each user has a user name, password, and an array of trips
+// Stretch thought: User documents should include nicknames. That way if Mark is already in database, my name doesn't need to be "Mark6" on website
 const userSchema = new Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   trips: [{
     date: Date,
-    name: String, // the is the name the user decides, not the name of the trip (default should is trip name)
-    id: {
+    tripName: String, // the is the name the user decides, not the name of the trip (default should is trip name)
+    trip_id: {
       type: Schema.Types.ObjectId,
       ref: 'trip', 
     }
@@ -39,19 +42,16 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// Users could also have a ninkname per trip? Food for thought.
+// Somehow we forgot to have start and end dates lol
 const tripSchema = new Schema({
   tripName: String,
   location: String,
-  type: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
+  tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
   date: Date, // not sure if there is a date type, look into
-  items: [{
-    id: {
-      type: Schema.Types.ObjectId,
-      ref: 'item'
-    }
-  }], // This is an array of the objects with the item as the key and the person(s) bring it the value
+  items: Array, // This is an array of the objects with the item as the key and the person(s) bring it the value
   users: [{
-    id: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: 'user'
     }
@@ -62,6 +62,10 @@ const tripSchema = new Schema({
 });
 
 const Trip = mongoose.model('trip', tripSchema);
+
+/*
+
+Will add this structure to trip items after more testing
 
 // Every item only holds One user. The user that user has a ref
 // to the userSchema
@@ -80,7 +84,7 @@ const itemSchema = new Schema({
 })
 
 const Item = mongoose.model('item', itemSchema);
-
+*/
 ///////////////// Stretch Features ///////////////////////
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },
@@ -91,7 +95,7 @@ const Session = mongoose.model('Session', sessionSchema);
 
 module.exports = {
   Trip,
-  Item,
+  // Item,
   User,
   Session
 }

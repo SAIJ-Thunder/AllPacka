@@ -15,6 +15,7 @@ const sessionController = {};
 * verify whether or not the session is still valid.
 */
 
+
 sessionController.isLoggedIn = (req, res, next) => {
   
   const { ssid } = req.cookies; 

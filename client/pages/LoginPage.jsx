@@ -1,75 +1,101 @@
-import React, { useState } from 'react';
-import { redirect, Form } from 'react-router-dom';
+/*
+This page is fully functional! Logging in will authenticate a user's existance in the database,
+that database fetch will return a user document without the password and store that in global context
+so the user can be accessed from other pages. If authentication is successful, you'll be redirected
+to UserHomePage and that globally stored context user data will be used to render info on that page.
+*/
+
+import React, { useState, useContext } from 'react';
+import { useNavigate, Form, redirect } from 'react-router-dom';
+import { userContext } from '../context';
+import '../scss/LoginPage.scss';
+import alpaca from '../assets/alpaca_cool.jpg';
+import yosemite from '../assets/yosemite.jpg';
 
 const LoginPage = () => {
 
 	const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(userContext);
+ 	const navigate = useNavigate();
+
   
 	////////////////////////////////////////////
+	// makes a fetch to the backend to authenticate the credentials on submit
 	async function handleSubmit(e) {
-	// make the fetch to the backend to authenticate the credentials
 	try {
-        e.preventDefault();
-        // will this be a post request?
-		const res = await fetch('/LoginPage', {
+    
+    e.preventDefault();
+    
+    // Send the username and password to the server for authentication 
+		const response = await fetch('/api/user/login', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ username, password })
-		});
-	
-		if (res.status === 200 && res.verified) {
-			console.log('Authentication successful!');
-            res.json();
-			// Send the username and password to the server for authentication 
-            setUsername = (''); // does this  match with the userSchema (the word User)
-            setPassword = ('');
-			// return redirect(`/UserHomePage/${res.user_id}`); //!!! either user_id or username
-		  return redirect(`/UserHomePage`);
-		} else {
-			alert('Invalid username or password');
-			return redirect(`/SignupPage`); // TOD redirect
-		}
+    });
+
+    console.log(response.status)
+    if(response.status === 200){
+
+    const res = await response.json();
+    console.log(res.verified)
+    
+      if (res.verified) {
+        console.log('Authentication successful!');
+            
+        setUsername(''); 
+        setPassword('');
+        setUser(res.user);
+        return navigate(`/UserHomePage`);
+      } else {
+        console.log(res.verified)
+        alert('Invalid username or password');
+      }
+			// return redirect(`/SignUpPage`); // TOD redirect
+    } else {
+      alert('Server fail')
+    }
+    
 		} catch (error) {
 		console.error(error);
 		}
 	}
 	/////////////////////////////////////////////////
 
-    //do we need fetch for this as well?
-    const redirectToSignupPage = () => {
-	    return redirect(`/SignupPage`);
+  const redirectToSignupPage = () => {
+	  return navigate(`/SignUpPage`);
 	}
 
 
 	return (
-		<main className='simple-wrapper'>
-			<p className='simple-header'>Welcome to AllPacka!</p>
+		<main className='login-page'>
+			<p className='login-header'>
+			{/* <img
+				src={alpaca}
+				alt={'alpaca'}
+				className="alpaca-image"
+			/> */}
+				Welcome to AllPacka!
+			</p>
 			{/* IMAGE OF AN ALPACA */}
 			<img
-				src='.../assets/alpaca_cool.jpg'
+				src={alpaca}
 				alt={'alpaca'}
-				className="alpaca-imae"
-				style={{
-					height: '10%'
-				}}
+				className="alpaca-image"
 			/>
 			{/* IMAGE OF YOSEMITE */}
-			<img
-				src='.../assets/yosemite.jpg'
-				alt={'Yosemite'}
+			{/* <img
+				src={yosemite}
+				alt={'yosemite'}
 				className="yosemite-image"
-				style={{
-					width: '25%',
-				}}
-			/>
-			<p id='name-label' className='simple-subhead'>
-				What's your username?
+			/> */}
+			<p id='name-label' className='username-subhead'>
+				Log into AllPacka!
 			</p>
-			<Form onSumbit ={handleSubmit}>
-                <div className='simple-section'>
+			<Form onSubmit ={handleSubmit}>
+                <div className='username-section'>
                     <input 
                         type='text'
                         placeholder='username'
@@ -78,7 +104,7 @@ const LoginPage = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className='simple-section'>
+                <div className='password-section'>
                     <input 
                         type='text'
                         placeholder="password" 
@@ -89,7 +115,7 @@ const LoginPage = () => {
                         }}
                     />
                 </div>
-                <div id='login-btn' className='login-button'>
+                <div id='login-button' className='login-button'>
                     <button type='submit'>Login!</button>
                 </div>
 			</Form>
@@ -100,11 +126,6 @@ const LoginPage = () => {
             </div>
 		</main>
 	);
-  
-  
-  // return (
-  //   <h1>Login Page</h1>
-  // )
 
 };
 

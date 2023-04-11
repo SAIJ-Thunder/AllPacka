@@ -1,7 +1,5 @@
 
-const { User, Trip, Session } = require('./models.js');
-
-const userController = {};
+const { User, Trip, Session } = require('../models.js');
 
 // helper function to create fileController error objects
 // return value will be the object we pass into next, invoking global error handler
@@ -13,86 +11,175 @@ const createErr = (errInfo) => {
   };
 };
 
-
-// GET USER
-userController.getUser = (req, res, next) => {
-  console.log('---We are in getUser in userController.js--');
-
-  const { _id } = req.params; // 
-
-  User.findOneById(_id)
-    .then(user => {
-      const { username, trips } = user;
-      res.locals.user = { username, trips };
-      return next();
-    })
-    .catch((err) => {
-      return next(createErr({
-        method: 'getUser',
-        type: 'retrieving mongoDB data',
-        err, 
-      }));
-    });
-}
-
+const userController = {};
 
 // CREATE USER
 userController.createUser = (req, res, next) => {
   console.log('---We are in createUser in userController.js--');
 
   const { username, password } = req.body; // verification will hash the password in DB
-  
+  // leaving it as user object in hopes that we add a nickname, and then put that in the object too
+  // otherwise we could just send back res.locals.username = username
+
   const newUser = new User({ username, password });
 
   newUser.save()
-    .then(user => {
-        const { username, password } = user;
-        res.locals.user = { username, password };
-        return next();
+    .then(savedUser => {
+      res.locals.verified = true;
+      const { username, trips , id } = savedUser
+      res.locals.user = { username, trips, user_id: id };
+      return next();
     })
     .catch((err) => {
+      // Non-unique usernames will return promise status rejected and the error.name will match this string. 
+      // This is important information for the user, so the middleware should continue. Frontend should
+      // check verfied boolean in every /user/signup fetch respsonse and proceed accordingly
+      if (err.name === "MongoServerError") {
+        //Just in case this error was thrown for another reason, we want to be able to read it.
+        res.locals.user = { username };
+        console.log(JSON.stringify(err));
+        res.locals.verified = false;
+        return next();
+      }
+
+      // If the error is from the POST body not including a username or password, the error 
+      // will go here as err.name = "ValidationError". Any other error from the request should
+      // also go here, including server connection failure related errors. Trying to post to the 
+      // database without a good connection yielded err.name = "MongooseError"
         return next(createErr({
-        method: 'addUser',
+        method: 'createUser', 
+        // method: `createUser ${JSON.stringify(err.name)}`,
         type: 'adding newUser to mongoDB data',
         err, 
         }));
     });
 };
 
-// UPDATE USER TRIPS
-userController.updateUserTrips = async (req, res, next) => {
+// Thinking of switching to findOne using username for security purposes. They're unique anyways
+// Sounds reasonable to me!
+// GET USER
+userController.getUser = (req, res, next) => {
+  console.log('---We are in getUser in userController.js--');
 
+  const { username } = req.body;
+  // const { _id } = req.params; // 
+  User.findOne({username: username})
+  // User.findOneById(_id)
+    .then(foundUser => {
+
+      if (foundUser === null) {
+        return next(createErr({
+            method: 'addUser',
+            type: 'retrieving mongoDB user data',
+            err: `findOneById(${_id}) returned null`
+        }));
+      }
+
+      const { username, trips } = foundUser;
+      res.locals.user = { username, trips };
+      return next();
+    })
+    .catch((err) => {
+      return next(createErr({
+        method: 'getUser',
+        type: 'retrieving mongoDB user data',
+        err, 
+      }));
+    });
+}
+
+// Verify User
+userController.verifyUser = async (req, res, next) => {
+  console.log('---We are in getUser in userController.js--');
+
+  const { username, password } = req.body;
+  console.log(username, password);
+  // Frontend POST body information inclusion error check. Passing undefined into either field will 
+  // result the findOne method returning null, resulting in returning verified = false but this
+  // check provides info to us that we messed up the POST body
+  if (username === undefined || password === undefined) {
+    next(createErr({
+      method: 'verifyUser',
+      type: 'getting user data from request body',
+      err: 'userName and/or password weren\'t in req.body',
+    }));
+  }
+
+  try {
+    const foundUser = await User.findOne({ username, password }).exec();
+
+    if (foundUser === null) {
+      res.locals.verified = false;
+      console.log('nomatch')
+    } else {
+      res.locals.verified = true;
+      const { username, trips, id } = foundUser;
+      res.locals.user = { username, trips, user_id: id };
+    }
+      
+    return next();
+    
+  } catch (err) {
+    return next(createErr({
+      method: 'getUser',
+      type: 'retrieving mongoDB user data',
+      err,
+    }));
+  }
+}
+
+
+userController.updateUserTrips = async (req, res, next) => {
   console.log('---We are in updateUserTrips in userController.js--');
 
- 
-  const { trip_id } = res.locals;  // grab the trip
-  const { date } = res.locals.date
-  const { tripName } = res.locals.trip // grabs the name of the trip
-  const filter = res.locals.user_id;
+  const user_id = req.body.user_id || res.locals.user_id;
+  const trip_id = req.body.trip_id || res.locals.trip_id; // grab the trip
+  const date = req.body.date || res.locals.trip.date  // grabs date of trip
+  const tripName = req.body.tripName || res.locals.trip.tripName // grabs the name of the trip
   
+  //TODO
+  // Should either error check for trip_id, date, or tripName being undefined here or make them
+  // required in the schema. We should at least check for trip_id, maybe the others are ok being null
+
+  const filter = user_id;
+
   try {
     // find the user based on the Id
-    const user = await User.findOneById(filter)
-    // grab user's trips array
-    const { trips } = user;
-    // update user trips with the newly created trip (last middleware)
-    trips = [...trips, { tripName: tripName, date: date, id: trip_id}];
-    const update = { trips: trips }
+    const foundUser = await User.findById(filter).exec()
 
-    const updatedUser = User.findOneAndUpdate( {_id: filter}, update, {new:true})
+    if (foundUser === null) {
+      return next(createErr({
+          method: 'updateUserTrips',
+          type: 'retrieving mongoDB user data',
+          err: `findOneById(${user_id}) returned null`
+      }));
+    }
+
+    foundUser.trips.push({ tripName: tripName, date: date, trip_id: trip_id})
+    const updatedUser = await foundUser.save();
+
+    if (updatedUser === null) {
+      return next(createErr({
+          method: 'updateUserTrips',
+          type: 'updating mongoDB user trips data',
+          err: `findById(${filter}) returned null`
+      }))
+    }
+
     res.locals.updatedUser = updatedUser;
     return next();
+
   } catch (err) {
     return next(createErr({
       method: 'updateUserTrips',
-      type: 'adding newUser to mongoDB data',
+      type: 'retrieving mongoDB user data or updating mongoDB user trips data',
       err, 
       }));
   }
 }
 
-
 // DELETE USER
+
 userController.deleteUser = (req, res, next) => {
   console.log('---We are in deleteUser in userController.js----');
 
@@ -110,7 +197,12 @@ userController.deleteUser = (req, res, next) => {
       return next(createErr({
         method: 'deleteUser',
         type: 'retrieving mongoDB data',
-        err, 
+        err,
+        err,
       }));
     });
 };
+
+
+// EXPORT THE Controllers!!!
+module.exports = userController;
