@@ -1,37 +1,52 @@
 import React, {useState} from "react";
-import addItemsComponent from "./addItemsComponent";
-import ItemsDisplayComponent from "./ItemsDisplayComponent.jsx";
-// import './categoryComponent.scss'
+import AddItemsComponent from "./AddItemsComponent";
+import '../../scss/TripHome.scss';
 
-// items display is the child Component
-// should display each category and its items component inside
-// we need to get catagory state in here, cATAGORY
+const CategoryComponent = () => {
 
-const CategoryComponent = ({ items, category }) => {
+  // let i = 1;
+  // const handleAddItem = () => {
+  //   // possibly adding some inputfield comp
+  //   // rendering jsx 
+  // }
+  // // let item = items[0]   
+  // // each catagory will render ismt's associated items will be rendered 
+  // const itemsArray = items.map((it) => {
+  //  return <ItemsDisplayComponent item={it} key={i++}/>
+  // })
 
-  let i = 1;
-  const handleAddItem = () => {
-    // possibly adding some inputfield comp
-    // rendering jsx 
+  //  return (
+  //   <div className='category'>
+  //     <span className='categoryLabel'> {category} </span>
+  //     <div>
+  //       {/* add items to category by pressing " + " button */}
+  //       <button onClick={handleAddItem}>+</button>
+  //   </div>
+  //     <div>
+  //       {itemsArray}
+  //     </div>
+  //   </div>
+  //  )
+
+  //---------------------------------------------------- NEW----------------------------------------------------
+
+
+
+  const [items, setItems] = useState([])
+  const addItems=() => {
+    const newItems = [...items, <AddItemsComponent key={items.length} />];
+    setItems(newItems);
   }
-  // let item = items[0]   
-  // each catagory will render ismt's associated items will be rendered 
-  const itemsArray = items.map((it) => {
-   return <ItemsDisplayComponent item={it} key={i++}/>
-  })
 
-   return (
-    <div className='category'>
-      <span className='categoryLabel'> {category} </span>
-      <div>
-        {/* add items to category by pressing " + " button */}
-        <button onClick={handleAddItem}>+</button>
+
+  return(
+    <div className="add-new-category">
+        <button className="category-button" id="add-item-button" onClick={addItems}>Add Item</button>
+        <div> 
+          {items}
+        </div>
     </div>
-      <div>
-        {itemsArray}
-      </div>
-    </div>
-   )
+  )
 }
 
 
