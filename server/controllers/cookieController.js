@@ -7,9 +7,11 @@ const cookieController = {};
 */
 
 cookieController.setSSIDCookie = (req, res, next) => {
-  // write code here
-  // console.log(res.locals._id);
-  res.setHeader('Set-Cookie', `ssid=${res.locals._id}; HttpOnly`); // <-- Example
+  console.log('res.locals.user.user_id in cookie', res.locals.user.user_id)
+  console.log('entered cookieController.setSSIDCookie')
+  res.setHeader('Set-Cookie', `ssid=${res.locals.user.user_id}; HttpOnly`); // <-- Example
+  console.log('leaving cookie controller')
+
   return next();
 }
 

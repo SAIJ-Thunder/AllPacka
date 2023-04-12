@@ -5,7 +5,7 @@ const { User, Trip, Session } = require('../models.js');
 // return value will be the object we pass into next, invoking global error handler
 const createErr = (errInfo) => {
   const { method, type, err } = errInfo;
-  return { 
+  return {
     log: `userController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
     message: { err: `Error occurred in userController.${method}. Check server logs for more details.` }
   };
@@ -26,7 +26,7 @@ userController.createUser = (req, res, next) => {
   newUser.save()
     .then(savedUser => {
       res.locals.verified = true;
-      const { username, trips , id } = savedUser
+      const { username, trips, id } = savedUser
       res.locals.user = { username, trips, user_id: id };
       return next();
     })
@@ -46,12 +46,12 @@ userController.createUser = (req, res, next) => {
       // will go here as err.name = "ValidationError". Any other error from the request should
       // also go here, including server connection failure related errors. Trying to post to the 
       // database without a good connection yielded err.name = "MongooseError"
-        return next(createErr({
-        method: 'createUser', 
+      return next(createErr({
+        method: 'createUser',
         // method: `createUser ${JSON.stringify(err.name)}`,
         type: 'adding newUser to mongoDB data',
-        err, 
-        }));
+        err,
+      }));
     });
 };
 
@@ -63,15 +63,15 @@ userController.getUser = (req, res, next) => {
 
   const { username } = req.body;
   // const { _id } = req.params; // 
-  User.findOne({username: username})
-  // User.findOneById(_id)
+  User.findOne({ username: username })
+    // User.findOneById(_id)
     .then(foundUser => {
 
       if (foundUser === null) {
         return next(createErr({
-            method: 'addUser',
-            type: 'retrieving mongoDB user data',
-            err: `findOneById(${_id}) returned null`
+          method: 'addUser',
+          type: 'retrieving mongoDB user data',
+          err: `findOneById(${_id}) returned null`
         }));
       }
 
@@ -83,7 +83,7 @@ userController.getUser = (req, res, next) => {
       return next(createErr({
         method: 'getUser',
         type: 'retrieving mongoDB user data',
-        err, 
+        err,
       }));
     });
 }
@@ -106,6 +106,7 @@ userController.verifyUser = async (req, res, next) => {
   }
 
   try {
+    console.log('trying this')
     const foundUser = await User.findOne({ username, password }).exec();
 
     if (foundUser === null) {
@@ -115,10 +116,11 @@ userController.verifyUser = async (req, res, next) => {
       res.locals.verified = true;
       const { username, trips, id } = foundUser;
       res.locals.user = { username, trips, user_id: id };
+      console.log('res.locals:', res.locals)
+
     }
-      
     return next();
-    
+
   } catch (err) {
     return next(createErr({
       method: 'getUser',
@@ -136,7 +138,7 @@ userController.updateUserTrips = async (req, res, next) => {
   const trip_id = req.body.trip_id || res.locals.trip_id; // grab the trip
   const date = req.body.date || res.locals.trip.date  // grabs date of trip
   const tripName = req.body.tripName || res.locals.trip.tripName // grabs the name of the trip
-  
+
   //TODO
   // Should either error check for trip_id, date, or tripName being undefined here or make them
   // required in the schema. We should at least check for trip_id, maybe the others are ok being null
@@ -149,20 +151,20 @@ userController.updateUserTrips = async (req, res, next) => {
 
     if (foundUser === null) {
       return next(createErr({
-          method: 'updateUserTrips',
-          type: 'retrieving mongoDB user data',
-          err: `findOneById(${user_id}) returned null`
+        method: 'updateUserTrips',
+        type: 'retrieving mongoDB user data',
+        err: `findOneById(${user_id}) returned null`
       }));
     }
 
-    foundUser.trips.push({ tripName: tripName, date: date, trip_id: trip_id})
+    foundUser.trips.push({ tripName: tripName, date: date, trip_id: trip_id })
     const updatedUser = await foundUser.save();
 
     if (updatedUser === null) {
       return next(createErr({
-          method: 'updateUserTrips',
-          type: 'updating mongoDB user trips data',
-          err: `findById(${filter}) returned null`
+        method: 'updateUserTrips',
+        type: 'updating mongoDB user trips data',
+        err: `findById(${filter}) returned null`
       }))
     }
 
@@ -173,8 +175,8 @@ userController.updateUserTrips = async (req, res, next) => {
     return next(createErr({
       method: 'updateUserTrips',
       type: 'retrieving mongoDB user data or updating mongoDB user trips data',
-      err, 
-      }));
+      err,
+    }));
   }
 }
 
@@ -183,7 +185,7 @@ userController.updateUserTrips = async (req, res, next) => {
 userController.deleteUser = (req, res, next) => {
   console.log('---We are in deleteUser in userController.js----');
 
-  const { _id } = req.params; 
+  const { _id } = req.params;
   console.log(_id);
 
   User.findByIdAndDelete(_id)
