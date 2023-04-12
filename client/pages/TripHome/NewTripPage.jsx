@@ -6,7 +6,9 @@ support the creation of a new trip given the correct information.
 import React, { useState } from "react";
 import { redirect, Form } from "react-router-dom";
 import '../../scss/NewTripPage.scss';
-//Will have access to userId
+// how do we access the userID?
+// could have user just enter their username in a field and access it that way
+// Will have access to userId
 const newTripPage = () => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');

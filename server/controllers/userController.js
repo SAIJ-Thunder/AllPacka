@@ -1,5 +1,7 @@
 
 const { User, Trip, Session } = require('../models.js');
+const bcrypt = require('bcryptjs');
+
 
 // helper function to create fileController error objects
 // return value will be the object we pass into next, invoking global error handler
@@ -93,12 +95,11 @@ userController.verifyUser = async (req, res, next) => {
   console.log('---We are in getUser in userController.js--');
 
   const { username, password } = req.body;
-  console.log(username, password);
   // Frontend POST body information inclusion error check. Passing undefined into either field will 
   // result the findOne method returning null, resulting in returning verified = false but this
   // check provides info to us that we messed up the POST body
   if (username === undefined || password === undefined) {
-    next(createErr({
+    return next(createErr({
       method: 'verifyUser',
       type: 'getting user data from request body',
       err: 'userName and/or password weren\'t in req.body',
@@ -106,21 +107,29 @@ userController.verifyUser = async (req, res, next) => {
   }
 
   try {
-    console.log('trying this')
-    const foundUser = await User.findOne({ username, password }).exec();
+    // get user by username
+    const foundUser = await User.findOne({ username }).exec();
 
+    // if we do not find user, verified is false
     if (foundUser === null) {
       res.locals.verified = false;
       console.log('nomatch')
     } else {
-      res.locals.verified = true;
-      const { username, trips, id } = foundUser;
-      res.locals.user = { username, trips, user_id: id };
-      console.log('res.locals:', res.locals)
-
+      // verified that we are making it to bcrypt compare
+      // compare user's hashed pw with entered pw using bcrypt
+      bcrypt.compare(password, foundUser.password, function (err, result){
+        if (result === true) {
+          res.locals.verified = true;
+          const { username, trips, id } = foundUser;
+          res.locals.user = { username, trips, user_id: id };
+          return next();
+        } else {
+          res.locals.verified = false;
+          console.log('nomatch')
+          return next();
+        }
+      })
     }
-    return next();
-
   } catch (err) {
     return next(createErr({
       method: 'getUser',

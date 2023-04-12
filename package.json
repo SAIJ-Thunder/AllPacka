@@ -14,6 +14,7 @@
   "authors": "Mark Teets, William Murphy, Sophia Bui, Jackie Yuan",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.3",
     "react": "^18.2.0",
