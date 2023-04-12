@@ -121,7 +121,7 @@ userController.verifyUser = async (req, res, next) => {
         if (result === true) {
           res.locals.verified = true;
           const { username, trips, id } = foundUser;
-          res.locals.user = { username, trips, id };
+          res.locals.user = { username, trips, user_id: id };
           return next();
         } else {
           res.locals.verified = false;
@@ -137,8 +137,6 @@ userController.verifyUser = async (req, res, next) => {
       err,
     }));
   }
-
-
 }
 
 
