@@ -24,9 +24,9 @@ const userSchema = new Schema({
 // before saving password in database, encrypt the password
 userSchema.pre('save', function(next){
   // call the hash function, passing in the password, salt factor, and error first callback
-  bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
+  bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hashedPassword) => {
     if (err) return next(err);
-    this.password = hash;
+    this.password = hashedPassword;
     return next();
   })
 })
