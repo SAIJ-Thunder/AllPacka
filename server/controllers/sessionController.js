@@ -2,7 +2,7 @@ const { Session } = require('../models');
 
 const createErr = (errInfo) => {
   const { method, type, err } = errInfo;
-  return { 
+  return {
     log: `sessionController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
     message: { err: `Error occurred in sessionController.${method}. Check server logs for more details.` }
   };
@@ -17,10 +17,10 @@ const sessionController = {};
 
 
 sessionController.isLoggedIn = (req, res, next) => {
-  
-  const { ssid } = req.cookies; 
+
+  const { ssid } = req.cookies;
   // console.log(req.cookies)
-  Session.findOne({cookieId: ssid})
+  Session.findOne({ cookieId: ssid })
     .then(data => {
       // console.log('isLoggedIn data: ',data)
       // const time = Date.now() - data.createdAt;
@@ -44,21 +44,36 @@ sessionController.isLoggedIn = (req, res, next) => {
 * startSession - create and save a new Session into the database.
 */
 sessionController.startSession = (req, res, next) => {
+  console.log('entered session ')
+  // console.log(`res.locals in startSession:`, res.locals.user.username)
   //write code here
-  const currSession = new Session({cookieId: res.locals._id})
-  currSession.save()
-    .then(data => { 
-      // console.log('Session Saved: ', data)
-      res.locals.sesh = data;
-      return next();
-    })
-    .catch((err) => {
-      return next(createErr({
-        method: 'startSession',
-        type: 'adding new session to mongoDB data',
-        err,
-      }));
-    });
+  try {
+    Session.create({ cookieId: res.locals.user.user_id, username: res.locals.user.username })
+    console.log('leave start sssions')
+    next()
+
+  }
+  catch (err) {
+    next(err)
+  }
+
+
+
+
+
+  // currSession.save()
+  //   .then(data => {
+  //     console.log('Session Saved: ', data)
+  //     res.locals.sesh = data;
+  //     return next();
+  //   })
+  //   .catch((err) => {
+  //     return next(createErr({
+  //       method: 'startSession',
+  //       type: 'adding new session to mongoDB data',
+  //       err,
+  //     }));
+  //   });
 };
 
 module.exports = sessionController;

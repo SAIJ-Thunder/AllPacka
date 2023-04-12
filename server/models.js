@@ -9,16 +9,16 @@ const Schema = mongoose.Schema;
 // Each user has a user name, password, and an array of trips
 // Stretch thought: User documents should include nicknames. That way if Mark is already in database, my name doesn't need to be "Mark6" on website
 const userSchema = new Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   trips: [{
     date: Date,
     tripName: String, // the is the name the user decides, not the name of the trip (default should is trip name)
     trip_id: {
       type: Schema.Types.ObjectId,
-      ref: 'trip', 
+      ref: 'trip',
     }
-    }]
+  }]
 });
 
 /////////// Stretch Feature /////////////////
@@ -88,7 +88,8 @@ const Item = mongoose.model('item', itemSchema);
 ///////////////// Stretch Features ///////////////////////
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },
-  createdAt: { type: Date, expires: 600, default: Date.now }
+  createdAt: { type: Date, expires: 600, default: Date.now },
+  userId: { type: String, required: true }
 });
 
 const Session = mongoose.model('Session', sessionSchema);
