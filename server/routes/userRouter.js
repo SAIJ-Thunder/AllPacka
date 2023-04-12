@@ -19,20 +19,20 @@ userRouter.post('/signup',
 
 //verify login info
 userRouter.post('/login',
-    userController.verifyUser,
-    (req, res) => {
+  userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession,
+  (req, res) => {
     console.log('--Sending data from userRouter.GET\'s aynonmouns func--');
-    return res.status(200).json(res.locals); 
-    }
+    return res.status(200).json(res.locals);
+  }
 );
 
 // get a user's info
 userRouter.get('/:_id',
-    userController.getUser,
-    (req, res) => {
+  userController.getUser,
+  (req, res) => {
     console.log('--Sending data from userRouter.GET\'s aynonmouns func--');
     return res.status(200).json(); //res.locals.userData
-    }
+  }
 );
 
 
