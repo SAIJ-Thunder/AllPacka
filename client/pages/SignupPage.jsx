@@ -57,6 +57,7 @@ Setting up bcrypt & sessions
 import React, { useState, useContext } from 'react';
 import { useNavigate, Form } from 'react-router-dom';
 import { userContext } from '../context';
+import '../scss/SignupPage.scss';
 
 
 const SignUpPage = () => {
@@ -112,11 +113,13 @@ const SignUpPage = () => {
 
 	return (
 		<main className='signup-page'>
-			<p className='signup-page-header'>All Aboard the AllPacka!</p>
 			{/* <p id='name-label' className='simple-subhead'>
 				What's your username?
   </p> */}
-			<Form onSubmit ={handleSubmit}>
+  <div className="signUpForm">
+    			<p className='signup-page-header'>All Aboard the AllPacka!</p>
+
+			<Form  onSubmit ={handleSubmit}>
                 <div className='username-box'>
                     <span>What will your username be?</span>
                     <input 
@@ -139,9 +142,9 @@ const SignUpPage = () => {
                     />
                 </div>
                 <div id='sign-up-btn' className='signup-button'>
-                    <button type='submit'>Create Your AllPacka Account!</button>
+                    <button id='submitsignup' type='submit'>Create Your AllPacka Account!</button>
                 </div>
-			</Form>
+			</Form></div>
 		</main>
 	);
   
