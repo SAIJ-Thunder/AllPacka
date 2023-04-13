@@ -46,6 +46,9 @@ const User = mongoose.model('User', userSchema);
 
 
 
+
+
+
 // Users could also have a ninkname per trip? Food for thought.
 // Somehow we forgot to have start and end dates lol
 const tripSchema = new Schema({
@@ -62,17 +65,15 @@ const tripSchema = new Schema({
   categories: {
     default: [],
     type: [{
-      name: { type: String, required: true },
-      items: {
+      name: { type: String, required: true }, items: {
         type: [{
           quantity: Number,
           itemName: { type: String, required: true },
           assignedTo: String
-        }], default: []
+        }],
       }
     }]
   }
-
 });
 
 const Trip = mongoose.model('trip', tripSchema);

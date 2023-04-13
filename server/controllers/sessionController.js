@@ -48,13 +48,27 @@ sessionController.startSession = (req, res, next) => {
   // console.log(`res.locals in startSession:`, res.locals.user.username)
   //write code here
   try {
-    Session.create({
-      cookieId: res.locals.user.user_id,
-      username: res.locals.user.username
-    })
-    console.log('leave start s')
-    next()
+    Session.findOne({ cookieId: res.locals.user.user_id })
+      .then(data => {
+        console.log('data:', data)
+        if (data) {
+          Session.updateOne({ cookieId: res.locals.user.user_id }, { createdAt: Date.now() })
+            .then((data) => {
+              next();
+            })
 
+        }
+        else {
+
+          Session.create({
+            cookieId: res.locals.user.user_id,
+            username: res.locals.user.username
+
+          })
+          return next()
+
+        }
+      })
   }
   catch (err) {
     next(err)
