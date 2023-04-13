@@ -21,8 +21,9 @@ const userSchema = new Schema({
   }]
 });
 
+
 // before saving password in database, encrypt the password
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
   // call the hash function, passing in the password, salt factor, and error first callback
   bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hashedPassword) => {
     if (err) return next(err);
@@ -31,48 +32,57 @@ userSchema.pre('save', function(next){
   })
 })
 
-// original bcrypt
-/////////// Stretch Feature /////////////////
-// The pre() method should be called on the Mongoose schema 
-// before creating the model!!
 
-// userSchema.pre('save', async function (next) {
-//   try {
-//     if (!this.isModified('password')) {
-//       return next();
-//     }
-//     // generates a random salt value that is used to hash a password
-//     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-//     const hashedPassword = await bcrypt.hash(this.password, salt);
-//     this.password = hashedPassword;
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+
+
 
 const User = mongoose.model('User', userSchema);
+
+
+
+
+// item: {id, itemName:xxxx, quantity:xxx, assignedTo:xxxx }
+//category: {name:xxx, items: [item, item, item ]}  // [{id, itemName:xxxx, quantity:xxx, assignedTo:xxxx }, {id, itemName:xxxx, quantity:xxx, assignedTo:xxxx }]
+
+
 
 // Users could also have a ninkname per trip? Food for thought.
 // Somehow we forgot to have start and end dates lol
 const tripSchema = new Schema({
   tripName: String,
-  location: String,
+  location: { type: String, required: true },
   tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
-  date: Date, // not sure if there is a date type, look into
-  items: Array, // This is an array of the objects with the item as the key and the person(s) bring it the value
+  date: { type: Date, required: true }, // not sure if there is a date type, look into
   users: [{
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'user'
     }
-  }], // this is an array of use _id's refrencing the user schema
-  catagories: Array,
-  review: String, // Could be comments. Possibly an array 
-  photos: Array, // urls of photos stretch feature
+  }], // default categories = []
+  categories: {
+    default: [],
+    type: [{
+      name: { type: String, required: true },
+      items: {
+        type: [{
+          quantity: Number,
+          itemName: { type: String, required: true },
+          assignedTo: String
+        }], default: []
+      }
+    }]
+  }
+
 });
 
 const Trip = mongoose.model('trip', tripSchema);
+
+
+
+
+
+
+
 
 /*
 
