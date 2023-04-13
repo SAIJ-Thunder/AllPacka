@@ -17,6 +17,15 @@ tripRouter.get('/:trip_id',
     }
 );
 
+// add items from trip home page
+tripRouter.post('/additems',
+    tripController.addItems,
+    (req, res) => {
+      console.log('added items')
+      return res.status(200).json(res.locals)
+    }
+)
+
 // save a new trip
 // this :_id is the user's _id
 tripRouter.post('/create-trip/:user_id',

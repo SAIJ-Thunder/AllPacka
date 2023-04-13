@@ -31,20 +31,28 @@ const CategoryComponent = () => {
   //---------------------------------------------------- NEW----------------------------------------------------
 
 
-
+  const [category, setCategory] = useState('');
   const [items, setItems] = useState([])
   const addItems=() => {
-    const newItems = [...items, <AddItemsComponent key={items.length} />];
+    const newItems = [...items, <AddItemsComponent category={category} key={items.length} />];
     setItems(newItems);
   }
 
 
   return(
     <div className="add-new-category">
-        <button className="category-button" id="add-item-button" onClick={addItems}>Add Item</button>
-        <div> 
-          {items}
-        </div>
+      <div>
+      <label htmlFor="category">Category:</label>
+      <select name="category" onChange={(e)=>setCategory(e.target.value)}>
+        <option value="food">Food</option>
+        <option value="drinks">Drinks</option>
+        <option value="snacks">Snacks</option>
+      </select>
+      </div><br/>
+      <button className="category-button" id="add-item-button" onClick={addItems}>Add Item</button>
+      <div><br/>
+        {items}
+      </div>
     </div>
   )
 }

@@ -15,6 +15,17 @@ const createErr = (errInfo) => {
 
 const tripController = {};
 
+tripController.addItems = (req, res, next) => {
+  const { category, quantity, itemName, assignedTo } = req.body; 
+  
+}
+
+
+
+
+
+
+
 // Get a trip's data
 tripController.getTrip = (req, res, next) => {
     console.log('---We are in getTrip in tripController.js--');

@@ -22,12 +22,10 @@ const addCategory =() => {
 
     <div className= 'trip-home-page'> 
       
-
-      {/* put in parent div */}
-      <header className='add-item-category'>
+      <header /*className='add-item-category'*/>
         <h1>Trip Home Page</h1>
         <div >
-          <button className="category-button" onClick={addCategory}>Add Category</button>
+          <button className="add-category-button" onClick={addCategory}>Add Category</button>
         </div>
       </header>
       

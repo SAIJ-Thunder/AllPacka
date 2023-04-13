@@ -2,23 +2,36 @@ import React, {useState} from "react";
 import '../../scss/TripHome.scss';
 
 
-const AddItemsComponent = () => {
+const AddItemsComponent = (props) => {
   const [quantity, setQuantity] = useState(0);
   const [itemName, setItemName] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
+  const { category } = props;
   
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('hi')
-  // }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // post request to send information to backend
+    fetch('/api/trip/additems', {
+      method: 'POST',
+      headers: {'Content-Type': 'application-json'},
+      body: JSON.stringify({quantity, itemName, assignedTo, category})
+    })
+    .then(res => res.json())
+    .catch(err => console.log(`error in handle submit ${err}`))
+  }
+
+  
 
   return (
-    <form /*onSubmit={handleSubmit}*/>
-      <input type="number" onChange={(e)=>setQuantity(e.target.value)} placeholder="Quanity"/>
+<div>
+    <form onSubmit={handleSubmit}>
+      <input id="quantity-dropdown" type="number" onChange={(e)=>setQuantity(e.target.value)} placeholder="Quanity"/>
       <input type="text" onChange={(e)=>setItemName(e.target.value) } placeholder="Item Name" />
       <input type="text" onChange={(e)=>setAssignedTo(e.target.value) } placeholder="Assigned to" />
-      {/* <button type="submit">SUBMIT</button> */}
-  </form>
+      <button className="submit-button" type="submit">SUBMIT</button>
+    </form>
+  </div>
   )
 
 }
