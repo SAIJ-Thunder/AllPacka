@@ -16,9 +16,84 @@ const createErr = (errInfo) => {
 const tripController = {};
 
 tripController.addItems = (req, res, next) => {
-  const { category, quantity, itemName, assignedTo } = req.body; 
-  
+  const { category, quantity, itemName, assignedTo } = req.body;  // food, 1, pineapple, iris
+
+  // find the trip entry in the database that we want to update
+  Trip.findOneAndUpdate({ tripName: 'Weekend_Getaway' },
+    {
+      categories: { name: category,
+      
+    } }).exec()
+  // use findoneandupdate to find trip entry
+  // if passed in category exists, add the item object with properties itemName, quantity, assigned to
+  // return next
 }
+
+trip = {
+  tripName: Weekend_Getaway,
+  location: Hawaii,
+  tripType: backpacking,
+  date: { type: 04 / 20 / 23 },
+  users: [{ user_id: 1 }, { user_id: 2 }],
+  categories: [
+    {
+      name: food, 
+      items: [
+        { quantity: 2, itemName: banana, assignedTo: Sophia },
+        { quantity: 1, itemName: apple, assignedTo: Al }
+      ]
+    },
+    {
+      name: drinks, 
+      items: [
+        { quantity: 1, itemName: juice, assignedTo: Sophia },
+        { quantity: 2, itemName: coffee, assignedTo: Al }
+      ]
+    }
+  ]
+}
+  
+
+
+
+
+
+
+// const tripSchema = new Schema({
+//   tripName: String,
+//   location: { type: String, required: true },
+//   tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
+//   date: { type: Date, required: true }, // not sure if there is a date type, look into
+//   users: [{
+//     user_id: {
+//       type: Schema.Types.ObjectId,
+//       ref: 'user'
+//     }
+//   }], // default categories = []
+//   categories: {
+//     default: [],
+//     type: [{
+//       name: { type: String, required: true },
+//       items: {
+//         type: [{
+//           quantity: Number,
+//           itemName: { type: String, required: true },
+//           assignedTo: String
+//         }], default: []
+//       }
+//     }]
+//   }
+
+// });
+
+
+
+
+
+
+
+
+
 
 
 
