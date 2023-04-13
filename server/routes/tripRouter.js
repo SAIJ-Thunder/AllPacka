@@ -22,7 +22,7 @@ tripRouter.post('/additems',
     tripController.addItems,
     (req, res) => {
       console.log('added items')
-      return res.status(200).json(res.locals)
+      return res.status(200).json(res.locals.data)
     }
 )
 

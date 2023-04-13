@@ -47,35 +47,49 @@ const User = mongoose.model('User', userSchema);
 
 
 
-
+// ORIGINAL TRIP SCHEMA
 
 // Users could also have a ninkname per trip? Food for thought.
 // Somehow we forgot to have start and end dates lol
-const tripSchema = new Schema({
-  tripName: String,
-  location: { type: String, required: true },
-  tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
-  date: { type: Date, required: true }, // not sure if there is a date type, look into
-  users: [{
-    user_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'user'
-    }
-  }], // default categories = []
-  categories: {
-    default: [],
-    type: [{
-      name: { type: String, required: true }, items: {
-        type: [{
-          quantity: Number,
-          itemName: { type: String, required: true },
-          assignedTo: String
-        }],
-      }
-    }]
-  }
-});
+// const tripSchema = new Schema({
+//   tripName: String,
+//   location: { type: String, required: true },
+//   tripType: String, // example: car camping backpacking, etc These can later be refactored to their own schema but int he interest in time... -|_:)_/-
+//   date: { type: Date, required: true }, // not sure if there is a date type, look into
+//   users: [{
+//     user_id: {
+//       type: Schema.Types.ObjectId,
+//       ref: 'user'
+//     }
+//   }], // default categories = []
+//   categories: {
+//     default: [],
+//     type: [{
+//       name: { type: String, required: true }, items: {
+//         type: [{
+//           quantity: Number,
+//           itemName: { type: String, required: true },
+//           assignedTo: String
+//         }],
+//       }
+//     }]
+//   }
+// });
 
+// NEW TRIP SCHEMA TO ADD INFO TO A SINGLE TRIP
+// ACTUAL SCHEMA BELOW
+const tripSchema = new Schema({
+  tripName: {type: String},
+  categories: {
+    type:
+    {
+      food: [{ quantity: Number, assignedTo: String, itemName: String }],
+      drinks: [{ quantity: Number, assignedTo: String, itemName: String }],
+      snacks: [{ quantity: Number, assignedTo: String, itemName: String }]
+    },
+    default: { food: [], drinks: [], snacks: [] }
+  }
+})
 const Trip = mongoose.model('trip', tripSchema);
 
 
