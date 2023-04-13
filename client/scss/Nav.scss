@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Poppins:wght@300;500;600;700;800&display=swap');
+
+* {
+    margin:0;
+}
+
+#main-nav { 
+    // height:100px;
+    max-width:1000px;
+    margin: 30px auto;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    text-align: center;
+}
+.nav-link{
+    color: rgb(172, 80, 109);
+    text-decoration: none;
+    text-align:center;
+    font-size:20px;
+}
+
+.nav-link:hover { 
+color: rgb(85, 39, 53);
+}
