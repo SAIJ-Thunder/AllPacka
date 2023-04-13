@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import '../scss/Nav.scss';
+
 
 const RootLayout = () => {
 

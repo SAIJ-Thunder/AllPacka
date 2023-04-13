@@ -71,3 +71,19 @@ button {
 .userTrip {
 
 }
+
+
+* {
+    margin:0;
+}
+
+.main-nav { 
+    width:500px;
+    margin:auto;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+}
+.nav-link{
+    text-align:center;
+}
