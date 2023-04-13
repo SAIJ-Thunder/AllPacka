@@ -48,11 +48,11 @@ const CategoryComponent = () => {
         <option value="drinks">Drinks</option>
         <option value="snacks">Snacks</option>
       </select>
+      </div><br/>
+      <button className="category-button" id="add-item-button" onClick={addItems}>Add Item</button>
+      <div><br/>
+        {items}
       </div>
-        <button className="category-button" id="add-item-button" onClick={addItems}>Add Item</button>
-        <div> 
-          {items}
-        </div>
     </div>
   )
 }

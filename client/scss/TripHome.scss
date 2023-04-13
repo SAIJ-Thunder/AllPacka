@@ -9,61 +9,27 @@ $secondary-font-stack: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'S
 	Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 
-// button {
-// 	// display: flex;
-// 	// align-items: center;
-// 	// flex-grow: 0;
-// 	// flex-shrink: 0;
-// 	// height: 3rem;
-// 	// padding-inline: 30rem;
-//   //   width: 30%;
 
-// 	// border-radius: 6rem;
-// 	// border: none;
-// 	// outline: none;
-	
-// 	// background: white;
-// 	// color: rgba(22, 21, 21, 0.8);
-// 	cursor: pointer;
-
-// 	// font-family: $secondary-font-stack;
-// 	// font-weight: 800;
-// 	// font-size: 1rem;
-// 	// line-height: 1rem;
-// 	// letter-spacing: 0.015em;
-
-// 	transition: filter 100ms linear;
-
-// 	&.icon-button {
-// 		display: inline-flex;
-
-// 		padding: 0;
-// 		width: 48rem;
-
-// 		justify-content: center;
-// 		align-items: center;
-// 	}
-
-// 	&:hover,
-// 	&:focus {
-// 		filter: brightness(0.9);
-// 	}
-// 	&:active {
-// 		filter: brightness(0.8);
-// 	}
-// }
 //---------------------------------------------------NEW THINGS--------------------------------------------------------
 
-h1{
-  width: max-content;
-}
 
 .trip-home-page{
+  // display:contents;
+  font-style:$primary-font-stack;
   border: solid;
-  height: 100%;
+  min-height: 800px;
+  // height: 800px;
+  width: 80%;
   border-radius: 30px;
   text-align:center;
+  margin:auto;
 
+}
+
+#add-item-button{
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
 }
 
 .AddItemsComponent{
@@ -72,29 +38,43 @@ h1{
   border-radius: 30px;
 }
 
-.add-item-category{
-  display:flex;
-  // justify-content: left;
-  width: 50px;
-  align-items: column;
-}
+// .add-item-category{
+//   display:flex;
+//   // justify-content: left;
+//   width: 50px;
+//   align-items: column;
+// }
 
-h1{
-  display:flex;
-  width: 100px;
-}
 
 .add-new-category{
   border: solid;
   border-radius: 30px;
-  width:min-content;
+  // width:;
+  padding: 10px;
+  margin: 10px;
   .category-button{
-    font-size: 16px;
-    width: 50px;
-    border: solid;
+    width: 500px;
+    background-color:rgb(130, 141, 222);
+    width:800px;
+    padding:0px;
+    align-content: center;
+    justify-content: center;
+    width:fit-content;
   }
+
+}
+
+.add-category-button{
+  background-color: pink;
+  width: 200px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+#quantity-dropdown{
+  width:100px;
 }
 
 button {
-  width: 20px;
+  width: 100px;
 }
