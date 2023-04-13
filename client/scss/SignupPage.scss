@@ -9,66 +9,69 @@ $secondary-font-stack: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'S
 	Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 
-button {
-	display: flex;
-	align-items: center;
-	flex-grow: 0;
-	flex-shrink: 0;
-	height: 3rem;
-	padding-inline: 30rem;
-    width: 30%;
+#submitsignup {
+	width:300px;
+	border-radius: .5rem;
 
-	border-radius: 6rem;
-	border: none;
-	outline: none;
 	
 	background: white;
 	color: rgba(22, 21, 21, 0.8);
-	cursor: pointer;
+	// cursor: pointer;
 
-	font-family: $secondary-font-stack;
+	// font-family: $secondary-font-stack;
 	font-weight: 800;
 	font-size: 1rem;
-	line-height: 1rem;
+	line-height: 1.3rem;
 	letter-spacing: 0.015em;
 
 	transition: filter 100ms linear;
+	text-align: center;
 
-	&.icon-button {
-		display: inline-flex;
+	// &.icon-button {
+	// 	display: inline-flex;
 
-		padding: 0;
-		width: 48rem;
+	// 	padding: 0;
+	// 	width: 48rem;
 
-		justify-content: center;
-		align-items: center;
-	}
+	// 	justify-content: center;
+	// 	align-items: center;
+	// }
 
-	&:hover,
-	&:focus {
-		filter: brightness(0.9);
-	}
-	&:active {
-		filter: brightness(0.8);
-	}
+	// &:hover,
+	// &:focus {
+	// 	filter: brightness(0.9);
+	// }
+	// &:active {
+	// 	filter: brightness(0.8);
+	// }
 }
 
 .signup-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+	// display: flex;
+    // flex-direction: column;
+    // align-items:center;
+    // justify-content: center;
     margin-top: 50px;
-    background-color: lightblue;
+    height: 100vh;
+    background-image: url('https://themilepost.com/wp-content/uploads/2015/03/pg427-NPS-Photo-scaled.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+
     .signup-page-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 50px;
+        text-align: center;
+		font-size: 2em;
+		color: black;
+		margin-top: 20px;
     }
     
 }
 
+.signup-page-header
 
-.username-box,
+
 .password-box {
     display: flex;
     flex-direction: column;
@@ -77,6 +80,33 @@ button {
     width: 30%;
 }
 
-// .signup-button {
+.signUpForm {
+	position:relative;
+	top:100px;
+	width:500px;
+	background-color: rgba(255, 255, 255, 0.7);
+	margin: auto;
+	padding:30px;
+	border-radius: 10px;
+	
 
-// }
+	form{
+		padding:10px;
+		width:75%;
+		margin:auto;
+		text-align: center;
+
+		input{
+			font-size: 15px;
+			margin:10px;
+		}
+	}
+
+
+
+}
+
+	// #sign-up-btn button { 
+	// 	width:300px;
+
+	// }

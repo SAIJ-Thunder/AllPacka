@@ -19,25 +19,26 @@ const addCategory =() => {
   
   
   return(
-
-    <div className= 'trip-home-page'> 
-      
-      <header /*className='add-item-category'*/>
-        <h1>Trip Home Page</h1>
-        <div >
-          <button className="add-category-button" onClick={addCategory}>Add Category</button>
+    <main className='trip-home-background'>
+      <div className= 'trip-home-page'> 
+        
+        <header /*className='add-item-category'*/>
+          <h1 className='h1'>Trip Home Page</h1>
+          <div >
+            <button className="add-category-button" onClick={addCategory}>Add Category</button>
+          </div>
+        </header>
+        
+        <div className='trip-page-info-options'>
+            {category}
         </div>
-      </header>
-      
-      <div className='trip-page-info-options'>
-          {category}
-      </div>
-      
-      <div className='mainItemsDisplay'>
+        
+        <div className='mainItemsDisplay'>
 
 
+        </div>
       </div>
-    </div>
+    </main>
 
   
   )
