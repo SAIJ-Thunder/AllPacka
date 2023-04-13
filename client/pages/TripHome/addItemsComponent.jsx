@@ -26,10 +26,10 @@ const AddItemsComponent = (props) => {
   return (
 <div>
     <form onSubmit={handleSubmit}>
-      <input type="number" onChange={(e)=>setQuantity(e.target.value)} placeholder="Quanity"/>
+      <input id="quantity-dropdown" type="number" onChange={(e)=>setQuantity(e.target.value)} placeholder="Quanity"/>
       <input type="text" onChange={(e)=>setItemName(e.target.value) } placeholder="Item Name" />
       <input type="text" onChange={(e)=>setAssignedTo(e.target.value) } placeholder="Assigned to" />
-      <button type="submit">SUBMIT</button>
+      <button className="submit-button" type="submit">SUBMIT</button>
     </form>
   </div>
   )
