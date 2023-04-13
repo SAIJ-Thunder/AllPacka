@@ -34,6 +34,7 @@ const newTripPage = () => {
     // to the tripsHome page. From there you can add items and uers, etc with put/patch requests 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
         // post request to server
         fetch(`/trips/:${userId}`, {
             method: "POST",
@@ -77,7 +78,7 @@ const newTripPage = () => {
                     </label>
                     <label>
                         <span className='question'>When are you going?</span>
-                        <input className='new-trip-text' type="text" value={date} name="date" onChange={handleDate}/>
+                        <input className='new-trip-text' type="date" value={date} name="date" onChange={handleDate}/>
                     </label>
                     <label>
                         <span className='question'>What are you planning for?</span>
