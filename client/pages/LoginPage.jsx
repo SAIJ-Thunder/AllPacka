@@ -28,12 +28,14 @@ const LoginPage = () => {
     e.preventDefault();
     
     // Send the username and password to the server for authentication 
+    // NOTES: post request is the best for a login, pass things on into the body of request
 		const response = await fetch('/api/user/login', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ username, password })
+      // passing items into the body
+			body: JSON.stringify({ username, password }) 
     });
 
     console.log(response.status)
