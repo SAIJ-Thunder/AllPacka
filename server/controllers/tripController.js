@@ -19,39 +19,65 @@ tripController.addItems = (req, res, next) => {
   const { category, quantity, itemName, assignedTo } = req.body;  // food, 1, pineapple, iris
 
   // find the trip entry in the database that we want to update
-  Trip.findOneAndUpdate({ tripName: 'Weekend_Getaway' },
+  Trip.updateOne({ tripName: 'Weekend_Getaway' },
     {
-      categories: { name: category,
+      categories: {
+        $addToSet: { drinks: [{ quantity: 10, assignedTo: 'iris', itemName: 'juice' }] }
+        //  categories: { food: { itemName: ['hi'], drinks: ['hello'], snacks: ['hi'] } }
       
-    } }).exec()
+      }
+    } ).exec()
+    .then(data => {
+      res.locals.data = data;
+      console.log('data hereee', data);
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: 'Error in addItems controller',
+        message: {err: err}
+      })
+    })
   // use findoneandupdate to find trip entry
   // if passed in category exists, add the item object with properties itemName, quantity, assigned to
   // return next
 }
 
-trip = {
-  tripName: Weekend_Getaway,
-  location: Hawaii,
-  tripType: backpacking,
-  date: { type: 04 / 20 / 23 },
-  users: [{ user_id: 1 }, { user_id: 2 }],
-  categories: [
-    {
-      name: food, 
-      items: [
-        { quantity: 2, itemName: banana, assignedTo: Sophia },
-        { quantity: 1, itemName: apple, assignedTo: Al }
-      ]
-    },
-    {
-      name: drinks, 
-      items: [
-        { quantity: 1, itemName: juice, assignedTo: Sophia },
-        { quantity: 2, itemName: coffee, assignedTo: Al }
-      ]
-    }
-  ]
-}
+
+// ACTUAL SCHEMA BELOW
+//   categories: {
+//     type:
+//     {
+//       food: [{ quantity: Number, assignedTo: String, itemName: String }],
+//       drinks: [{ quantity: Number, assignedTo: String, itemName: String }],
+//       snacks: [{ quantity: Number, assignedTo: String, itemName: String }]
+//     },
+//     default: { food: [], drinks: [], snacks: [] }
+//   },
+
+// trip = {
+//   tripName: Weekend_Getaway,
+//   location: Hawaii,
+//   tripType: backpacking,
+//   date: { type: 04 / 20 / 23 },
+//   users: [{ user_id: 1 }, { user_id: 2 }],
+//   categories: [
+//     {
+//       name: food, 
+//       items: [
+//         { quantity: 2, itemName: banana, assignedTo: Sophia },
+//         { quantity: 1, itemName: apple, assignedTo: Al }
+//       ]
+//     },
+//     {
+//       name: drinks, 
+//       items: [
+//         { quantity: 1, itemName: juice, assignedTo: Sophia },
+//         { quantity: 2, itemName: coffee, assignedTo: Al }
+//       ]
+//     }
+//   ]
+// }
   
 
 
