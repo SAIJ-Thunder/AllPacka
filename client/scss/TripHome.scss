@@ -12,32 +12,60 @@ $secondary-font-stack: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'S
 
 //---------------------------------------------------NEW THINGS--------------------------------------------------------
 
+.trip-home-background{
+  background-image: url('https://www.jetsetter.com//uploads/sites/7/2018/04/1bixD6Uw-1380x1035.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: auto;
+  margin-top: 50px;
+  height: 100vh;
+
+}
+
+.h1{
+  margin-top:30px;
+  color: rgba(0, 0, 0, .8);
+}
 
 .trip-home-page{
   // display:contents;
   font-style:$primary-font-stack;
-  border: solid;
+  border: double;
+  border-color: rgba(0, 0, 0, .3);
   min-height: 800px;
   // height: 800px;
   width: 80%;
   border-radius: 30px;
   text-align:center;
-  margin:auto;
-
+  margin: auto;
+  background-color: rgba(255, 255, 255, .6);
+  
 }
 
 #add-item-button{
   width: 100px;
-  height: 30px;
+  height: 25px;
   border-radius: 10px;
+  margin-top: -15px;
+  background-color: rgba(164, 217, 241, .4);
+  color: rgba(0, 0, 0, 1);
 }
 
 .AddItemsComponent{
   border: solid;
   height: 100px;
   border-radius: 30px;
+  margin: 20px;
+
+  color: rgba(0, 0, 0, .8);
 }
 
+
+.item{
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
 // .add-item-category{
 //   display:flex;
 //   // justify-content: left;
@@ -47,32 +75,52 @@ $secondary-font-stack: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'S
 
 
 .add-new-category{
-  border: solid;
+  border: double;
+  border-color: rgba(0, 0, 0, .3);
   border-radius: 30px;
   // width:;
   padding: 10px;
   margin: 10px;
-  .category-button{
-    width: 500px;
-    background-color:rgb(130, 141, 222);
-    width:800px;
-    padding:0px;
-    align-content: center;
-    justify-content: center;
-    width:fit-content;
-  }
+  color: rgba(0, 0, 0, .8);
+  // margin-top: 20px;
+
+  // .category-button{
+  //   width: 500px;
+  //   background-color: rgba(87, 164, 228, 0.5);
+  //   // width: 800px;
+  //   padding:0px;
+  //   align-content: center;
+  //   justify-content: center;
+  //   width:fit-content;
+  // }
 
 }
 
+
+.item-input input{
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  text-align: center;
+}
+.submit-button{
+  background-color: rgba(164, 217, 241, .4);
+  width: 60px;
+  height: 20px;
+  border-radius: 12px;
+}
+
 .add-category-button{
-  background-color: pink;
-  width: 200px;
+  background-color: rgba(164, 217, 241, .4);
+  width: 150px;
   height: 30px;
   border-radius: 10px;
+  margin-top: 20px;
+  color: rgba(0, 0, 0, .8);
 }
 
 #quantity-dropdown{
   width:100px;
+  color: rgba(0, 0, 0, 1);
 }
 
 button {
